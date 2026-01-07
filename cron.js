@@ -19,15 +19,34 @@ async function main() {
     });
 
     for (const bot of runningBots) {
-        // Check if 24h passed since last deduction (or createdAt)
-        // We can store `lastDeductionAt`. 
-        // For now, let's assume this script runs once a day.
+        // Logique de sécurité temporelle (24h = 86400000 ms)
+        const now = new Date();
+        const lastRun = bot.lastDeductionAt ? new Date(bot.lastDeductionAt) : new Date(bot.createdAt);
+        const diff = now.getTime() - lastRun.getTime();
         
+        // Si moins de 24h se sont écoulées, on ignore (sauf si jamais déduit et bot vieux de +24h)
+        // Cas spécial: Si lastDeductionAt est null, on vérifie createdAt.
+        // Si lastDeductionAt est null, cela signifie première exécution depuis création.
+        // Si le bot a été créé il y a moins de 24h, on ne déduit pas encore (car il a payé à la création).
+        
+        // CORRECTION: La création coûte 10 coins pour les PREMIÈRES 24h.
+        // Donc on ne doit redéduire QUE 24h après la création, puis toutes les 24h.
+        
+        if (diff < 24 * 60 * 60 * 1000) {
+            continue; // Pas encore l'heure
+        }
+
         if (bot.owner.coins >= 10) {
-            await prisma.user.update({
-                where: { id: bot.owner.id },
-                data: { coins: { decrement: 10 } }
-            });
+            await prisma.$transaction([
+                prisma.user.update({
+                    where: { id: bot.owner.id },
+                    data: { coins: { decrement: 10 } }
+                }),
+                prisma.bot.update({
+                    where: { id: bot.id },
+                    data: { lastDeductionAt: now } // Marquer comme payé maintenant
+                })
+            ]);
             console.log(`Deducted 10 coins from ${bot.owner.username} for bot ${bot.name}`);
         } else {
             console.log(`User ${bot.owner.username} has insufficient coins. Stopping bot ${bot.name}.`);
