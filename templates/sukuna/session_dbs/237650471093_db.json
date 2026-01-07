@@ -1,0 +1,723 @@
+{
+  "groups": {
+    "120363421023170783@g.us": {
+      "antilink": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antispam": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antimention": {
+        "enabled": false
+      },
+      "antitag": {
+        "enabled": false
+      },
+      "welcome": {
+        "enabled": false,
+        "text": ""
+      },
+      "goodbye": {
+        "enabled": false,
+        "text": ""
+      },
+      "users": {
+        "49744898486342@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "217042313547949@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "59984100462636@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "87355943813243@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "199286818119763@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "95263045759219@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "124558682099740@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "263651617419490@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "161886494576649@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "149332288356584@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "7881902534875@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "75390064275558@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "100193567506600@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "268964408086765@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "186973448884292@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "17768900489268@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "275183487205536@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "201095116775644@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        }
+      }
+    },
+    "120363286798964866@g.us": {
+      "antilink": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antispam": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antimention": {
+        "enabled": false
+      },
+      "antitag": {
+        "enabled": false
+      },
+      "welcome": {
+        "enabled": false,
+        "text": ""
+      },
+      "goodbye": {
+        "enabled": false,
+        "text": ""
+      },
+      "users": {}
+    },
+    "120363401827227606@g.us": {
+      "antilink": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antispam": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antimention": {
+        "enabled": false
+      },
+      "antitag": {
+        "enabled": false
+      },
+      "welcome": {
+        "enabled": false,
+        "text": ""
+      },
+      "goodbye": {
+        "enabled": false,
+        "text": ""
+      },
+      "users": {
+        "139226414866432@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "65962728505409@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "13160518041832@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "74591435256060@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "49744898486342@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "21260675346550@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "9823026470913@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "59984100462636@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        }
+      }
+    },
+    "120363419628266101@g.us": {
+      "antilink": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antispam": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antimention": {
+        "enabled": false
+      },
+      "antitag": {
+        "enabled": false
+      },
+      "welcome": {
+        "enabled": false,
+        "text": ""
+      },
+      "goodbye": {
+        "enabled": false,
+        "text": ""
+      },
+      "users": {
+        "138448941908001@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "201095116775644@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "37426647048333@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "88927918661859@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        }
+      }
+    },
+    "120363318911484121@g.us": {
+      "antilink": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antispam": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antimention": {
+        "enabled": false
+      },
+      "antitag": {
+        "enabled": false
+      },
+      "welcome": {
+        "enabled": false,
+        "text": ""
+      },
+      "goodbye": {
+        "enabled": false,
+        "text": ""
+      },
+      "users": {}
+    },
+    "120363372344692146@g.us": {
+      "antilink": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antispam": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antimention": {
+        "enabled": false
+      },
+      "antitag": {
+        "enabled": false
+      },
+      "welcome": {
+        "enabled": false,
+        "text": ""
+      },
+      "goodbye": {
+        "enabled": false,
+        "text": ""
+      },
+      "users": {
+        "9243289714763@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "162088324481099@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        }
+      }
+    },
+    "120363419228640698@g.us": {
+      "antilink": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antispam": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antimention": {
+        "enabled": false
+      },
+      "antitag": {
+        "enabled": false
+      },
+      "welcome": {
+        "enabled": false,
+        "text": ""
+      },
+      "goodbye": {
+        "enabled": false,
+        "text": ""
+      },
+      "users": {
+        "229347512336546@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        }
+      }
+    },
+    "120363032191229657@g.us": {
+      "antilink": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antispam": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antimention": {
+        "enabled": false
+      },
+      "antitag": {
+        "enabled": false
+      },
+      "welcome": {
+        "enabled": false,
+        "text": ""
+      },
+      "goodbye": {
+        "enabled": false,
+        "text": ""
+      },
+      "users": {
+        "88927918661859@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        }
+      }
+    },
+    "120363421582770380@g.us": {
+      "antilink": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antispam": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antimention": {
+        "enabled": false
+      },
+      "antitag": {
+        "enabled": false
+      },
+      "welcome": {
+        "enabled": false,
+        "text": ""
+      },
+      "goodbye": {
+        "enabled": false,
+        "text": ""
+      },
+      "users": {
+        "88927918661859@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "201095116775644@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        }
+      }
+    },
+    "120363421347888750@g.us": {
+      "antilink": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antispam": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antimention": {
+        "enabled": false
+      },
+      "antitag": {
+        "enabled": false
+      },
+      "welcome": {
+        "enabled": false,
+        "text": ""
+      },
+      "goodbye": {
+        "enabled": false,
+        "text": ""
+      },
+      "users": {}
+    },
+    "120363416160204779@g.us": {
+      "antilink": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antispam": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antimention": {
+        "enabled": false
+      },
+      "antitag": {
+        "enabled": false
+      },
+      "welcome": {
+        "enabled": false,
+        "text": ""
+      },
+      "goodbye": {
+        "enabled": false,
+        "text": ""
+      },
+      "users": {}
+    },
+    "120363421765596174@g.us": {
+      "antilink": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antispam": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antimention": {
+        "enabled": false
+      },
+      "antitag": {
+        "enabled": false
+      },
+      "welcome": {
+        "enabled": false,
+        "text": ""
+      },
+      "goodbye": {
+        "enabled": false,
+        "text": ""
+      },
+      "users": {
+        "201095116775644@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "135253519802621@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        }
+      }
+    },
+    "120363420145096070@g.us": {
+      "antilink": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antispam": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antimention": {
+        "enabled": false
+      },
+      "antitag": {
+        "enabled": false
+      },
+      "welcome": {
+        "enabled": false,
+        "text": ""
+      },
+      "goodbye": {
+        "enabled": false,
+        "text": ""
+      },
+      "users": {}
+    },
+    "120363400771218404@g.us": {
+      "antilink": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antispam": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antimention": {
+        "enabled": false
+      },
+      "antitag": {
+        "enabled": false
+      },
+      "welcome": {
+        "enabled": false,
+        "text": ""
+      },
+      "goodbye": {
+        "enabled": false,
+        "text": ""
+      },
+      "users": {}
+    },
+    "120363402024792385@g.us": {
+      "antilink": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antispam": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antimention": {
+        "enabled": false
+      },
+      "antitag": {
+        "enabled": false
+      },
+      "welcome": {
+        "enabled": false,
+        "text": ""
+      },
+      "goodbye": {
+        "enabled": false,
+        "text": ""
+      },
+      "users": {}
+    },
+    "120363417572515980@g.us": {
+      "antilink": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antispam": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antimention": {
+        "enabled": false
+      },
+      "antitag": {
+        "enabled": false
+      },
+      "welcome": {
+        "enabled": false,
+        "text": ""
+      },
+      "goodbye": {
+        "enabled": false,
+        "text": ""
+      },
+      "users": {}
+    },
+    "120363389578127916@g.us": {
+      "antilink": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antispam": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antimention": {
+        "enabled": false
+      },
+      "antitag": {
+        "enabled": false
+      },
+      "welcome": {
+        "enabled": false,
+        "text": ""
+      },
+      "goodbye": {
+        "enabled": false,
+        "text": ""
+      },
+      "users": {}
+    },
+    "120363405009936970@g.us": {
+      "antilink": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antispam": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antimention": {
+        "enabled": false
+      },
+      "antitag": {
+        "enabled": false
+      },
+      "welcome": {
+        "enabled": false,
+        "text": ""
+      },
+      "goodbye": {
+        "enabled": false,
+        "text": ""
+      },
+      "users": {
+        "187789358440650@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "143332252590177@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "201095116775644@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "202126110236835@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "275183487205536@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "278877125484627@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        }
+      }
+    },
+    "120363402282290243@g.us": {
+      "antilink": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antispam": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antimention": {
+        "enabled": false
+      },
+      "antitag": {
+        "enabled": false
+      },
+      "welcome": {
+        "enabled": false,
+        "text": ""
+      },
+      "goodbye": {
+        "enabled": false,
+        "text": ""
+      },
+      "antidemote_enabled": true,
+      "antipromote_enabled": false,
+      "users": {
+        "201095116775644@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "88927918661859@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        }
+      }
+    }
+  },
+  "users": {},
+  "settings": {}
+}

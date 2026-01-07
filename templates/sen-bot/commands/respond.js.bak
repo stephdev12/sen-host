@@ -1,0 +1,211 @@
+/**
+ * 𝗦𝗘𝗡 Bot - Auto Respond Commands
+ * Copyright (c) 2024 𝙎𝙏𝙀𝙋𝙃𝘿𝙀𝙑
+ */
+
+import { downloadContentFromMessage } from '@whiskeysockets/baileys';
+import { isOwner } from '../lib/authHelper.js';
+import configs from '../configs.js';
+import autoRespondManager from '../lib/autoRespondManager.js';
+
+/**
+ * Commande .respond on/off - Active/désactive les réponses automatiques
+ */
+export async function respondCommand(sock, chatId, message, args) {
+    try {
+        if (!await isOwner(sock, message, configs)) {
+            return sock.sendMessage(chatId, { 
+                text: '❌ Owner only command' 
+            }, { quoted: message });
+        }
+
+        if (args.length === 0) {
+            const status = autoRespondManager.isEnabled();
+            return sock.sendMessage(chatId, {
+                text: `┏━━〔 AUTO RESPOND 〕━━┓\n\n` +
+                      `Status: ${status ? '✅ ON' : '❌ OFF'}\n\n` +
+                      `Usage:\n` +
+                      `┃ .respond on  - Enable\n` +
+                      `┃ .respond off - Disable\n` +
+                      `┗━━━━━━━━━━━━━━━━━━━┛`
+            }, { quoted: message });
+        }
+
+        const action = args[0].toLowerCase();
+        
+        if (action !== 'on' && action !== 'off') {
+            return sock.sendMessage(chatId, {
+                text: '❌ Invalid option. Use: .respond on or .respond off'
+            }, { quoted: message });
+        }
+
+        const enabled = action === 'on';
+        autoRespondManager.setEnabled(enabled);
+
+        await sock.sendMessage(chatId, {
+            text: `✅ Auto respond ${enabled ? 'ENABLED' : 'DISABLED'}`
+        }, { quoted: message });
+
+    } catch (error) {
+        console.error('Respond Error:', error);
+        await sock.sendMessage(chatId, {
+            text: '❌ Error updating auto respond'
+        }, { quoted: message });
+    }
+}
+
+/**
+ * Commande .setrespond - Définir le message de réponse
+ */
+export async function setrespondCommand(sock, chatId, message, args) {
+    try {
+        if (!await isOwner(sock, message, configs)) {
+            return sock.sendMessage(chatId, { 
+                text: '❌ Owner only command' 
+            }, { quoted: message });
+        }
+
+        const quoted = message.message?.extendedTextMessage?.contextInfo?.quotedMessage;
+        
+        if (!quoted) {
+            return sock.sendMessage(chatId, {
+                text: '⚠️ Reply to a message (text, image, video, audio, sticker, or video note)\n\n' +
+                      'Examples:\n' +
+                      '┃ Reply to text: .setrespond\n' +
+                      '┃ Reply to image: .setrespond\n' +
+                      '┃ Reply to video: .setrespond\n' +
+                      '┃ Reply to audio: .setrespond\n' +
+                      '┃ Reply to sticker: .setrespond\n' +
+                      '┃ Reply to video note: .setrespond'
+            }, { quoted: message });
+        }
+
+        await sock.sendMessage(chatId, { 
+            react: { text: '💾', key: message.key }
+        });
+
+        let responseData = {
+            type: null,
+            content: null,
+            caption: null
+        };
+
+        // --- TEXT ---
+        if (quoted.conversation || quoted.extendedTextMessage?.text) {
+            responseData.type = 'text';
+            responseData.content = quoted.conversation || quoted.extendedTextMessage.text;
+        }
+        // --- IMAGE ---
+        else if (quoted.imageMessage) {
+            const stream = await downloadContentFromMessage(quoted.imageMessage, 'image');
+            let buffer = Buffer.from([]);
+            for await (const chunk of stream) {
+                buffer = Buffer.concat([buffer, chunk]);
+            }
+            
+            responseData.type = 'image';
+            responseData.content = buffer.toString('base64');
+            responseData.caption = quoted.imageMessage.caption || '';
+        }
+        // --- VIDEO NOTE (PTV) - DOIT ÊTRE AVANT VIDEO NORMAL ---
+        else if (quoted.videoMessage?.ptv) {
+            const stream = await downloadContentFromMessage(quoted.videoMessage, 'video');
+            let buffer = Buffer.from([]);
+            for await (const chunk of stream) {
+                buffer = Buffer.concat([buffer, chunk]);
+            }
+            
+            responseData.type = 'video';
+            responseData.content = buffer.toString('base64');
+            responseData.ptv = true; // Vidéo circulaire
+            responseData.caption = '';
+        }
+        // --- VIDEO ---
+        else if (quoted.videoMessage) {
+            const stream = await downloadContentFromMessage(quoted.videoMessage, 'video');
+            let buffer = Buffer.from([]);
+            for await (const chunk of stream) {
+                buffer = Buffer.concat([buffer, chunk]);
+            }
+            
+            responseData.type = 'video';
+            responseData.content = buffer.toString('base64');
+            responseData.caption = quoted.videoMessage.caption || '';
+            responseData.ptv = false; // Vidéo normale
+        }
+        // --- AUDIO ---
+        else if (quoted.audioMessage) {
+            const stream = await downloadContentFromMessage(quoted.audioMessage, 'audio');
+            let buffer = Buffer.from([]);
+            for await (const chunk of stream) {
+                buffer = Buffer.concat([buffer, chunk]);
+            }
+            
+            responseData.type = 'audio';
+            responseData.content = buffer.toString('base64');
+            responseData.ptt = quoted.audioMessage.ptt || false;
+        }
+        // --- STICKER ---
+        else if (quoted.stickerMessage) {
+            const stream = await downloadContentFromMessage(quoted.stickerMessage, 'sticker');
+            let buffer = Buffer.from([]);
+            for await (const chunk of stream) {
+                buffer = Buffer.concat([buffer, chunk]);
+            }
+            
+            responseData.type = 'sticker';
+            responseData.content = buffer.toString('base64');
+        }
+        else {
+            return sock.sendMessage(chatId, {
+                text: '❌ Unsupported message type'
+            }, { quoted: message });
+        }
+
+        // Sauvegarder
+        autoRespondManager.setResponse(responseData);
+
+        await sock.sendMessage(chatId, {
+            text: `✅ *AUTO RESPOND SET*\n\n` +
+                  `Type: ${responseData.type.toUpperCase()}\n\n` +
+                  `This message will be sent when you are mentioned in a group.`
+        }, { quoted: message });
+
+    } catch (error) {
+        console.error('SetRespond Error:', error);
+        await sock.sendMessage(chatId, {
+            text: '❌ Error setting auto respond'
+        }, { quoted: message });
+    }
+}
+
+/**
+ * Commande .clearrespond - Supprimer le message de réponse
+ */
+export async function clearrespondCommand(sock, chatId, message, args) {
+    try {
+        if (!await isOwner(sock, message, configs)) {
+            return sock.sendMessage(chatId, { 
+                text: '❌ Owner only command' 
+            }, { quoted: message });
+        }
+
+        autoRespondManager.clearResponse();
+
+        await sock.sendMessage(chatId, {
+            text: '✅ Auto respond message cleared'
+        }, { quoted: message });
+
+    } catch (error) {
+        console.error('ClearRespond Error:', error);
+        await sock.sendMessage(chatId, {
+            text: '❌ Error clearing auto respond'
+        }, { quoted: message });
+    }
+}
+
+export default { 
+    respondCommand, 
+    setrespondCommand,
+    clearrespondCommand 
+};

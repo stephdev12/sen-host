@@ -1,0 +1,111 @@
+/**
+ * 𝗦𝗘𝗡 Bot - Anime Commands (Safe Version)
+ * Fix: Correction stricte du bug "function link"
+ */
+
+import axios from 'axios';
+
+const BASE_URL = 'https://okatsu-rolezapiiz.vercel.app';
+
+// Configuration des endpoints
+const ENDPOINTS = {
+    // GIFs (envoyés comme video)
+    hug: { path: '/anime/hug', type: 'gif' },
+    happy: { path: '/anime/happy', type: 'gif' },
+    kiss: { path: '/anime/kiss', type: 'gif' },
+    
+    // Images
+    akiyama: { path: '/anime/akiyama', type: 'image' },
+    boruto: { path: '/anime/boruto', type: 'image' },
+    deidara: { path: '/anime/deidara', type: 'image' },
+    fanart: { path: '/anime/fanart', type: 'image' },
+    sasuke: { path: '/anime/sasuke', type: 'image' },
+    waifu: { path: '/anime/waifu', type: 'image' },
+    
+    // Random / Autres
+    bluearchive: { path: '/random/ba', type: 'image' },
+    loli: { path: '/random/loli', type: 'image' },
+    
+    // NSFW
+    nsfw: { path: '/random/nsfw', type: 'image' },
+    hneko: { path: '/random/nekonsfw', type: 'image' },
+    hwaifu: { path: '/random/nsfwwaifu', type: 'image' }
+};
+
+async function sendAnime(sock, chatId, message, cmdName) {
+    const config = ENDPOINTS[cmdName];
+    if (!config) return;
+
+    try {
+        await sock.sendMessage(chatId, { react: { text: '⏳', key: message.key } });
+
+        // Appel API simple (axios détecte automatiquement le JSON)
+        const response = await axios.get(`${BASE_URL}${config.path}`);
+        const data = response.data;
+
+        // 🛡️ VÉRIFICATION DE SÉCURITÉ
+        // On s'assure que 'data' est bien un objet JSON et pas du texte brut
+        if (typeof data !== 'object' || data === null) {
+            console.log(`[${cmdName}] Réponse invalide (pas un objet):`, data);
+            return await sock.sendMessage(chatId, { text: '❌ Erreur API : Format invalide.' }, { quoted: message });
+        }
+
+        // On cherche l'URL dans les propriétés connues (SANS utiliser .link directement)
+        // On utilise data['link'] uniquement si ça existe comme propriété propre
+        const mediaUrl = data.url || data.image || data.result || (Object.hasOwn(data, 'link') ? data.link : null);
+
+        if (!mediaUrl || typeof mediaUrl !== 'string' || !mediaUrl.startsWith('http')) {
+            console.log(`[${cmdName}] Pas d'URL valide trouvée:`, data);
+            return await sock.sendMessage(chatId, { text: '❌ Erreur : Média introuvable.' }, { quoted: message });
+        }
+
+        const caption = `> *${cmdName.toUpperCase()}*`;
+
+        // Envoi
+        if (config.type === 'gif') {
+            await sock.sendMessage(chatId, { 
+                video: { url: mediaUrl }, 
+                caption: caption,
+                gifPlayback: true 
+            }, { quoted: message });
+        } else {
+            await sock.sendMessage(chatId, { 
+                image: { url: mediaUrl }, 
+                caption: caption
+            }, { quoted: message });
+        }
+        
+        await sock.sendMessage(chatId, { react: { text: '✅', key: message.key } });
+
+    } catch (error) {
+        console.error(`Erreur Anime [${cmdName}]:`, error.message);
+        await sock.sendMessage(chatId, { text: '❌ Erreur serveur ou API hors ligne.' }, { quoted: message });
+    }
+}
+
+// --- Exports ---
+
+export async function hugCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'hug'); }
+export async function happyCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'happy'); }
+export async function kissCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'kiss'); }
+
+export async function akiyamaCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'akiyama'); }
+export async function borutoCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'boruto'); }
+export async function deidaraCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'deidara'); }
+export async function fanartCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'fanart'); }
+export async function sasukeCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'sasuke'); }
+export async function waifuCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'waifu'); }
+
+export async function bluearchiveCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'bluearchive'); }
+export async function loliCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'loli'); }
+
+export async function nsfwCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'nsfw'); }
+export async function hnekoCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'hneko'); }
+export async function hwaifuCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'hwaifu'); }
+
+export default { 
+    hugCommand, happyCommand, kissCommand,
+    akiyamaCommand, borutoCommand, deidaraCommand, fanartCommand, sasukeCommand, waifuCommand,
+    bluearchiveCommand, loliCommand,
+    nsfwCommand, hnekoCommand, hwaifuCommand
+};

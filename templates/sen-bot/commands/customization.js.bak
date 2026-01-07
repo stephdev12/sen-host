@@ -1,0 +1,155 @@
+/**
+ * 𝗦𝗘𝗡 Bot - Commandes de Personnalisation
+ * Structure corrigée : Named Exports
+ */
+
+import settings from '../lib/settingsManager.js';
+import uploader from '../lib/mediaUpload.js';
+import { isOwner } from '../lib/authHelper.js';
+import configs from '../configs.js';
+
+// Middleware de sécurité
+const ensureOwner = async (sock, chatId, message) => {
+    const owner = await isOwner(sock, message, configs);
+    if (!owner) {
+        return false;
+    }
+    return true;
+};
+
+/**
+ * .setname <nouveau nom>
+ */
+export async function setname(sock, chatId, message, args) {
+    if (!await ensureOwner(sock, chatId, message)) return;
+
+    const newName = args.join(' ');
+    if (!newName) {
+        return await sock.sendMessage(chatId, { text: '⚠️ Veuillez entrer un nom.\nExemple: .setname SuperBot' }, { quoted: message });
+    }
+
+    settings.update('botName', newName);
+    await sock.sendMessage(chatId, { text: `✅ *${newName}*` }, { quoted: message });
+}
+
+/**
+ * .setprefix <nouveau prefixe>
+ */
+export async function setprefix(sock, chatId, message, args) {
+    if (!await ensureOwner(sock, chatId, message)) return;
+
+    const newPrefix = args[0];
+    if (!newPrefix) {
+        return await sock.sendMessage(chatId, { text: '⚠️ Veuillez entrer un préfixe.\nExemple: .setprefix !' }, { quoted: message });
+    }
+
+    settings.update('prefix', newPrefix);
+    await sock.sendMessage(chatId, { text: `✅ *PREFIX :* *${newPrefix}*` }, { quoted: message });
+}
+
+/**
+ * .setmenu (en répondant à une image)
+ */
+export async function setmenu(sock, chatId, message, args) {
+    if (!await ensureOwner(sock, chatId, message)) return;
+
+    const targetMessage = message.message?.extendedTextMessage?.contextInfo?.quotedMessage?.imageMessage 
+                       || message.message?.imageMessage;
+
+    if (!targetMessage) {
+        return await sock.sendMessage(chatId, { text: '⚠️ Veuillez répondre à une image avec la commande .setmenu' }, { quoted: message });
+    }
+
+    await sock.sendMessage(chatId, { text: '⏳ *UPLOADING*' }, { quoted: message });
+
+    try {
+        const url = await uploader.uploadImage(targetMessage);
+        settings.update('menuImage', url);
+
+        await sock.sendMessage(chatId, { 
+            image: { url: url }, 
+            caption: '✅ *IMAGE UPLOADED.*' 
+        }, { quoted: message });
+
+    } catch (error) {
+        console.error(error);
+        await sock.sendMessage(chatId, { text: '❌ Erreur lors de l\'upload de l\'image.' }, { quoted: message });
+    }
+}
+
+/**
+ * .setaudio (en répondant à un audio)
+ */
+export async function setaudio(sock, chatId, message, args) {
+    if (!await ensureOwner(sock, chatId, message)) return;
+
+    const targetMessage = message.message?.extendedTextMessage?.contextInfo?.quotedMessage?.audioMessage 
+                       || message.message?.audioMessage;
+
+    if (!targetMessage) {
+        return await sock.sendMessage(chatId, { text: '⚠️ Veuillez répondre à un audio/vocal avec la commande .setaudio' }, { quoted: message });
+    }
+
+    await sock.sendMessage(chatId, { text: '⏳ *UPLOADING*...' }, { quoted: message });
+
+    try {
+        const url = await uploader.uploadAudio(targetMessage);
+        
+        settings.update('audioUrl', url);
+        settings.update('audioEnabled', true);
+
+        await sock.sendMessage(chatId, { 
+            audio: { url: url }, 
+            mimetype: 'audio/mp4',
+            ptt: false,
+            caption: '*AUDIO UPDATED*' 
+        }, { quoted: message });
+
+    } catch (error) {
+        console.error(error);
+        await sock.sendMessage(chatId, { text: '❌ Erreur lors de l\'upload de l\'audio.' }, { quoted: message });
+    }
+}
+
+/**
+ * .setstyle <1, 2 ou 3>
+ */
+export async function setstyle(sock, chatId, message, args) {
+    if (!await ensureOwner(sock, chatId, message)) return;
+
+    const style = parseInt(args[0]);
+    if (!style || style < 1 || style > 3) {
+        return await sock.sendMessage(chatId, { text: '⚠️ Style invalide. Choisissez entre 1, 2 ou 3.\nExemple: .setstyle 2' }, { quoted: message });
+    }
+
+    settings.update('menuStyle', style);
+    await sock.sendMessage(chatId, { text: `✅ Style de menu défini sur : *Style ${style}*` }, { quoted: message });
+}
+
+/**
+ * .audio <on/off>
+ */
+export async function audio(sock, chatId, message, args) {
+    if (!await ensureOwner(sock, chatId, message)) return;
+
+    if (args.length === 0) {
+        return await sock.sendMessage(chatId, { text: '⚠️ Usage: .audio on ou .audio off' }, { quoted: message });
+    }
+
+    const state = args[0].toLowerCase() === 'on';
+    settings.update('audioEnabled', state);
+
+    await sock.sendMessage(chatId, { 
+        text: `✅ Audio du menu : *${state ? 'ACTIVÉ 🔊' : 'DÉSACTIVÉ 🔇'}*` 
+    }, { quoted: message });
+}
+
+// Export par défaut (optionnel mais recommandé pour la compatibilité)
+export default {
+    setname,
+    setprefix,
+    setmenu,
+    setaudio,
+    setstyle,
+    audio
+};

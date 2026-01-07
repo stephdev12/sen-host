@@ -1,0 +1,714 @@
+{
+  "meta": {
+    "name": "English",
+    "flag": "🇬🇧"
+  },
+  "commands": {
+    "autovv": {
+      "status": "*AUTO VIEW ONCE STATUS*\n\n> *Status* : {status}\n{date}",
+      "enabled": "✅ Enabled",
+      "disabled": "❌ Disabled",
+      "since": "> *Enabled since* : {date}\n",
+      "usage": "\n*Usage:*\n• .autovv on - Enable auto reveal\n• .autovv off - Disable auto reveal",
+      "onMsg": "✅ *Auto ViewOnce Enabled*\n\nAll view once messages will be automatically revealed and sent to DM.",
+      "offMsg": "❌ *Auto ViewOnce Disabled*\n\nView once messages will no longer be revealed automatically.",
+      "invalid": "❌ Usage: .autovv <on|off>"
+    },
+    "tools": {
+      "dns": {
+        "usage": "Ex: .dns google.com",
+        "header": "🌐 *DNS RECORDS: {domain}*\n\n"
+      },
+      "obfuscate": {
+        "usage": "Enter JS code."
+      },
+      "dbinary": {
+        "usage": "Enter binary.",
+        "decoded": "🔓 *Decoded:* {result}"
+      },
+      "fancy": {
+        "usage": "Usage: .fancy <text> [number]\nEx: .fancy SenBot 1",
+        "header": "✨ *FANCY STYLES*\nText: {text}\n\n",
+        "tip": "\n💡 *Tip:* Use .fancy {text} 5 (to choose style 5 directly)."
+      },
+      "walink": {
+        "usage": "🔗 Invalid usage.\nEx: .walink 237690000000 Hi how are you?",
+        "success": "✅ *LINK GENERATED*\n\n{url}"
+      },
+      "lyrics": {
+        "usage": "🎵 Title required.\nEx: .lyrics faded",
+        "notFound": "❌ Lyrics not found."
+      },
+      "error": "❌ Error."
+    },
+    "ping": {
+      "description": "Check bot status",
+      "pong": "Pong!",
+      "speed": "SPEED",
+      "uptime": "UPTIME"
+    },
+    "help": {
+      "title": "Command List",
+      "basic": "Basic Commands",
+      "owner": "Owner Commands",
+      "protection": "Protection Commands",
+      "info": "Bot Information"
+    },
+    "language": {
+      "title": "Language Settings",
+      "current": "Current",
+      "available": "Available Languages",
+      "usage": "Usage: .language <code>\nExample: .language fr",
+      "success": "*Language Changed*\n\n🌍 Language: {lang}\n✨ All bot messages will now be in {lang}!",
+      "error": "Error changing language"
+    },
+    "categories": {
+      "general": "General",
+      "owner": "Owner",
+      "ai": "AI",
+      "image_edit": "Image Edit",
+      "google": "Google",
+      "downloads": "Downloads",
+      "ios": "iOS",
+      "anime": "Anime",
+      "quizz_trivia": "Quizz & Trivia",
+      "protection": "Protection",
+      "groups": "Groups",
+      "ephoto": "Ephoto",
+      "utils": "Utils"
+    },
+    "tourl": {
+      "description": "> Convert an image or audio to a direct link",
+      "noMedia": "> Please reply to an image or audio to convert it.",
+      "uploading": "> Uploading to server...",
+      "success": "> *MEDIA ONLINE*\n\n> *URL :* {url}\n> *Type :* {type}",
+      "error": "> ❌ Upload failed. Please try again."
+    },
+    "google": {
+      "addgapi": {
+        "usage": "*ADD GOOGLE API KEY*\n\nUsage: .addgapi YOUR_API_KEY\n\nGet your free key:\n1. Go to https://aistudio.google.com\n2. Click 'Get API key'\n3. Create new API key\n4. Copy and paste here",
+        "success": "*GOOGLE API KEY ADDED*\n\nAvailable commands (free tier):\n┃ .gemini - AI Chat (10 RPM)\n┃ .vision - Analyze images\n┃ .nanogen - Generate images (500/day)\n\nPaid only:\n┃ Imagen 4 - Not available in free tier\n┃ Veo 3.1 - Not available in free tier",
+        "invalid": "> Invalid API key\n\nCheck your key and try again"
+      },
+      "removegapi": {
+        "success": "> Google API key removed"
+      },
+      "noApiKey": "> No Google API key configured\n\nUse .addgapi YOUR_KEY to add one",
+      "gemini": {
+        "usage": "> Usage: .gemini <question>\n\nExample: .gemini Explain quantum computing",
+        "response": "*GEMINI AI*\n\n{result}"
+      },
+      "vision": {
+        "usage": "> Reply to an image with .vision <question>\n\nExample: .vision What is in this image?",
+        "defaultQuery": "Describe this image in detail",
+        "response": "*GEMINI VISION*\n\n{result}"
+      },
+      "nanogen": {
+        "usage": "> Usage: .nanogen <description>\n\nExample: .nanogen a futuristic city at sunset\n\nFree: 500 images/day, 15 RPM",
+        "generating": "> Generating image...",
+        "success": "*NANO BANANA*\n\nPrompt: {prompt}\n\nResolution: 1024x1024",
+        "noImage": "> No image generated"
+      },
+      "status": {
+        "display": "*GOOGLE AI STATUS*\n\nAPI Key: {configured}\nSDK: @google/genai\nTier: Free",
+        "yes": "Configured",
+        "no": "Not set"
+      },
+      "quotaExceeded": "> Quota exceeded\n\nFree tier: 10 RPM, 250 RPD\nWait 1 minute or upgrade to paid tier",
+      "rateLimit": "> Rate limit (15 RPM). Wait 1 minute",
+      "invalidKey": "> Invalid API key. Use .addgapi to update"
+    },
+    "image": {
+      "noImage": "> Please reply to an image",
+      "removebg": "> *REMOVE BG*",
+      "upscale": "> *UPSCALE HD*",
+      "sketch": "> *SKETCH ART*"
+    },
+    "locate": {
+      "request": "*LOCATION REQUEST*\n\nPlease share your current location to continue",
+      "footer": "SEN BOT SYSTEM",
+      "header": "LOCATION",
+      "button": "SHARE MY LOCATION"
+    },
+    "respond": {
+      "status": "*AUTO RESPOND*\n\nStatus: {status}\n\nUsage:\n┃ .respond on  - Enable\n┃ .respond off - Disable",
+      "on": "ON",
+      "off": "OFF",
+      "invalidOption": "> Invalid option. Use: .respond on or .respond off",
+      "updated": "> Auto respond {status}",
+      "enabled": "ENABLED",
+      "disabled": "DISABLED"
+    },
+    "setrespond": {
+      "usage": "> Reply to a message (text, image, video, audio, sticker or video note)\n\nExamples:\n┃ Reply to text: .setrespond\n┃ Reply to image: .setrespond\n┃ Reply to video: .setrespond\n┃ Reply to audio: .setrespond\n┃ Reply to sticker: .setrespond\n┃ Reply to video note: .setrespond",
+      "unsupported": "> Unsupported message type",
+      "success": "*AUTO RESPOND SET*\n\nType: {type}\n\nThis message will be sent when you are mentioned in a group"
+    },
+    "clearrespond": {
+      "success": "> Auto respond message cleared"
+    },
+    "serie": {
+      "usage": "> Series name required\nEx: .serie Breaking Bad",
+      "notFound": "> Series not found",
+      "rating": "Rating",
+      "date": "Date",
+      "subs": "Subs",
+      "desc": "Desc",
+      "header": "SERIES INFO",
+      "downloadButton": "Download S01 E01"
+    },
+    "dlserie": {
+      "usage": "> Format required:\n.dlserie Name | Season | Episode\n\nEx: .dlserie Lupin | 1 | 2",
+      "notFound": "> Series not found with these criteria",
+      "noEpisode": "> Episode {episode} (Season {season}) not found",
+      "downloadButton": "Download {quality}",
+      "info": "*DOWNLOAD SERIES*\n\n> *Title:* {title}\n> *Season:* {season} | *Episode:* {episode}\n> *Subs:* {subs}",
+      "footer": "SEN DOWNLOADER",
+      "noSubs": "Not specified"
+    },
+    "youtube": {
+      "noQuery": "> Please enter a search query",
+      "noResults": "> No results",
+      "info": "*SEN DOWNLOADER*\n\n> *Title* : {title}\n> *Author* : {author}\n> *Duration* : {duration}\n\nChoose a format:",
+      "footer": "BY SEN STUDIO",
+      "audioButton": "AUDIO",
+      "videoButton": "VIDEO",
+      "searchHeader": "YOUTUBE SEARCH",
+      "audioCaption": "SEN MUSIC",
+      "videoCaption": "*{title}*\n\nSize: {size}\n> SEN VIDEO"
+    }
+  },
+  "mode": {
+    "public": {
+      "success": "*BOT MODE CHANGED*\n\n> Mode: PUBLIC",
+      "already": "> The bot is already in public mode"
+    },
+    "private": {
+      "success": "*BOT MODE CHANGED*\n\n> Mode: PRIVATE",
+      "already": "> The bot is already in private mode",
+      "blocked": "BOT IN PRIVATE MODE\n\nOnly the owner and sudo users can use commands.\n\nContact the bot owner for access."
+    }
+  },
+  "sudo": {
+    "added": "SUDO USER ADDED\n\nUser: @{user}\nSudo access granted",
+    "added_short": "IS NOW SUDO",
+    "removed": "SUDO USER REMOVED\n\nUser: @{user}\nSudo access revoked",
+    "removed_short": "IS NO LONGER SUDO",
+    "already": "User is already sudo",
+    "notFound": "User is not sudo",
+    "list": "SUDO USERS LIST\n\nTotal: {count} user(s)",
+    "usage": "⚠️ Invalid usage.\n\n• Reply to a message\n• Mention @user\n• Or type: .sudo 2376000000",
+    "usage_del": "⚠️ Usage: .delsudo @user or .delsudo 2376000000",
+    "empty": "📂 No Sudo users found.",
+    "list_title": "SUDO USERS ({count})"
+  },
+  "protection": {
+    "antilink": {
+      "enabled": "ANTILINK ENABLED\n\nProtection is now active",
+      "disabled": "ANTILINK DISABLED\n\nProtection is now inactive",
+      "warning": "ANTILINK WARNING {count}/{max}\n\nLinks are not allowed\n{remaining} warnings remaining before kick",
+      "kick": "ANTILINK WARNING {count}/{max}\n\nLinks are not allowed\nThe user will be kicked"
+    },
+    "antitag": {
+      "enabled": "ANTITAG ENABLED\n\nProtection is now active",
+      "disabled": "ANTITAG DISABLED\n\nProtection is now inactive",
+      "warning": "ANTITAG WARNING {count}/{max}\n\nMass mentions are not allowed\n{remaining} warnings remaining before kick",
+      "kick": "ANTITAG WARNING {count}/{max}\n\nMass mentions are not allowed\nThe user will be kicked"
+    },
+    "antimedia": {
+      "enabled": "ANTIMEDIA ENABLED\n\nProtection is now active",
+      "disabled": "ANTIMEDIA DISABLED\n\nProtection is now inactive",
+      "warning": "ANTIMEDIA WARNING {count}/{max}\n\nMedia is not allowed\n{remaining} warnings remaining before kick",
+      "kick": "ANTIMEDIA WARNING {count}/{max}\n\nMedia is not allowed\nThe user will be kicked"
+    },
+    "antispam": {
+      "enabled": "ANTISPAM ENABLED\n\nProtection is now active",
+      "disabled": "ANTISPAM DISABLED\n\nProtection is now inactive",
+      "warning": "ANTISPAM WARNING {count}/{max}\n\nSpam is not allowed\n{remaining} warnings remaining before kick",
+      "kick": "ANTISPAM WARNING {count}/{max}\n\nSpam is not allowed\nThe user will be kicked"
+    },
+    "groupOnly": "This command can only be used in groups",
+    "adminOnly": "Only group admins can use this command",
+    "botNotAdmin": "The bot must be admin to use this feature"
+  },
+  "errors": {
+    "ownerOnly": "Only the bot owner can use this command",
+    "commandFailed": "An error occurred while executing the command",
+    "commandNotFound": "Command \"{command}\" not found. Use .help to see available commands",
+    "invalidUsage": "Invalid usage. Use: {usage}",
+    "apiError": "> API error",
+    "generationFailed": "> Generation failed",
+    "searchFailed": "> Search failed",
+    "uploadFailed": "> Upload failed",
+    "stickerFailed": "> Error creating sticker",
+    "saveFailed": "> Error saving",
+    "playFailed": "> Error playing",
+    "listFailed": "> Error listing",
+    "deleteFailed": "> Error deleting",
+    "fetchFailed": "> Error fetching",
+    "analysisFailed": "> Analysis failed",
+    "processingFailed": "> Processing failed",
+    "downloadFailed": "> Download failed"
+  },
+      "welcome": {
+        "enabled": "✅ *WELCOME MESSAGE ENABLED*\n\nThe bot will welcome new members.",
+        "disabled": "❌ *WELCOME MESSAGE DISABLED*",
+        "setSuccess": "✅ *WELCOME MESSAGE SET*\n\nNew message saved successfully.\n\nMessage: {msg}\n\nWelcome is now enabled!",
+        "setUsage": "*SETWELCOME*\n\nUsage: .setwelcome <message>\n\nVariables:\n{group} - Group name\n{user} - User mention\n{members} - Member count\n{desc} - Group description\n\nExample:\n.setwelcome Welcome @user to {group}!",
+        "default": "Welcome @user to {group}!\nWe are now {members} members.\n\n{desc}"
+      },
+      "goodbye": {
+        "enabled": "✅ *GOODBYE MESSAGE ENABLED*\n\nThe bot will say goodbye to departing members.",
+        "disabled": "❌ *GOODBYE MESSAGE DISABLED*",
+        "setSuccess": "✅ *GOODBYE MESSAGE SET*\n\nNew message saved successfully.\n\nMessage: {msg}\n\nGoodbye is now enabled!",
+        "setUsage": "*SETGOODBYE*\n\nUsage: .setgoodbye <message>\n\nVariables:\n{group} - Group name\n{user} - User mention\n{members} - Member count\n\nExample:\n.setgoodbye Goodbye @user from {group}",
+        "default": "Goodbye @user! We will miss you."
+      },  "antipromote": {
+    "enabled": "ANTIPROMOTE ENABLED\n\nAdmin promotion is forbidden.",
+    "disabled": "ANTIPROMOTE DISABLED",
+    "alert": "🛡️ *ANTI-PROMOTE*\n\n@user cannot be admin.\n> Promotion cancelled."
+  },
+  "antidemote": {
+    "enabled": "ANTIDEMOTE ENABLED\n\nAdmin demotion is forbidden.",
+    "disabled": "ANTIDEMOTE DISABLED",
+    "alert": "🛡️ *ANTI-DEMOTE*\n\n@user cannot be demoted.\n> Demotion cancelled."
+  },
+  "ai": {
+    "noQuery": "> Please ask a question",
+    "response": "*SEN_AI*\n> *Model* : {model}\n\n{result}"
+  },
+  "flux": {
+    "noPrompt": "> Please describe the image to generate",
+    "success": "> *FLUX GEN*\n> *Prompt :* {prompt}"
+  },
+  "apk": {
+    "noQuery": "> App name required\nEx: .apk WhatsApp",
+    "notFound": "> App not found",
+    "info": "*APK DOWNLOADER*\n\n> *Name :* {name}\n> *ID :* {package}\n> *Updated :* {updated}",
+    "footer": "SEN DOWNLOADER",
+    "downloadButton": "📥 DOWNLOAD APK"
+  },
+  "setname": {
+    "usage": "> Please enter a name\nExample: .setname SuperBot",
+    "success": "*BOT NAME CHANGED*\n\n> New name: {name}"
+  },
+  "setprefix": {
+    "usage": "> Please enter a prefix\nExample: .setprefix !",
+    "success": "*PREFIX CHANGED*\n\n> New prefix: {prefix}"
+  },
+  "setmenu": {
+    "usage": "> Please reply to an image with the command",
+    "uploading": "> *UPLOADING*",
+    "success": "*MENU IMAGE CHANGED*"
+  },
+  "setaudio": {
+    "usage": "> Please reply to an audio with the command",
+    "uploading": "> *UPLOADING*",
+    "success": "*MENU AUDIO CHANGED*"
+  },
+  "setstyle": {
+    "usage": "> Invalid style. Choose 1, 2 or 3\nExample: .setstyle 2",
+    "success": "*MENU STYLE CHANGED*\n\n> Style: {style}"
+  },
+  "audio": {
+    "usage": "> Usage: .audio on or .audio off",
+    "success": "*MENU AUDIO*\n\n> Status: {status}",
+    "enabled": "ENABLED",
+    "disabled": "DISABLED"
+  },
+  "glink": {
+    "success": "*GROUP LINK*\n\n{link}"
+  },
+  "sticker": {
+    "noMedia": "> Reply to an image, video or sticker"
+  },
+  "store": {
+    "usage": "> Reply to an audio or video",
+    "noName": "> Usage: .store <name>\nExample: .store mysong",
+    "success": "*MEDIA STORED*\n\n> Name: {name}\n> Type: {type}"
+  },
+  "ad": {
+    "usage": "> Usage: .ad <name>\nExample: .ad mysong",
+    "notFound": "> Audio not found: {name}"
+  },
+  "vd": {
+    "usage": "> Usage: .vd <name> [-c]\nExample: .vd myvideo",
+    "notFound": "> Video not found: {name}"
+  },
+  "listMedia": {
+    "empty": "> No saved media",
+    "header": "*MY SAVED MEDIA*"
+  },
+  "deleteMedia": {
+    "usage": "> Usage: .delmedia <name>",
+    "success": "> Media deleted: {name}",
+    "notFound": "> Media not found: {name}"
+  },
+  "getpp": {
+    "success": "> *PROFILE PICTURE*",
+    "notFound": "> No profile picture found or private account"
+  },
+  "save": {
+    "usage": "> Reply to a status (image or video)",
+    "unsupported": "> Unsupported media type",
+    "success": "*STATUS SAVED*"
+  },
+  "quiz": {
+    "ui": {
+      "title": "🧠 SEN QUIZ",
+      "select": "Choose a category to start!",
+      "lobby": "*SEN_QUIZ LOBBY*\n\n> *Category :* {category}\n\nType *'join'* to join the game!\nThe game starts in 30 seconds.",
+      "joined": "✅ @{user} joined the game!",
+      "starting": "🚀 *THE QUIZ STARTS!*\nGet ready...",
+      "question_header": "*QUESTION {num}/{total}*\n> *Category :* {category}\n\n{question}",
+      "correct": "✅ Correct answer @{user}!",
+      "wrong": "❌ Wrong answer @{user}...",
+      "finished": "🏁 *QUIZ ENDED*\n\n🏆 *Winner :* @{winner} ({score} pts)\n\nThanks for playing!",
+      "no_winner": "🏁 *QUIZ ENDED*\nNo one scored any points."
+    },
+    "categories": {
+      "general": {
+        "name": "General Knowledge",
+        "desc": "Test your general knowledge",
+        "img": "https://i.ibb.co/wznvnZf/cult-g.jpg",
+        "questions": [
+          {
+            "q": "What is the capital of France?",
+            "options": ["Lyon", "Marseille", "Paris", "Bordeaux"],
+            "answer": 2
+          },
+          {
+            "q": "Who painted the Mona Lisa?",
+            "options": ["Picasso", "Da Vinci", "Van Gogh", "Monet"],
+            "answer": 1
+          },
+          {
+            "q": "How many continents are there on Earth?",
+            "options": ["5", "6", "7", "8"],
+            "answer": 2
+          },
+          {
+            "q": "What is the largest ocean in the world?",
+            "options": ["Atlantic", "Indian", "Arctic", "Pacific"],
+            "answer": 3
+          },
+          {
+            "q": "In which year did the French Revolution take place?",
+            "options": ["1789", "1799", "1815", "1848"],
+            "answer": 0
+          },
+          {
+            "q": "What is the currency of Japan?",
+            "options": ["Yuan", "Won", "Yen", "Baht"],
+            "answer": 2
+          },
+          {
+            "q": "Who wrote 'Les Misérables'?",
+            "options": ["Balzac", "Hugo", "Zola", "Flaubert"],
+            "answer": 1
+          },
+          {
+            "q": "Which country has the largest world population?",
+            "options": ["India", "China", "USA", "Indonesia"],
+            "answer": 1
+          },
+          {
+            "q": "How many players are in a football (soccer) team?",
+            "options": ["9", "10", "11", "12"],
+            "answer": 2
+          },
+          {
+            "q": "Which planet is closest to the Sun?",
+            "options": ["Venus", "Mercury", "Mars", "Earth"],
+            "answer": 1
+          }
+        ]
+      },
+      "anime": {
+        "name": "Manga & Anime",
+        "desc": "For real Otakus",
+        "img": "https://i.ibb.co/hxN8MHvJ/2badb1295ed7642d072e6e73fd11c7be.jpg",
+        "questions": [
+          {
+            "q": "Who is the main character of One Piece?",
+            "options": ["Zoro", "Luffy", "Naruto", "Goku"],
+            "answer": 1
+          },
+          {
+            "q": "What is the name of Naruto's village?",
+            "options": ["Suna", "Konoha", "Kiri", "Kumo"],
+            "answer": 1
+          },
+          {
+            "q": "Who is the author of Death Note?",
+            "options": ["Oda", "Kishimoto", "Ohba", "Toriyama"],
+            "answer": 2
+          },
+          {
+            "q": "What is the name of the Colossal Titan in Attack on Titan?",
+            "options": ["Eren", "Armin", "Bertolt", "Reiner"],
+            "answer": 2
+          },
+          {
+            "q": "In Dragon Ball, how many Dragon Balls are there?",
+            "options": ["5", "6", "7", "8"],
+            "answer": 2
+          },
+          {
+            "q": "Which anime features alchemists?",
+            "options": ["Naruto", "FMA", "Bleach", "HxH"],
+            "answer": 1
+          },
+          {
+            "q": "Who is Rock Lee's mentor in Naruto?",
+            "options": ["Kakashi", "Jiraiya", "Guy", "Asuma"],
+            "answer": 2
+          },
+          {
+            "q": "In My Hero Academia, what is Deku's quirk?",
+            "options": ["One For All", "All Might", "Explosion", "Half-Cold"],
+            "answer": 0
+          },
+          {
+            "q": "What is Luffy's Devil Fruit?",
+            "options": ["Gomu Gomu", "Mera Mera", "Hie Hie", "Gura Gura"],
+            "answer": 0
+          },
+          {
+            "q": "Who is the main antagonist of Demon Slayer?",
+            "options": ["Akaza", "Doma", "Muzan", "Kokushibo"],
+            "answer": 2
+          }
+        ]
+      },
+      "science": {
+        "name": "Science",
+        "desc": "Physics, chemistry, biology...",
+        "img": "https://i.ibb.co/zHBj1dPX/15ac2ae45cf855999d1363ff0b982ce3.jpg",
+        "questions": [
+          {
+            "q": "What is the chemical formula for water?",
+            "options": ["H2O", "O2", "CO2", "H2O2"],
+            "answer": 0
+          },
+          {
+            "q": "What is the speed of light?",
+            "options": ["300 000 km/s", "150 000 km/s", "450 000 km/s", "600 000 km/s"],
+            "answer": 0
+          },
+          {
+            "q": "How many bones does an adult human body have?",
+            "options": ["198", "206", "214", "220"],
+            "answer": 1
+          },
+          {
+            "q": "Which gas is essential for breathing?",
+            "options": ["Nitrogen", "Oxygen", "CO2", "Hydrogen"],
+            "answer": 1
+          },
+          {
+            "q": "Who discovered penicillin?",
+            "options": ["Pasteur", "Fleming", "Curie", "Darwin"],
+            "answer": 1
+          },
+          {
+            "q": "Which planet is nicknamed the Red Planet?",
+            "options": ["Venus", "Jupiter", "Mars", "Saturn"],
+            "answer": 2
+          },
+          {
+            "q": "What is the chemical element with the symbol Fe?",
+            "options": ["Fluorine", "Iron", "Francium", "Fermium"],
+            "answer": 1
+          },
+          {
+            "q": "How many chromosomes does a human being have?",
+            "options": ["23", "44", "46", "48"],
+            "answer": 2
+          },
+          {
+            "q": "What is the unit of measurement for force?",
+            "options": ["Joule", "Watt", "Newton", "Pascal"],
+            "answer": 2
+          },
+          {
+            "q": "Which scientist developed the theory of relativity?",
+            "options": ["Newton", "Einstein", "Hawking", "Bohr"],
+            "answer": 1
+          }
+        ]
+      },
+      "histoire": {
+        "name": "History",
+        "desc": "Travel back in time",
+        "img": "https://i.ibb.co/Jw2br6NR/b7d8bf7ec324a3a802b5ba4b4e53c213.jpg",
+        "questions": [
+          {
+            "q": "In which year did World War I begin?",
+            "options": ["1912", "1914", "1916", "1918"],
+            "answer": 1
+          },
+          {
+            "q": "Who was the first Roman Emperor?",
+            "options": ["Caesar", "Augustus", "Nero", "Caligula"],
+            "answer": 1
+          },
+          {
+            "q": "Which civilization built the Pyramids of Giza?",
+            "options": ["Romans", "Greeks", "Egyptians", "Mayans"],
+            "answer": 2
+          },
+          {
+            "q": "In which year did Christopher Columbus discover America?",
+            "options": ["1492", "1500", "1520", "1550"],
+            "answer": 0
+          },
+          {
+            "q": "Who was the last King of France?",
+            "options": ["Louis XIV", "Louis XV", "Louis XVI", "Louis XVIII"],
+            "answer": 2
+          },
+          {
+            "q": "Which war was fought between the North and South of the US?",
+            "options": ["Independence", "Civil War", "Vietnam", "Iraq"],
+            "answer": 1
+          },
+          {
+            "q": "Who painted the Sistine Chapel?",
+            "options": ["Da Vinci", "Raphael", "Michelangelo", "Donatello"],
+            "answer": 2
+          },
+          {
+            "q": "In which year did the Berlin Wall fall?",
+            "options": ["1987", "1989", "1991", "1993"],
+            "answer": 1
+          },
+          {
+            "q": "Which French Emperor was exiled to Saint Helena?",
+            "options": ["Louis XIV", "Napoleon", "Charlemagne", "Louis XVI"],
+            "answer": 1
+          },
+          {
+            "q": "Which battle marked the defeat of Napoleon in 1815?",
+            "options": ["Austerlitz", "Waterloo", "Jena", "Wagram"],
+            "answer": 1
+          }
+        ]
+      },
+      "geographie": {
+        "name": "Geography",
+        "desc": "Explore the world",
+        "img": "https://i.ibb.co/B5HC9xdt/943e7d0cc0398147e996603890e920ad.jpg",
+        "questions": [
+          {
+            "q": "What is the capital of Australia?",
+            "options": ["Sydney", "Melbourne", "Canberra", "Brisbane"],
+            "answer": 2
+          },
+          {
+            "q": "What is the longest river in the world?",
+            "options": ["Amazon", "Nile", "Yangtze", "Mississippi"],
+            "answer": 1
+          },
+          {
+            "q": "In which country is the Taj Mahal located?",
+            "options": ["Pakistan", "India", "Bangladesh", "Nepal"],
+            "answer": 1
+          },
+          {
+            "q": "What is the largest island in the world?",
+            "options": ["Madagascar", "Borneo", "Greenland", "New Guinea"],
+            "answer": 2
+          },
+          {
+            "q": "How many states does the United States have?",
+            "options": ["48", "50", "52", "54"],
+            "answer": 1
+          },
+          {
+            "q": "Which mountain range separates Europe from Asia?",
+            "options": ["Alps", "Himalayas", "Urals", "Andes"],
+            "answer": 2
+          },
+          {
+            "q": "What is the capital of Canada?",
+            "options": ["Toronto", "Ottawa", "Montreal", "Vancouver"],
+            "answer": 1
+          },
+          {
+            "q": "In which country is the city of Timbuktu located?",
+            "options": ["Niger", "Mali", "Chad", "Burkina Faso"],
+            "answer": 1
+          },
+          {
+            "q": "Which desert is the largest in the world?",
+            "options": ["Sahara", "Gobi", "Kalahari", "Antarctic"],
+            "answer": 3
+          },
+          {
+            "q": "Which sea separates Africa from Europe?",
+            "options": ["Red Sea", "Mediterranean", "Black Sea", "Adriatic Sea"],
+            "answer": 1
+          }
+        ]
+      },
+      "sport": {
+        "name": "Sport",
+        "desc": "Champions and records",
+        "img": "https://i.ibb.co/RpVPzjnZ/404ccf2b5e9568aa1c31267b9d68e373.jpg",
+        "questions": [
+          {
+            "q": "How many players make up a basketball team?",
+            "options": ["4", "5", "6", "7"],
+            "answer": 1
+          },
+          {
+            "q": "Which country has won the most FIFA World Cups?",
+            "options": ["Argentina", "Germany", "Brazil", "Italy"],
+            "answer": 2
+          },
+          {
+            "q": "How often are the Olympic Games held?",
+            "options": ["2 years", "3 years", "4 years", "5 years"],
+            "answer": 2
+          },
+          {
+            "q": "Which sport does Usain Bolt practice?",
+            "options": ["Swimming", "Athletics", "Cycling", "Boxing"],
+            "answer": 1
+          },
+          {
+            "q": "How many sets must be won to win a men's Grand Slam tennis match?",
+            "options": ["2", "3", "4", "5"],
+            "answer": 1
+          },
+          {
+            "q": "Which footballer has won the most Ballon d'Or awards?",
+            "options": ["Ronaldo", "Messi", "Pelé", "Maradona"],
+            "answer": 1
+          },
+          {
+            "q": "In which sport is a putter used?",
+            "options": ["Tennis", "Golf", "Cricket", "Hockey"],
+            "answer": 1
+          },
+          {
+            "q": "What is the duration of a rugby union match?",
+            "options": ["60 min", "70 min", "80 min", "90 min"],
+            "answer": 2
+          },
+          {
+            "q": "Which country hosted the 2016 Olympics?",
+            "options": ["China", "Brazil", "England", "Japan"],
+            "answer": 1
+          },
+          {
+            "q": "How many Grand Slams are there in tennis?",
+            "options": ["3", "4", "5", "6"],
+            "answer": 1
+          }
+        ]
+      }
+    }
+  }
+}

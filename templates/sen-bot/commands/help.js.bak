@@ -1,0 +1,132 @@
+/**
+ * 𝗦𝗘𝗡 Bot - Help Command (Structuré par Catégories)
+ */
+
+import response from '../lib/response.js';
+import settings from '../lib/settingsManager.js';
+
+export async function helpCommand(sock, chatId, message, args) {
+    const senderName = message.pushName || "User";
+    
+    // 🔥 C'est ICI qu'on définit les boîtes que tu veux voir apparaître
+    const menuData = {
+        user: senderName,
+        categories: {
+            "General": [
+                "ping", 
+                "menu", 
+                "help"
+            ],
+            "Owner": [
+                "public", 
+                "private", 
+                "sudo", 
+                "delsudo", 
+                "listsudo", 
+                "language",
+                "setname",
+                "setprefix",
+                "setmenu",
+                "setaudio",
+                "setstyle",
+                "audio", 
+                "setwelcome",
+                "setgoodbye",
+                "save", 
+            ],
+           "AI": [ 
+                "gpt4", 
+                "gpt4o", 
+                "mistral", 
+                "flux", 
+                "sora",
+            ],
+           "image edit": [
+                "removebg",
+                "upscale",
+                "img2sketch",
+                "nanobanana"
+           ], 
+           "Google": [ 
+                "gemini", 
+                "addgapi <YOUR_API>", 
+                "removegapi", 
+                "nanogen", 
+                "imagefx",
+                "veo3", 
+                "vision",
+                "nanobanana"
+            ],
+            "Downloads": [ 
+                "apk",
+                "movie",
+                "series",
+                "serieinfo", 
+                "msearch"
+            ],
+            "Anime": [ 
+                "waifu", "hwaifu", "loli",
+                "hug", "kiss", "happy",
+                "akiyama", "boruto", "deidara",
+                "fanart", "sasuke", "bluearchive",
+                "nsfw", "hneko"
+            ],
+
+            "quizz & trivia": [ 
+                "quizz", 
+                "quizzstop"
+            ],
+            "Protection": [
+                "antilink", 
+                "antitag", 
+                "antimedia", 
+                "antispam", 
+                "antipromote",
+                "antidemote",
+                "warnings", 
+                "resetwarn", 
+                "groupstatus"
+            ], 
+            "Groups": [
+                "add", 
+                "tag", 
+                "tagall",
+                "kick",
+                "demote",
+                "promote",
+                "demoteall",
+                "gdesc",
+                "gname",
+                "glink", 
+                "welcome",
+                "goodbye",
+            ], 
+           "Ephoto": [
+                "metallic", "ice", "snow", "impressive", 
+                "matrix", "light", "neon", "devil", 
+                "purple", "thunder", "leaves", "1917", 
+                "arena", "hacker", "sand", "glitch", 
+                "fire", "dragonball", "foggyglass", "pornhub", 
+                "foggyglassv2", "naruto", "typo", "marvel", 
+                "frost", "pixelglitch", "neonglitch", "america", 
+                "erase", "captainamerica", "blackpink", "starwars", 
+                "bearlogo", "graffiti", "graffitiv2", "futuristic", 
+                "clouds"
+            ],
+            "utils": [
+                "dns", 
+                "obfuscate", 
+                "dbinary", 
+                "fancy",
+                "tourl",
+                "vv"
+            ]
+           
+        }
+    };
+
+    // On envoie les données structurées au gestionnaire de réponse
+    await response.menu(sock, chatId, message, menuData);
+}
+
+export default helpCommand;

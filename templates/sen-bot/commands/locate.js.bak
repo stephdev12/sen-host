@@ -1,0 +1,39 @@
+/**
+ * 𝗦𝗘𝗡 Bot - Location Request
+ * Utilise le bouton spécial 'send_location' de gifted-btns
+ */
+
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const { sendInteractiveMessage } = require('gifted-btns');
+
+export async function locateCommand(sock, chatId, message, args) {
+    try {
+        // Réaction
+        await sock.sendMessage(chatId, { react: { text: '📍', key: message.key } });
+
+        // Utilisation de sendInteractiveMessage avec le type 'send_location'
+        // Documentation: { name: 'send_location', buttonParamsJson: ... }
+        await sendInteractiveMessage(sock, chatId, {
+            text: `📍 *LOCATION REQUEST*\n\n> Veuillez partager votre position actuelle pour continuer.`,
+            footer: "SEN BOT SYSTEM",
+            header: "LOCALISATION",
+            interactiveButtons: [
+                {
+                    name: 'send_location',
+                    buttonParamsJson: JSON.stringify({
+                        display_text: '📍 PARTAGER MA POSITION'
+                    })
+                }
+            ]
+        }, { 
+            quoted: message 
+        });
+
+    } catch (error) {
+        console.error('Locate Error:', error);
+        await sock.sendMessage(chatId, { text: '❌ Erreur (Gifted-Btns).' }, { quoted: message });
+    }
+}
+
+export default { locateCommand };

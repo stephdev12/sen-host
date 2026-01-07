@@ -1,0 +1,148 @@
+/**
+ * 𝗦𝗘𝗡 Bot - Series Commands (Info & Download)
+ * Uses: stephtech-ui & Gifted Tech API
+ */
+
+import axios from 'axios';
+import StephUI from 'stephtech-ui';
+import response from '../lib/response.js';
+
+/**
+ * Commande 1: .serie (Recherche et Infos Générales)
+ */
+export async function serieCommand(sock, chatId, message, args) {
+    const ui = new StephUI(sock);
+    const query = args.join(' ');
+
+    if (!query) {
+        return await sock.sendMessage(chatId, { 
+            text: `📺 ${response.font('Nom de la série requis')}.\nEx: .serie Breaking Bad` 
+        }, { quoted: message });
+    }
+
+    try {
+        await sock.sendMessage(chatId, { react: { text: '🔎', key: message.key } });
+
+        // 1. RECHERCHE
+        const searchUrl = `https://movieapi.giftedtech.co.ke/api/search/${encodeURIComponent(query)}`;
+        const searchRes = await axios.get(searchUrl);
+
+        if (!searchRes.data.success || !searchRes.data.results.items.length) {
+            return await sock.sendMessage(chatId, { text: '❌ Série introuvable.' }, { quoted: message });
+        }
+
+        // On prend le premier résultat
+        const series = searchRes.data.results.items[0];
+        
+        // On essaie de récupérer les détails complets (pour avoir le nombre de saisons si dispo)
+        // Sinon on utilise les infos de base
+        const thumb = series.cover?.url || 'https://i.ibb.co/G5mJZxs/noposter.jpg';
+
+        let bodyText = `> Rating : ${series.imdbRatingValue || 'N/A'}/10\n`;
+        bodyText += `> Date : ${series.releaseDate || 'N/A'}\n`;
+        bodyText += `> Subs : ${series.subtitles || 'Multi'}\n`;
+        bodyText += `> Desc : ${series.description ? series.description.substring(0, 100) + '...' : '...'}`;
+
+        // On envoie un Carrousel d'information (Pas de téléchargement ici)
+        await ui.carousel(chatId, {
+            header: "SERIES INFO",
+            cards: [
+                {
+                    title: series.title.toUpperCase(),
+                    body: bodyText,
+                    image: thumb,
+                    buttons: [
+                        {
+                            id: `dlserie ${series.title} | 1 | 1`, // Suggestion rapide
+                            text: "Download S01 E01",
+                            type: "quick_reply"
+                        }
+                    ]
+                }
+            ],
+            quoted: message
+        });
+
+    } catch (error) {
+        console.error('Serie Info Error:', error);
+        await sock.sendMessage(chatId, { text: '❌ Erreur de recherche.' }, { quoted: message });
+    }
+}
+
+/**
+ * Commande 2: .dlserie (Téléchargement Épisode Spécifique)
+ * Usage: .dlserie Nom | Saison | Episode [| Langue]
+ */
+export async function dlSerieCommand(sock, chatId, message, args) {
+    const ui = new StephUI(sock);
+    
+    // Format: Nom | Saison | Episode | Langue(Optionnel)
+    const input = args.join(' ');
+    const [query, season, episode, lang] = input.split('|').map(i => i ? i.trim() : null);
+
+    if (!query || !season || !episode) {
+        return await sock.sendMessage(chatId, { 
+            text: `📥 ${response.font('Format requis')} :\n.dlserie Nom | Saison | Episode\n\n📝 Ex: .dlserie Lupin | 1 | 2` 
+        }, { quoted: message });
+    }
+
+    try {
+        await sock.sendMessage(chatId, { react: { text: '⬇️', key: message.key } });
+
+        // 1. RECHERCHE (On inclut la langue dans la recherche si spécifiée)
+        // Ex: "Lupin French" pour tenter de trouver la VF
+        const searchQuery = lang ? `${query} ${lang}` : query;
+        const searchUrl = `https://movieapi.giftedtech.co.ke/api/search/${encodeURIComponent(searchQuery)}`;
+        const searchRes = await axios.get(searchUrl);
+
+        if (!searchRes.data.success || !searchRes.data.results.items.length) {
+            return await sock.sendMessage(chatId, { text: '❌ Série introuvable avec ces critères.' }, { quoted: message });
+        }
+
+        const series = searchRes.data.results.items[0];
+        const seriesId = series.subjectId;
+
+        // 2. RÉCUPÉRATION DES LIENS
+        const sourceUrl = `https://movieapi.giftedtech.co.ke/api/sources/${seriesId}?season=${season}&episode=${episode}`;
+        const sourceRes = await axios.get(sourceUrl);
+        const sources = sourceRes.data.results;
+
+        if (!sources || sources.length === 0) {
+            return await sock.sendMessage(chatId, { text: `❌ Épisode ${episode} (Saison ${season}) introuvable.` }, { quoted: message });
+        }
+
+        // 3. PRÉPARATION DES BOUTONS CTA
+        let buttons = [];
+        sources.forEach(source => {
+            buttons.push({
+                text: `📥 Download ${source.quality}`,
+                url: source.download_url // Lien direct (CTA)
+            });
+        });
+
+        // Limite à 3 boutons max pour éviter les bugs d'affichage
+        buttons = buttons.slice(0, 3);
+
+        // 4. MESSAGE MINIMALISTE
+        let caption = `📺 *${response.font('SERIES DOWNLOAD')}*\n\n`;
+        caption += `> *Title:* ${series.title}\n`;
+        caption += `> *Season:* ${season} | *Episode:* ${episode}\n`;
+        // On affiche les sous-titres détectés par l'API pour que l'user sache
+        caption += `> *Subs:* ${series.subtitles || 'Non spécifié'}`;
+
+        // Envoi avec image + boutons CTA (urlButtons)
+        await ui.urlButtons(chatId, {
+            text: caption,
+            footer: "SEN DOWNLOADER",
+            image: series.cover?.url || 'https://i.ibb.co/G5mJZxs/noposter.jpg',
+            buttons: buttons,
+            quoted: message
+        });
+
+    } catch (error) {
+        console.error('DL Serie Error:', error);
+        await sock.sendMessage(chatId, { text: '❌ Erreur lors de la récupération des liens.' }, { quoted: message });
+    }
+}
+
+export default { serieCommand, dlSerieCommand };

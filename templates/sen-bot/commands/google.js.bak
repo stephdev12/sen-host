@@ -1,0 +1,355 @@
+/**
+ * 𝗦𝗘𝗡 Bot - Google AI Commands
+ * Copyright (c) 2024 𝙎𝙏𝙀𝙋𝙃𝘿𝙀𝙑
+ * FREE TIER MODELS ONLY
+ */
+
+import { downloadContentFromMessage } from '@whiskeysockets/baileys';
+import { isOwner } from '../lib/authHelper.js';
+import configs from '../configs.js';
+import googleApiManager from '../lib/googleApiManager.js';
+import fs from 'fs';
+
+/**
+ * Commande .addgapi - Ajouter une clé API Google
+ */
+export async function addgapiCommand(sock, chatId, message, args) {
+    try {
+        if (!await isOwner(sock, message, configs)) {
+            return sock.sendMessage(chatId, {
+                text: '❌ Owner only command'
+            }, { quoted: message });
+        }
+
+        if (args.length === 0) {
+            return sock.sendMessage(chatId, {
+                text: '📝 *ADD GOOGLE API KEY*\n\n' +
+                      'Usage: .addgapi YOUR_API_KEY\n\n' +
+                      'Get your free key:\n' +
+                      '1. Go to https://aistudio.google.com\n' +
+                      '2. Click "Get API key"\n' +
+                      '3. Create new API key\n' +
+                      '4. Copy and paste here'
+            }, { quoted: message });
+        }
+
+        const apiKey = args[0];
+        
+        await sock.sendMessage(chatId, {
+            react: { text: '🔑', key: message.key }
+        });
+
+        const isValid = await googleApiManager.testApiKey(apiKey);
+
+        if (isValid) {
+            googleApiManager.setApiKey(apiKey);
+            
+            await sock.sendMessage(chatId, {
+                text: '✅ *GOOGLE API KEY ADDED*\n\n' +
+                      'Free tier commands:\n' +
+                      '┃ .gemini - Chat AI (10 RPM)\n' +
+                      '┃ .vision - Analyze images\n' +
+                      '┃ .nanogen - Generate images (500/day)\n\n' +
+                      '⚠️ Paid only:\n' +
+                      '┃ Imagen 4 - Not in free tier\n' +
+                      '┃ Veo 3.1 - Not in free tier'
+            }, { quoted: message });
+        } else {
+            await sock.sendMessage(chatId, {
+                text: '❌ Invalid API key\n\nCheck your key and try again.'
+            }, { quoted: message });
+        }
+
+    } catch (error) {
+        console.error('AddGAPI Error:', error);
+        await sock.sendMessage(chatId, {
+            text: '❌ Error adding API key'
+        }, { quoted: message });
+    }
+}
+
+/**
+ * Commande .removegapi - Supprimer la clé API
+ */
+export async function removegapiCommand(sock, chatId, message, args) {
+    try {
+        if (!await isOwner(sock, message, configs)) {
+            return sock.sendMessage(chatId, {
+                text: '❌ Owner only command'
+            }, { quoted: message });
+        }
+
+        googleApiManager.removeApiKey();
+        
+        await sock.sendMessage(chatId, {
+            text: '✅ Google API key removed'
+        }, { quoted: message });
+
+    } catch (error) {
+        console.error('RemoveGAPI Error:', error);
+        await sock.sendMessage(chatId, {
+            text: '❌ Error removing API key'
+        }, { quoted: message });
+    }
+}
+
+/**
+ * Commande .gemini - Chat avec Gemini 2.5 Flash (FREE)
+ * Usage: .gemini your question
+ */
+export async function geminiCommand(sock, chatId, message, args) {
+    try {
+        const client = googleApiManager.getClient();
+        if (!client) {
+            return sock.sendMessage(chatId, {
+                text: '⚠️ No Google API key configured\n\n' +
+                      'Use .addgapi YOUR_KEY to add one'
+            }, { quoted: message });
+        }
+
+        const query = args.join(' ');
+        if (!query) {
+            return sock.sendMessage(chatId, {
+                text: '📝 Usage: .gemini <question>\n\n' +
+                      'Example: .gemini Explain quantum computing'
+            }, { quoted: message });
+        }
+
+        await sock.sendMessage(chatId, {
+            react: { text: '🤖', key: message.key }
+        });
+
+        // Utiliser gemini-2.5-flash (FREE TIER)
+        const response = await client.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: query
+        });
+
+        const text = response.text;
+
+        await sock.sendMessage(chatId, {
+            text: `*GEMINI AI*\n\n${text}`
+        }, { quoted: message });
+
+    } catch (error) {
+        console.error('Gemini Error:', error);
+        
+        let errorMsg = '❌ Error generating response';
+        
+        if (error.message?.includes('quota') || error.message?.includes('429')) {
+            errorMsg = '❌ Quota exceeded\n\nFree tier: 10 RPM, 250 RPD\nWait 1 minute or upgrade.';
+        } else if (error.message?.includes('invalid')) {
+            errorMsg = '❌ Invalid API key. Use .addgapi to update.';
+        }
+        
+        await sock.sendMessage(chatId, {
+            text: errorMsg
+        }, { quoted: message });
+    }
+}
+
+/**
+ * Commande .vision - Analyser une image avec Gemini Vision (FREE)
+ * Usage: .vision <question> (reply to image)
+ */
+export async function visionCommand(sock, chatId, message, args) {
+    try {
+        const client = googleApiManager.getClient();
+        if (!client) {
+            return sock.sendMessage(chatId, {
+                text: '⚠️ No Google API key configured\n\n' +
+                      'Use .addgapi YOUR_KEY to add one'
+            }, { quoted: message });
+        }
+
+        const quoted = message.message?.extendedTextMessage?.contextInfo?.quotedMessage;
+        const imageMsg = quoted?.imageMessage || message.message?.imageMessage;
+
+        if (!imageMsg) {
+            return sock.sendMessage(chatId, {
+                text: '📝 Usage: Reply to an image with .vision <question>\n\n' +
+                      'Example: .vision What is in this image?'
+            }, { quoted: message });
+        }
+
+        const query = args.join(' ') || 'Describe this image in detail';
+
+        await sock.sendMessage(chatId, {
+            react: { text: '👁️', key: message.key }
+        });
+
+        // Télécharger l'image
+        const stream = await downloadContentFromMessage(imageMsg, 'image');
+        let buffer = Buffer.from([]);
+        for await (const chunk of stream) {
+            buffer = Buffer.concat([buffer, chunk]);
+        }
+
+        const base64Image = buffer.toString('base64');
+
+        // Utiliser gemini-2.5-flash pour vision (FREE)
+        const response = await client.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: [
+                {
+                    role: 'user',
+                    parts: [
+                        { text: query },
+                        {
+                            inlineData: {
+                                mimeType: 'image/jpeg',
+                                data: base64Image
+                            }
+                        }
+                    ]
+                }
+            ]
+        });
+
+        const text = response.text;
+
+        await sock.sendMessage(chatId, {
+            text: `*GEMINI VISION*\n\n${text}`
+        }, { quoted: message });
+
+    } catch (error) {
+        console.error('Vision Error:', error);
+        
+        let errorMsg = '❌ Error analyzing image';
+        
+        if (error.message?.includes('quota') || error.message?.includes('429')) {
+            errorMsg = '❌ Quota exceeded. Wait and try again.';
+        }
+        
+        await sock.sendMessage(chatId, {
+            text: errorMsg
+        }, { quoted: message });
+    }
+}
+
+/**
+ * Commande .nanogen - Générer image avec Nano Banana (FREE)
+ * Usage: .nanogen <prompt>
+ * FREE TIER: 500 images/day, 15 RPM
+ */
+export async function nanogenCommand(sock, chatId, message, args) {
+    try {
+        const client = googleApiManager.getClient();
+        if (!client) {
+            return sock.sendMessage(chatId, {
+                text: '⚠️ No Google API key configured\n\n' +
+                      'Use .addgapi YOUR_KEY to add one'
+            }, { quoted: message });
+        }
+
+        const prompt = args.join(' ');
+        if (!prompt) {
+            return sock.sendMessage(chatId, {
+                text: '📝 Usage: .nanogen <description>\n\n' +
+                      'Example: .nanogen a futuristic city at sunset\n\n' +
+                      '🆓 Free: 500 images/day, 15 RPM'
+            }, { quoted: message });
+        }
+
+        await sock.sendMessage(chatId, {
+            react: { text: '🍌', key: message.key }
+        });
+
+        await sock.sendMessage(chatId, {
+            text: '⏳ Generating image...'
+        }, { quoted: message });
+
+        // Utiliser gemini-2.5-flash-image-preview (FREE TIER)
+        const response = await client.models.generateContent({
+            model: 'gemini-2.5-flash-image-preview',
+            contents: prompt
+        });
+
+        // Extraire l'image
+        for (const part of response.candidates[0].content.parts) {
+            if (part.inlineData) {
+                const imageBuffer = Buffer.from(part.inlineData.data, 'base64');
+                
+                await sock.sendMessage(chatId, {
+                    image: imageBuffer,
+                    caption: `*NANO BANANA 🍌*\n\nPrompt: ${prompt}\n\n✨ 1024x1024 resolution`
+                }, { quoted: message });
+                return;
+            }
+        }
+
+        await sock.sendMessage(chatId, {
+            text: '❌ No image generated'
+        }, { quoted: message });
+
+    } catch (error) {
+        console.error('Nano Banana Error:', error);
+        
+        let errorMsg = '❌ Error generating image';
+        
+        if (error.message?.includes('quota') || error.message?.includes('429')) {
+            errorMsg = '❌ Quota exceeded\n\n🆓 Free: 500/day, 15 RPM\nWait or upgrade to paid.';
+        } else if (error.message?.includes('RESOURCE_EXHAUSTED')) {
+            errorMsg = '⏳ Rate limit (15 RPM). Wait 1 minute.';
+        }
+        
+        await sock.sendMessage(chatId, {
+            text: errorMsg
+        }, { quoted: message });
+    }
+}
+
+/**
+ * Commande .gstatus - Voir le statut API
+ */
+export async function gstatusCommand(sock, chatId, message, args) {
+    try {
+        const apiKey = googleApiManager.getApiKey();
+        const hasKey = !!apiKey;
+
+        let text = `┏━━〔 GOOGLE AI STATUS 〕━━┓\n\n`;
+        text += `API Key: ${hasKey ? '✅ Configured' : '❌ Not set'}\n`;
+        text += `SDK: @google/genai\n`;
+        text += `Tier: Free\n\n`;
+        
+        if (hasKey) {
+            text += `🆓 FREE TIER MODELS:\n\n`;
+            text += `✅ Gemini 2.5 Flash\n`;
+            text += `┃ .gemini - Chat AI\n`;
+            text += `┃ Limits: 10 RPM, 250 RPD\n\n`;
+            
+            text += `✅ Gemini Vision\n`;
+            text += `┃ .vision - Image analysis\n`;
+            text += `┃ Same as chat limits\n\n`;
+            
+            text += `✅ Nano Banana (Flash Image)\n`;
+            text += `┃ .nanogen - Generate images\n`;
+            text += `┃ Limits: 500/day, 15 RPM\n\n`;
+            
+            text += `❌ PAID ONLY:\n`;
+            text += `┃ Imagen 4 - Requires billing\n`;
+            text += `┃ Veo 3.1 - Requires billing\n`;
+        } else {
+            text += `Use .addgapi YOUR_KEY\n`;
+        }
+        
+        text += `\n┗━━━━━━━━━━━━━━━━━━━┛`;
+
+        await sock.sendMessage(chatId, { text }, { quoted: message });
+
+    } catch (error) {
+        console.error('GStatus Error:', error);
+        await sock.sendMessage(chatId, {
+            text: '❌ Error checking status'
+        }, { quoted: message });
+    }
+}
+
+export default {
+    addgapiCommand,
+    removegapiCommand,
+    geminiCommand,
+    visionCommand,
+    nanogenCommand,
+    gstatusCommand
+};

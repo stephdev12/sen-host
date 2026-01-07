@@ -1,0 +1,74 @@
+{
+  "telegram_5096219201": {
+    "prefix": "!",
+    "botName": "Multi-Bot",
+    "language": "fr",
+    "menuImage": "https://i.postimg.cc/gjZbjhfx/b19c205e79afb89db484c2fcfe29e978.jpg",
+    "ephotoMenuImage": "https://i.postimg.cc/TYgh0jvH/Ryomen-Sukuna.jpg",
+    "welcomeImage": "https://i.postimg.cc/6Qq7gWb9/Sukuna.jpg",
+    "menuVersion": "v1",
+    "antilinkLimit": 3,
+    "createdAt": "2025-10-29T01:27:14.548Z",
+    "updatedAt": "2025-10-29T01:27:30.452Z"
+  },
+  "237650471093": {
+    "prefix": "!",
+    "botName": "SUKUNA-MD",
+    "language": "fr",
+    "menuImage": "https://i.postimg.cc/8cKZBMZw/lv-0-20251105211949.jpg",
+    "ephotoMenuImage": "https://i.postimg.cc/bv94M6Lp/Getou-suguru.jpg",
+    "welcomeImage": "https://i.postimg.cc/bv94M6Lp/Getou-suguru.jpg",
+    "menuVersion": "v1",
+    "antilinkLimit": 3,
+    "createdAt": "2025-10-29T07:44:12.686Z",
+    "updatedAt": "2025-11-25T17:41:02.195Z"
+  },
+  "telegram_7394234477": {
+    "prefix": "!",
+    "botName": "Multi-Bot",
+    "language": "id",
+    "menuImage": "https://i.postimg.cc/gjZbjhfx/b19c205e79afb89db484c2fcfe29e978.jpg",
+    "ephotoMenuImage": "https://i.postimg.cc/TYgh0jvH/Ryomen-Sukuna.jpg",
+    "welcomeImage": "https://i.postimg.cc/6Qq7gWb9/Sukuna.jpg",
+    "menuVersion": "v1",
+    "antilinkLimit": 3,
+    "createdAt": "2025-11-04T16:45:45.565Z",
+    "updatedAt": "2025-11-04T16:53:03.715Z"
+  },
+  "6285857684268": {
+    "prefix": "!",
+    "botName": "Multi-Bot",
+    "language": "fr",
+    "menuImage": "https://i.postimg.cc/gjZbjhfx/b19c205e79afb89db484c2fcfe29e978.jpg",
+    "ephotoMenuImage": "https://i.postimg.cc/TYgh0jvH/Ryomen-Sukuna.jpg",
+    "welcomeImage": "https://i.postimg.cc/6Qq7gWb9/Sukuna.jpg",
+    "menuVersion": "v1",
+    "antilinkLimit": 3,
+    "createdAt": "2025-11-04T16:49:02.558Z",
+    "updatedAt": "2025-11-04T16:49:02.558Z"
+  },
+  "telegram_7185080699": {
+    "prefix": "!",
+    "botName": "Multi-Bot",
+    "language": "fr",
+    "menuImage": "https://i.postimg.cc/gjZbjhfx/b19c205e79afb89db484c2fcfe29e978.jpg",
+    "ephotoMenuImage": "https://i.postimg.cc/TYgh0jvH/Ryomen-Sukuna.jpg",
+    "welcomeImage": "https://i.postimg.cc/6Qq7gWb9/Sukuna.jpg",
+    "menuVersion": "v1",
+    "antilinkLimit": 3,
+    "createdAt": "2025-11-07T22:29:17.029Z",
+    "updatedAt": "2025-11-09T17:00:00.553Z"
+  },
+  "221786136116": {
+    "prefix": "!",
+    "botName": "Multi-Bot",
+    "language": "fr",
+    "menuImage": "https://i.postimg.cc/gjZbjhfx/b19c205e79afb89db484c2fcfe29e978.jpg",
+    "ephotoMenuImage": "https://i.postimg.cc/TYgh0jvH/Ryomen-Sukuna.jpg",
+    "welcomeImage": "https://i.postimg.cc/6Qq7gWb9/Sukuna.jpg",
+    "menuVersion": "v1",
+    "antilinkLimit": 3,
+    "createdAt": "2025-11-09T17:00:50.414Z",
+    "updatedAt": "2025-11-09T17:00:50.414Z"
+  }
+}

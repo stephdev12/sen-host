@@ -1,0 +1,89 @@
+/**
+ * 𝗦𝗘𝗡 Bot - Image Manipulation Tools
+ * API: okatsu-rolezapiiz
+ * Uses: lib/mediaUpload.js (ImgBB Upload)
+ */
+
+import axios from 'axios';
+import mediaUploader from '../lib/mediaUpload.js';
+import response from '../lib/response.js';
+
+const BASE_URL = 'https://okatsu-rolezapiiz.vercel.app/tools';
+
+/**
+ * Fonction générique pour traiter les images
+ * @param {string} endpoint - Le chemin de l'API (ex: /removebg)
+ * @param {boolean} expectJson - Si true, on attend un JSON { result: url }. Si false, on attend une image binaire.
+ */
+async function processImageTool(sock, chatId, message, endpoint, expectJson = false, captionTitle = 'IMAGE TOOL') {
+    const quoted = message.message?.extendedTextMessage?.contextInfo?.quotedMessage;
+    const targetMsg = quoted || message.message;
+    const imageMsg = targetMsg?.imageMessage;
+
+    if (!imageMsg) {
+        return await sock.sendMessage(chatId, { 
+            text: `🖼️ ${response.font('Veuillez répondre à une image')}.` 
+        }, { quoted: message });
+    }
+
+    try {
+        await sock.sendMessage(chatId, { react: { text: '🖌️', key: message.key } });
+
+        // 1. Upload sur ImgBB pour obtenir une URL publique
+        const publicUrl = await mediaUploader.uploadImage(imageMsg);
+        
+        if (!publicUrl) {
+            return await sock.sendMessage(chatId, { text: '❌ Erreur lors de l\'upload temporaire.' }, { quoted: message });
+        }
+
+        // 2. Appel de l'API de transformation
+        const apiUrl = `${BASE_URL}${endpoint}?url=${publicUrl}`;
+        
+        let finalMedia;
+
+        if (expectJson) {
+            // Cas JSON (img2sketch)
+            const { data } = await axios.get(apiUrl);
+            if (data.status && data.result) {
+                finalMedia = { url: data.result };
+            } else {
+                throw new Error('API JSON invalide');
+            }
+        } else {
+            // Cas Binaire (removebg, upscale)
+            const res = await axios.get(apiUrl, { responseType: 'arraybuffer' });
+            finalMedia = res.data; // C'est le buffer de l'image
+        }
+
+        // 3. Envoi du résultat
+        await sock.sendMessage(chatId, { 
+            image: finalMedia,
+            caption: `> *${captionTitle}*`
+        }, { quoted: message });
+
+    } catch (error) {
+        console.error(`Image Tool Error [${endpoint}]:`, error.message);
+        await sock.sendMessage(chatId, { text: '❌ Traitement échoué.' }, { quoted: message });
+    }
+}
+
+// --- COMMANDES ---
+
+export async function removebgCommand(sock, chatId, message, args) {
+    // removebg renvoie directement l'image binaire
+    await processImageTool(sock, chatId, message, '/removebg', false, 'REMOVE BG');
+}
+
+export async function upscaleCommand(sock, chatId, message, args) {
+    // upscale renvoie directement l'image binaire
+    // Note: On ne peut pas "forcer" la HD via l'API si elle ne le propose pas, 
+    // mais on renvoie ce que l'API donne tel quel (souvent amélioré).
+    await processImageTool(sock, chatId, message, '/upscale', false, 'UPSCALE HD');
+}
+
+export async function img2sketchCommand(sock, chatId, message, args) {
+    // img2sketch renvoie un JSON : { result: "url..." }
+    await processImageTool(sock, chatId, message, '/img2sketch', true, 'SKETCH ART');
+}
+
+export default { removebgCommand, upscaleCommand, img2sketchCommand };

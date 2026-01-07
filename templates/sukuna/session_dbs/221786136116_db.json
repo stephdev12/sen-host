@@ -1,0 +1,73 @@
+{
+  "groups": {
+    "120363401720831179@g.us": {
+      "antilink": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antispam": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antimention": {
+        "enabled": false
+      },
+      "antitag": {
+        "enabled": false
+      },
+      "welcome": {
+        "enabled": false,
+        "text": ""
+      },
+      "goodbye": {
+        "enabled": false,
+        "text": ""
+      },
+      "users": {
+        "51342609539103@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        },
+        "21797495943380@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        }
+      }
+    },
+    "120363403481638949@g.us": {
+      "antilink": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antispam": {
+        "enabled": false,
+        "kickThreshold": 3
+      },
+      "antimention": {
+        "enabled": false
+      },
+      "antitag": {
+        "enabled": false
+      },
+      "welcome": {
+        "enabled": false,
+        "text": ""
+      },
+      "goodbye": {
+        "enabled": false,
+        "text": ""
+      },
+      "users": {
+        "51342609539103@lid": {
+          "antilink_warnings": 0,
+          "antispam_warnings": 0,
+          "messages": []
+        }
+      }
+    }
+  },
+  "users": {},
+  "settings": {}
+}

@@ -1,0 +1,91 @@
+/**
+ * 𝗦𝗘𝗡 Bot - Tools Commands
+ * Correction: Fancy Text Logic
+ */
+
+import axios from 'axios';
+import response from '../lib/response.js';
+
+// ... (Garde tes fonctions dns, obfuscate, dbinary comme avant) ...
+export async function dnsCommand(sock, chatId, message, args) {
+    const domain = args.join('');
+    if (!domain) return sock.sendMessage(chatId, { text: 'Ex: .dns google.com' });
+    try {
+        const { data } = await axios.get(`https://api.giftedtech.co.ke/api/tools/dns-check?apikey=gifted&domain=${domain}`);
+        if (!data.success) throw new Error();
+        let text = `🌐 *DNS RECORDS: ${domain}*\n\n`;
+        data.result.records.forEach(rec => {
+            text += `🔹 *Type:* ${rec.type}\n   TTL: ${rec.ttl}\n`;
+            if (rec.ip) text += `   IP: ${rec.ip}\n`;
+            if (rec.target) text += `   Target: ${rec.target}\n`;
+            text += '\n';
+        });
+        await sock.sendMessage(chatId, { text }, { quoted: message });
+    } catch (e) { sock.sendMessage(chatId, { text: '❌ Erreur.' }); }
+}
+
+export async function obfuscateCommand(sock, chatId, message, args) {
+    const code = args.join(' ');
+    if (!code) return sock.sendMessage(chatId, { text: 'Entrez du code JS.' });
+    try {
+        const { data } = await axios.get(`https://api.giftedtech.co.ke/api/tools/encryptv3?apikey=gifted&code=${encodeURIComponent(code)}`);
+        await sock.sendMessage(chatId, { text: data.result.encrypted_code }, { quoted: message });
+    } catch (e) { sock.sendMessage(chatId, { text: '❌ Erreur.' }); }
+}
+
+export async function dbinaryCommand(sock, chatId, message, args) {
+    const binary = args.join(' ');
+    if (!binary) return sock.sendMessage(chatId, { text: 'Entrez du binaire.' });
+    try {
+        const { data } = await axios.get(`https://api.giftedtech.co.ke/api/tools/dbinary?apikey=gifted&query=${encodeURIComponent(binary)}`);
+        await sock.sendMessage(chatId, { text: `🔓 *Décodé:* ${data.result}` }, { quoted: message });
+    } catch (e) { sock.sendMessage(chatId, { text: '❌ Erreur.' }); }
+}
+
+// 🔥 CORRECTION ICI POUR FANCY
+export async function fancyCommand(sock, chatId, message, args) {
+    if (args.length === 0) return sock.sendMessage(chatId, { text: 'Usage: .fancy <texte> [numéro]\nEx: .fancy SenBot 1' });
+
+    let text = "";
+    let styleIndex = null;
+
+    // Nouvelle logique : On regarde si le DERNIER argument est un nombre
+    const lastArg = args[args.length - 1];
+
+    if (!isNaN(lastArg) && args.length > 1) {
+        // C'est un chiffre ! On l'utilise comme index
+        styleIndex = parseInt(lastArg);
+        // On récupère tout le texte SAUF le dernier chiffre
+        text = args.slice(0, -1).join(' ');
+    } else {
+        // Pas de chiffre à la fin, tout est du texte
+        text = args.join(' ');
+    }
+
+    try {
+        const { data } = await axios.get(`https://api.giftedtech.co.ke/api/tools/fancy?apikey=gifted&text=${encodeURIComponent(text)}`);
+        
+        if (styleIndex !== null) {
+            // Si l'utilisateur a donné un numéro valide (ex: 1 pour le premier élément)
+            const idx = styleIndex - 1; // Le tableau commence à 0
+            if (data.results[idx]) {
+                return await sock.sendMessage(chatId, { text: data.results[idx].result }, { quoted: message });
+            }
+        }
+
+        // Sinon, on affiche la liste
+        let list = `✨ *FANCY STYLES*\nTexte: ${text}\n\n`;
+        data.results.forEach((item, i) => {
+            list += `*${i + 1}.* ${item.name} : ${item.result}\n`;
+        });
+        list += `\n💡 *Astuce:* Utilisez .fancy ${text} 5 (pour choisir le style 5 direct).`;
+        
+        await sock.sendMessage(chatId, { text: list }, { quoted: message });
+
+    } catch (e) { 
+        console.error(e);
+        sock.sendMessage(chatId, { text: '❌ Erreur API.' }); 
+    }
+}
+
+export default { dnsCommand, obfuscateCommand, dbinaryCommand, fancyCommand };

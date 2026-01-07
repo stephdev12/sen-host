@@ -1,0 +1,82 @@
+/**
+ * 𝗦𝗘𝗡 Bot - AI Commands
+ * Correction: Formatage et gestion des objets JSON
+ */
+
+import axios from 'axios';
+import response from '../lib/response.js';
+
+// Fonction générique pour les LLM
+async function chatAI(sock, chatId, message, args, apiName, modelName) {
+    const query = args.join(' ');
+    if (!query) return sock.sendMessage(chatId, { text: `❓ ${response.font('Posez une question')}.` });
+
+    try {
+        await sock.sendMessage(chatId, { react: { text: '🤖', key: message.key } });
+        const url = `https://api.giftedtech.co.ke/api/ai/${apiName}?apikey=gifted&q=${encodeURIComponent(query)}`;
+        const { data } = await axios.get(url);
+
+        if (data.success) {
+            // CORRECTION [object Object] : 
+            // On vérifie si result est un objet ou une string
+            let replyText = data.result;
+            
+            if (typeof replyText === 'object') {
+                // Si c'est un objet, on essaie de trouver le texte dedans ou on stringify
+                replyText = replyText.response || replyText.message || replyText.data || JSON.stringify(replyText);
+            }
+
+            // Nouveau Format demandé
+            const formattedMsg = `*SEN_AI*\n> *Model* : ${modelName}\n\n${replyText}`;
+
+            await sock.sendMessage(chatId, { 
+                text: formattedMsg
+            }, { quoted: message });
+        }
+    } catch (e) {
+        console.error(e);
+        await sock.sendMessage(chatId, { text: '❌ Erreur API.' });
+    }
+}
+
+export async function gpt4Command(sock, chatId, message, args) {
+    await chatAI(sock, chatId, message, args, 'gpt', 'GPT-4');
+}
+
+export async function gpt4oCommand(sock, chatId, message, args) {
+    await chatAI(sock, chatId, message, args, 'gpt4o', 'GPT-4o');
+}
+
+export async function mistralCommand(sock, chatId, message, args) {
+    await chatAI(sock, chatId, message, args, 'mistral', 'Mistral AI');
+}
+
+export async function fluxCommand(sock, chatId, message, args) {
+    const prompt = args.join(' ');
+
+    if (!prompt) {
+        return await sock.sendMessage(chatId, { 
+            text: `🎨 ${response.font('Veuillez décrire l\'image')}.\nEx: .flux a cyberpunk cat` 
+        }, { quoted: message });
+    }
+
+    try {
+        await sock.sendMessage(chatId, { react: { text: '🎨', key: message.key } });
+
+        const apiUrl = `https://apiskeith.vercel.app/ai/flux?q=${encodeURIComponent(prompt)}`;
+
+        // On récupère l'image en buffer pour éviter les erreurs de lien
+        const { data } = await axios.get(apiUrl, { responseType: 'arraybuffer' });
+
+        await sock.sendMessage(chatId, { 
+            image: data,
+            caption: `> *FLUX GEN*\n> *Prompt :* ${prompt}`
+        }, { quoted: message });
+
+    } catch (error) {
+        console.error('Flux Error:', error);
+        await sock.sendMessage(chatId, { text: '❌ Erreur de génération.' }, { quoted: message });
+    }
+}
+
+export default { gpt4Command, gpt4oCommand, mistralCommand, fluxCommand };

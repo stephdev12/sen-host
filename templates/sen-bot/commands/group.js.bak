@@ -1,0 +1,334 @@
+/**
+ * 𝗦𝗘𝗡 Bot - Group Management Commands
+ * Copyright (c) 2024 𝙎𝙏𝙀𝙋𝙃𝘿𝙀𝙑
+ * Commandes avec réactions uniquement (pas de texte)
+ */
+
+import { isAdmin, isOwner } from '../lib/authHelper.js';
+import configs from '../configs.js';
+import chalk from 'chalk';
+
+// Émojis de réaction
+const SUCCESS = '✅';
+const ERROR = '❌';
+
+/**
+ * Helper pour réagir au message
+ */
+async function react(sock, message, emoji) {
+    try {
+        await sock.sendMessage(message.key.remoteJid, {
+            react: {
+                text: emoji,
+                key: message.key
+            }
+        });
+        console.log(chalk.green(`✅ Reacted with ${emoji}`));
+    } catch (error) {
+        console.error(chalk.red('Error reacting:'), error.message);
+    }
+}
+
+/**
+ * Helper pour vérifier les permissions
+ */
+async function checkPermissions(sock, chatId, message) {
+    console.log(chalk.cyan('🔍 Checking permissions...'));
+    
+    if (!chatId.endsWith('@g.us')) {
+        console.log(chalk.yellow('⚠️ Not a group'));
+        await react(sock, message, ERROR);
+        return false;
+    }
+    
+    const sender = message.key.participant || message.key.remoteJid;
+    const admin = await isAdmin(sock, chatId, sender);
+    const owner = await isOwner(sock, message, configs);
+    
+    console.log(chalk.cyan(`User admin: ${admin}, User owner: ${owner}`));
+    
+    if (!admin && !owner) {
+        console.log(chalk.yellow('⚠️ User not admin'));
+        await react(sock, message, ERROR);
+        return false;
+    }
+    
+  
+    
+    console.log(chalk.green('✅ Permissions OK'));
+    return true;
+}
+
+/**
+ * Helper pour obtenir le JID d'un utilisateur (mention ou reply)
+ */
+function getTargetJid(message) {
+    console.log(chalk.cyan('🔍 Getting target JID...'));
+    
+    // Cas 1: Reply
+    if (message.message?.extendedTextMessage?.contextInfo?.quotedMessage) {
+        const jid = message.message.extendedTextMessage.contextInfo.participant;
+        console.log(chalk.green(`✅ Target from reply: ${jid}`));
+        return jid;
+    }
+    
+    // Cas 2: Mention
+    if (message.message?.extendedTextMessage?.contextInfo?.mentionedJid?.length > 0) {
+        const jid = message.message.extendedTextMessage.contextInfo.mentionedJid[0];
+        console.log(chalk.green(`✅ Target from mention: ${jid}`));
+        return jid;
+    }
+    
+    console.log(chalk.yellow('⚠️ No target found'));
+    return null;
+}
+
+/**
+ * Commande .add - Ajouter un membre au groupe
+ * Usage: .add +237694530506 ou .add 237694530506
+ */
+export async function add(sock, chatId, message, args) {
+    console.log(chalk.magenta('🚀 Executing .add command'));
+    
+    if (!await checkPermissions(sock, chatId, message)) return;
+    
+    if (args.length === 0) {
+        console.log(chalk.yellow('⚠️ No number provided'));
+        return await react(sock, message, ERROR);
+    }
+    
+    try {
+        // Nettoyer le numéro - accepte +237xxx, 237xxx ou juste le numéro
+        let number = args[0].replace(/[^0-9]/g, '');
+        
+        console.log(chalk.cyan(`📱 Cleaned number: ${number}`));
+        
+        const jid = number + '@s.whatsapp.net';
+        
+        console.log(chalk.cyan(`👤 Adding JID: ${jid}`));
+        
+        const result = await sock.groupParticipantsUpdate(chatId, [jid], 'add');
+        console.log(chalk.green('✅ Add result:'), result);
+        
+        await react(sock, message, SUCCESS);
+    } catch (error) {
+        console.error(chalk.red('❌ Error adding member:'), error.message);
+        await react(sock, message, ERROR);
+    }
+}
+
+/**
+ * Commande .kick - Expulser un membre
+ * Usage: .kick @user ou reply
+ */
+export async function kick(sock, chatId, message, args) {
+    console.log(chalk.magenta('🚀 Executing .kick command'));
+    
+    if (!await checkPermissions(sock, chatId, message)) return;
+    
+    const targetJid = getTargetJid(message);
+    
+    if (!targetJid) {
+        console.log(chalk.yellow('⚠️ No target for kick'));
+        return await react(sock, message, ERROR);
+    }
+    
+    try {
+        console.log(chalk.cyan(`👤 Kicking: ${targetJid}`));
+        const result = await sock.groupParticipantsUpdate(chatId, [targetJid], 'remove');
+        console.log(chalk.green('✅ Kick result:'), result);
+        
+        await react(sock, message, SUCCESS);
+    } catch (error) {
+        console.error(chalk.red('❌ Error kicking member:'), error.message);
+        await react(sock, message, ERROR);
+    }
+}
+
+/**
+ * Commande .promote - Promouvoir un membre admin
+ * Usage: .promote @user ou reply
+ */
+export async function promote(sock, chatId, message, args) {
+    console.log(chalk.magenta('🚀 Executing .promote command'));
+    
+    if (!await checkPermissions(sock, chatId, message)) return;
+    
+    const targetJid = getTargetJid(message);
+    
+    if (!targetJid) {
+        console.log(chalk.yellow('⚠️ No target for promote'));
+        return await react(sock, message, ERROR);
+    }
+    
+    try {
+        console.log(chalk.cyan(`👤 Promoting: ${targetJid}`));
+        const result = await sock.groupParticipantsUpdate(chatId, [targetJid], 'promote');
+        console.log(chalk.green('✅ Promote result:'), result);
+        
+        await react(sock, message, SUCCESS);
+    } catch (error) {
+        console.error(chalk.red('❌ Error promoting member:'), error.message);
+        await react(sock, message, ERROR);
+    }
+}
+
+/**
+ * Commande .demote - Rétrograder un admin
+ * Usage: .demote @user ou reply
+ */
+export async function demote(sock, chatId, message, args) {
+    console.log(chalk.magenta('🚀 Executing .demote command'));
+    
+    if (!await checkPermissions(sock, chatId, message)) return;
+    
+    const targetJid = getTargetJid(message);
+    
+    if (!targetJid) {
+        console.log(chalk.yellow('⚠️ No target for demote'));
+        return await react(sock, message, ERROR);
+    }
+    
+    try {
+        console.log(chalk.cyan(`👤 Demoting: ${targetJid}`));
+        const result = await sock.groupParticipantsUpdate(chatId, [targetJid], 'demote');
+        console.log(chalk.green('✅ Demote result:'), result);
+        
+        await react(sock, message, SUCCESS);
+    } catch (error) {
+        console.error(chalk.red('❌ Error demoting member:'), error.message);
+        await react(sock, message, ERROR);
+    }
+}
+
+/**
+ * Commande .demoteall - Rétrograder tous les admins
+ * Usage: .demoteall
+ */
+export async function demoteall(sock, chatId, message, args) {
+    console.log(chalk.magenta('🚀 Executing .demoteall command'));
+    
+    if (!await checkPermissions(sock, chatId, message)) return;
+    
+    try {
+        const groupMetadata = await sock.groupMetadata(chatId);
+        const botNumber = sock.user.id.split(':')[0] + '@s.whatsapp.net';
+        
+        console.log(chalk.cyan(`🤖 Bot number: ${botNumber}`));
+        
+        // Récupérer tous les admins sauf le bot
+        const admins = groupMetadata.participants
+            .filter(p => p.admin && p.id !== botNumber)
+            .map(p => p.id);
+        
+        console.log(chalk.cyan(`👥 Found ${admins.length} admins to demote`));
+        
+        if (admins.length === 0) {
+            console.log(chalk.yellow('⚠️ No admins to demote'));
+            return await react(sock, message, ERROR);
+        }
+        
+        // Rétrograder tous les admins
+        const result = await sock.groupParticipantsUpdate(chatId, admins, 'demote');
+        console.log(chalk.green('✅ Demote all result:'), result);
+        
+        await react(sock, message, SUCCESS);
+    } catch (error) {
+        console.error(chalk.red('❌ Error demoting all:'), error.message);
+        await react(sock, message, ERROR);
+    }
+}
+
+/**
+ * Commande .gname - Changer le nom du groupe
+ * Usage: .gname New Group Name
+ */
+export async function gname(sock, chatId, message, args) {
+    console.log(chalk.magenta('🚀 Executing .gname command'));
+    
+    if (!await checkPermissions(sock, chatId, message)) return;
+    
+    if (args.length === 0) {
+        console.log(chalk.yellow('⚠️ No name provided'));
+        return await react(sock, message, ERROR);
+    }
+    
+    try {
+        const newName = args.join(' ');
+        console.log(chalk.cyan(`📝 New name: ${newName}`));
+        
+        await sock.groupUpdateSubject(chatId, newName);
+        console.log(chalk.green('✅ Name updated'));
+        
+        await react(sock, message, SUCCESS);
+    } catch (error) {
+        console.error(chalk.red('❌ Error updating group name:'), error.message);
+        await react(sock, message, ERROR);
+    }
+}
+
+/**
+ * Commande .gdesc - Changer la description du groupe
+ * Usage: .gdesc New description
+ */
+export async function gdesc(sock, chatId, message, args) {
+    console.log(chalk.magenta('🚀 Executing .gdesc command'));
+    
+    if (!await checkPermissions(sock, chatId, message)) return;
+    
+    if (args.length === 0) {
+        console.log(chalk.yellow('⚠️ No description provided'));
+        return await react(sock, message, ERROR);
+    }
+    
+    try {
+        const newDesc = args.join(' ');
+        console.log(chalk.cyan(`📝 New description: ${newDesc}`));
+        
+        await sock.groupUpdateDescription(chatId, newDesc);
+        console.log(chalk.green('✅ Description updated'));
+        
+        await react(sock, message, SUCCESS);
+    } catch (error) {
+        console.error(chalk.red('❌ Error updating group description:'), error.message);
+        await react(sock, message, ERROR);
+    }
+}
+
+/**
+ * Commande .glink - Obtenir le lien d'invitation du groupe
+ * Usage: .glink
+ */
+export async function glink(sock, chatId, message, args) {
+    console.log(chalk.magenta('🚀 Executing .glink command'));
+    
+    if (!await checkPermissions(sock, chatId, message)) return;
+    
+    try {
+        const code = await sock.groupInviteCode(chatId);
+        const link = `https://chat.whatsapp.com/${code}`;
+        
+        console.log(chalk.green(`✅ Group link: ${link}`));
+        
+        await sock.sendMessage(chatId, {
+            text: `*GROUP LINK*\n\n${link}`
+        }, { quoted: message });
+        
+        await react(sock, message, SUCCESS);
+    } catch (error) {
+        console.error(chalk.red('❌ Error getting group link:'), error.message);
+        await react(sock, message, ERROR);
+    }
+}
+
+// Export default
+export default {
+    add,
+    kick,
+    promote,
+    demote,
+    demoteall,
+    gname,
+    gdesc,
+    glink
+};

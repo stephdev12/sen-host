@@ -1,0 +1,60 @@
+/**
+ * 𝗦𝗘𝗡 Bot - APK Download (Style Bouton CTA)
+ * Uses: stephtech-ui & David Cyril API
+ */
+
+import axios from 'axios';
+import StephUI from 'stephtech-ui';
+import response from '../lib/response.js';
+
+export async function apkCommand(sock, chatId, message, args) {
+    const ui = new StephUI(sock);
+    const query = args.join(' ');
+
+    if (!query) {
+        return await sock.sendMessage(chatId, { 
+            text: `📱 ${response.font('Nom de l\'application requis')}.\nEx: .apk WhatsApp` 
+        }, { quoted: message });
+    }
+
+    try {
+        await sock.sendMessage(chatId, { react: { text: '📲', key: message.key } });
+
+        // Appel API David Cyril
+        const apiUrl = `https://apis.davidcyriltech.my.id/download/apk?text=${encodeURIComponent(query)}&apikey=`;
+        const { data } = await axios.get(apiUrl);
+
+        // Vérification basée sur la nouvelle structure { status: true, apk: { ... } }
+        if (!data.status || !data.apk) {
+            return await sock.sendMessage(chatId, { text: '❌ Application introuvable.' }, { quoted: message });
+        }
+
+        const app = data.apk;
+
+        // Préparation du message texte
+        let caption = `*APK DOWNLOADER*\n\n`;
+        caption += `> *Nom :* ${app.name}\n`;
+        caption += `> *ID :* ${app.package}\n`;
+        caption += `> *MàJ :* ${app.lastUpdated}`;
+
+        // Envoi du message avec Image + Bouton Lien (CTA)
+        await ui.urlButtons(chatId, {
+            text: caption,
+            footer: "SEN DOWNLOADER",
+            image: app.icon, // L'icône de l'application
+            buttons: [
+                {
+                    text: "📥 DOWNLOAD APK", // Texte du bouton
+                    url: app.downloadLink    // Lien direct (CTA)
+                }
+            ],
+            quoted: message
+        });
+
+    } catch (error) {
+        console.error('APK Error:', error);
+        await sock.sendMessage(chatId, { text: '❌ Erreur de recherche.' }, { quoted: message });
+    }
+}
+
+export default { apkCommand };

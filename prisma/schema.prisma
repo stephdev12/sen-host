@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  username  String
+  coins     Int      @default(0)
+  role      String   @default("user") // "user" or "admin"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  bots      Bot[]
+}
+
+model Bot {
+  id          String   @id @default(cuid())
+  name        String
+  phoneNumber String?
+  status      String   @default("stopped") // stopped, running, pairing
+  pairingCode String?
+  folderPath  String?
+  processId   Int?     // PID of the running process
+  template    String   @default("sen-bot") // Le dossier dans /templates
+  nodeId      String?  // ID du serveur (null = serveur local)
+  node        Node?    @relation(fields: [nodeId], references: [id])
+  ownerId     String
+  owner       User     @relation(fields: [ownerId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  expiresAt   DateTime?
+}
+
+model Node {
+  id        String   @id @default(cuid())
+  name      String   // Ex: "VPS France 1"
+  url       String   // Ex: "http://192.168.1.50:8080"
+  apiKey    String   // Pour sécuriser les appels API vers ce node
+  enabled   Boolean  @default(true)
+  bots      Bot[]
+  createdAt DateTime @default(now())
+}
