@@ -55,7 +55,8 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
         
         // Utilisation directe de NODE au lieu de NPM pour mieux capturer les logs et éviter les fenêtres pop-up
         // Ajout de la limite de RAM via --max-old-space-size
-        const child = spawn('node', [`--max-old-space-size=${MAX_RAM_MB}`, 'index.js'], {
+        const ramArg = `--max-old-space-size=${MAX_RAM_MB}`;
+        const child = spawn('node', [ramArg, 'index.js'], {
           cwd: instancePath,
           shell: false, // Pas de shell pour éviter les pop-ups et garantir la capture stdio
           detached: true,

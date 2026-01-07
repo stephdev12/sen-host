@@ -1,13 +1,45 @@
-Error evaluating Node.js code
-CssSyntaxError: tailwindcss: C:\Users\erbyk\Downloads\SEN\src\app\globals.css:1:1: Can't resolve 'tailwindcss-animate' in 'C:\Users\erbyk\Downloads\SEN\src\app'
-    [at Input.error (turbopack:///[project]/Downloads/SEN/node_modules/postcss/lib/input.js:135:16)]
-    [at Root.error (turbopack:///[project]/Downloads/SEN/node_modules/postcss/lib/node.js:146:32)]
-    [at Object.Once (C:\Users\erbyk\Downloads\SEN\node_modules\@tailwindcss\postcss\dist\index.js:10:6911)]
-    [at async LazyResult.runAsync (turbopack:///[project]/Downloads/SEN/node_modules/postcss/lib/lazy-result.js:293:11)]
-    [at async transform (turbopack:///[turbopack-node]/transforms/postcss.ts:70:34)]
-    [at async run (turbopack:///[turbopack-node]/ipc/evaluate.ts:92:23)]
+  Creating an optimized production build ...
+Turbopack build encountered 1 warnings:
+./src/app/api/bots/[id]/action/route.ts:58:23
+Module not found: Can't resolve ('--max-old-space-size=' <dynamic no slash> | <dynamic>)
+  56 |         // Utilisation directe de NODE au lieu de NPM pour mieux capturer les logs et éviter les fenêtres pop-up
+  57 |         // Ajout de la limite de RAM via --max-old-space-size
+> 58 |         const child = spawn('node', [`--max-old-space-size=${MAX_RAM_MB}`, 'index.js'], {
+     |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 59 |           cwd: instancePath,
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 60 |           shell: false, // Pas de shell pour éviter les pop-ups et garantir la capture stdio
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 61 |           detached: true,
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 62 |           stdio: ['ignore', logFd, logFd] // On passe le numéro du FD
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 63 |         });
+     | ^^^^^^^^^^^
+  64 |
+  65 |         child.unref();
+  66 |
 
-Import trace:
-  Client Component Browser:
-    ./Downloads/SEN/src/app/globals.css [Client Component Browser]
-    ./Downloads/SEN/src/app/layout.tsx [Server Component]
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+✓ Compiled successfully in 10.6s
+✓ Finished TypeScript in 6.2s
+  Collecting page data using 1 worker  ..Error: @prisma/client did not initialize yet. Please run "prisma generate" and try to import it again.
+    at module evaluation (.next/server/chunks/[root-of-the-server]__1dbe308e._.js:1:1160)
+    at instantiateModule (.next/server/chunks/[turbopack]_runtime.js:740:9)
+    at getOrInstantiateModuleFromParent (.next/server/chunks/[turbopack]_runtime.js:763:12)
+    at Context.esmImport [as i] (.next/server/chunks/[turbopack]_runtime.js:228:20)
+    at module evaluation (.next/server/chunks/[root-of-the-server]__1dbe308e._.js:1:1482)
+    at instantiateModule (.next/server/chunks/[turbopack]_runtime.js:740:9)
+    at instantiateRuntimeModule (.next/server/chunks/[turbopack]_runtime.js:768:12)
+    at getOrInstantiateRuntimeModule (.next/server/chunks/[turbopack]_runtime.js:781:12)
+    at Object.m (.next/server/chunks/[turbopack]_runtime.js:790:18)
+
+> Build error occurred
+Error: Failed to collect page data for /api/admin/coins
+    at ignore-listed frames {
+  type: 'Error'
+}
