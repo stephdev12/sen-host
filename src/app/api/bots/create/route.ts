@@ -45,6 +45,7 @@ export async function POST(request: Request) {
         ownerId: user.id,
         status: 'stopped',
         template: template,
+        lastDeductionAt: new Date(), // Marquer comme payé pour les premières 24h
         expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24h validity
       },
     });

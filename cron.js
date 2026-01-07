@@ -1,84 +1,76 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-const treeKill = require('tree-kill'); // Ensure this is installed or use require
+const treeKill = require('tree-kill');
 
-async function main() {
-    console.log('Running daily deduction cron...');
+async function checkAndDeduct() {
+    const now = new Date();
+    console.log(`\n--- [${now.toLocaleString()}] Démarrage de la vérification des coins ---`);
     
-    // Find bots that are running or stopped but active?
-    // "les coins sont deduis chaque 24h" implies for *active* bots or just for keeping the instance?
-    // Usually for running instances.
-    // Let's assume for ALL instances that are not deleted? Or just running?
-    // "pour pouvoir creer un bot l'utilisateur doit avoir au moins 10 coins pour 24h."
-    // This implies cost of *existence* or *running*? Usually running.
-    // Let's assume running bots cost 10 coins/24h.
+    try {
+        const runningBots = await prisma.bot.findMany({
+            where: { status: 'running' },
+            include: { owner: true }
+        });
 
-    const runningBots = await prisma.bot.findMany({
-        where: { status: 'running' },
-        include: { owner: true }
-    });
+        console.log(`Bots actifs trouvés : ${runningBots.length}`);
 
-    for (const bot of runningBots) {
-        // Logique de sécurité temporelle (24h = 86400000 ms)
-        const now = new Date();
-        const lastRun = bot.lastDeductionAt ? new Date(bot.lastDeductionAt) : new Date(bot.createdAt);
-        const diff = now.getTime() - lastRun.getTime();
-        
-        // Si moins de 24h se sont écoulées, on ignore (sauf si jamais déduit et bot vieux de +24h)
-        // Cas spécial: Si lastDeductionAt est null, on vérifie createdAt.
-        // Si lastDeductionAt est null, cela signifie première exécution depuis création.
-        // Si le bot a été créé il y a moins de 24h, on ne déduit pas encore (car il a payé à la création).
-        
-        // CORRECTION: La création coûte 10 coins pour les PREMIÈRES 24h.
-        // Donc on ne doit redéduire QUE 24h après la création, puis toutes les 24h.
-        
-        console.log(`Checking bot ${bot.name} (${bot.id}). Last deduction: ${lastRun.toISOString()}. Time diff: ${(diff / 1000 / 60 / 60).toFixed(2)}h`);
+        for (const bot of runningBots) {
+            // Calcul du temps écoulé
+            const lastRun = bot.lastDeductionAt ? new Date(bot.lastDeductionAt) : new Date(bot.createdAt);
+            const diffMs = now.getTime() - lastRun.getTime();
+            const diffHours = diffMs / (1000 * 60 * 60);
 
-        if (diff < 24 * 60 * 60 * 1000) {
-            console.log(`Skipping ${bot.name}: Not yet 24h.`);
-            continue; // Pas encore l'heure
-        }
+            console.log(`> Bot: ${bot.name} | Proprio: ${bot.owner.username} | Dernier prélèvement: ${diffHours.toFixed(2)}h ago`);
 
-        if (bot.owner.coins >= 10) {
-            await prisma.$transaction([
-                prisma.user.update({
-                    where: { id: bot.owner.id },
-                    data: { coins: { decrement: 10 } }
-                }),
-                prisma.bot.update({
-                    where: { id: bot.id },
-                    data: { lastDeductionAt: now } // Marquer comme payé maintenant
-                })
-            ]);
-            console.log(`Deducted 10 coins from ${bot.owner.username} for bot ${bot.name}`);
-        } else {
-            console.log(`User ${bot.owner.username} has insufficient coins. Stopping bot ${bot.name}.`);
-            // Stop bot
-            if (bot.processId) {
-                try {
-                    // This requires tree-kill to be available in this script context
-                    // We might need to exec it.
-                    require('tree-kill')(bot.processId, 'SIGTERM');
-                } catch (e) {
-                    console.error(e);
-                }
+            // On ne déduit que si plus de 23.9h sont passées (marge de sécurité)
+            if (diffHours < 23.9) {
+                console.log(`  [SKIP] Trop tôt.`);
+                continue;
             }
-            await prisma.bot.update({
-                where: { id: bot.id },
-                data: { status: 'stopped', processId: null }
-            });
+
+            if (bot.owner.coins >= 10) {
+                console.log(`  [OK] Déduction de 10 coins...`);
+                try {
+                    await prisma.$transaction([
+                        prisma.user.update({
+                            where: { id: bot.owner.id },
+                            data: { coins: { decrement: 10 } }
+                        }),
+                        prisma.bot.update({
+                            where: { id: bot.id },
+                            data: { lastDeductionAt: now }
+                        })
+                    ]);
+                    console.log(`  [SUCCESS] Nouveau solde : ${bot.owner.coins - 10} coins.`);
+                } catch (err) {
+                    console.error(`  [ERROR] Échec de la transaction pour ${bot.name}:`, err.message);
+                }
+            } else {
+                console.log(`  [WARN] Coins insuffisants (${bot.owner.coins}). Arrêt du bot.`);
+                if (bot.processId) {
+                    treeKill(bot.processId, 'SIGTERM', () => {});
+                }
+                await prisma.bot.update({
+                    where: { id: bot.id },
+                    data: { status: 'stopped', processId: null }
+                });
+            }
         }
+    } catch (error) {
+        console.error("Erreur globale Cron:", error);
     }
+    console.log(`--- Fin de la vérification ---\n
+`);
 }
 
-// Run immediately then exit? Or loop?
-// If this is a cron script, it runs once.
-main()
-  .then(async () => {
-    await prisma.$disconnect();
-  })
-  .catch(async (e) => {
-    console.error(e);
-    await prisma.$disconnect();
-    process.exit(1);
-  });
+// Lancement initial
+checkAndDeduct();
+
+// Puis toutes les heures (3600000 ms)
+// Cela évite que PM2 ne relance le script en boucle s'il se termine.
+// On le transforme en service permanent.
+setInterval(checkAndDeduct, 60 * 60 * 1000);
+
+// Empêcher le script de quitter
+console.log("Cron persistant activé. Vérification toutes les 60 minutes.");
+process.stdin.resume();
