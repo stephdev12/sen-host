@@ -35,6 +35,13 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# database
+/prisma/*.db
+/prisma/*.db-journal
+
+# instances
+/instances/
+
 # vercel
 .vercel
 
