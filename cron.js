@@ -32,7 +32,10 @@ async function main() {
         // CORRECTION: La création coûte 10 coins pour les PREMIÈRES 24h.
         // Donc on ne doit redéduire QUE 24h après la création, puis toutes les 24h.
         
+        console.log(`Checking bot ${bot.name} (${bot.id}). Last deduction: ${lastRun.toISOString()}. Time diff: ${(diff / 1000 / 60 / 60).toFixed(2)}h`);
+
         if (diff < 24 * 60 * 60 * 1000) {
+            console.log(`Skipping ${bot.name}: Not yet 24h.`);
             continue; // Pas encore l'heure
         }
 

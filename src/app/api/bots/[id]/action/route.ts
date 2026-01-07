@@ -37,51 +37,86 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
 
     // 3. Handle Actions
     switch (action) {
-      case 'start':
-        if (bot.status === 'running') return NextResponse.json({ message: 'Déjà démarré' });
-        
-        // Check Disk Usage
-        const diskUsage = await getDirectorySize(instancePath);
-        if (diskUsage > MAX_DISK_USAGE) {
-             return NextResponse.json({ 
-                 error: `Limite d'espace disque dépassée (${(diskUsage / 1024 / 1024).toFixed(2)}MB / 1024MB). Veuillez supprimer des fichiers.` 
-             }, { status: 403 });
-        }
-
-        // Start Process
-        // Correction: Utilisation de openSync pour obtenir un descripteur de fichier (FD) immédiat
-        // Cela évite l'erreur "fd: null" avec createWriteStream
-        const logFd = await fs.open(logPath, 'a');
-        
-        // Utilisation directe de NODE au lieu de NPM pour mieux capturer les logs et éviter les fenêtres pop-up
-        // Ajout de la limite de RAM via --max-old-space-size
-        const ramArg = `--max-old-space-size=${MAX_RAM_MB}`;
-        const child = spawn('node', [ramArg, 'index.js'], {
-          cwd: instancePath,
-          shell: false, // Pas de shell pour éviter les pop-ups et garantir la capture stdio
-          detached: true,
-          stdio: ['ignore', logFd, logFd] // On passe le numéro du FD
-        });
-        
-        child.unref();
-
-        // On peut fermer le FD côté parent car l'enfant a sa propre copie/handle
-        // Mais avec fs-extra/node fs, il vaut mieux le laisser gérer ou le fermer après un court délai si nécessaire.
-        // spawn duplique le handle. On peut fermer notre référence.
-        await fs.close(logFd);
-
-        await prisma.bot.update({
-          where: { id: bot.id },
-          data: { status: 'running', processId: child.pid },
-        });
-
-        // Check for pairing code in logs (simple polling for 30s)
-        // Client side will poll /api/bots/[id]/logs or /status
-        
-        return NextResponse.json({ success: true, message: 'Bot démarré' });
-
-      case 'stop':
-        if (bot.status === 'stopped') return NextResponse.json({ message: 'Déjà arrêté' });
+            case 'start':
+              if (bot.status === 'running') return NextResponse.json({ message: 'Déjà démarré' });
+              
+              // Check Disk Usage
+              const diskUsage = await getDirectorySize(instancePath);
+              if (diskUsage > MAX_DISK_USAGE) {
+                   return NextResponse.json({
+                       error: `Limite d'espace disque dépassée. Veuillez supprimer des fichiers.`
+                   }, { status: 403 });
+              }
+      
+              // Vider les logs avant de démarrer pour effacer l'ancien code de pairage
+              await fs.writeFile(logPath, '');
+      
+              // Start Process
+              // Mode 'a' pour append (ou 'w' pour overwrite mais openSync gère mal w si on veut stream en temps réel parfois)
+              // Ici on a vidé le fichier avant, donc 'a' est ok.
+              const logFd = await fs.open(logPath, 'a');
+              
+              const ramArg = `--max-old-space-size=${MAX_RAM_MB}`;
+              const child = spawn('node', [ramArg, 'index.js'], {
+                cwd: instancePath,
+                shell: false,
+                detached: true,
+                stdio: ['ignore', logFd, logFd]
+              });
+              
+              child.unref();
+              await fs.close(logFd);
+      
+              await prisma.bot.update({
+                where: { id: bot.id },
+                data: { status: 'running', processId: child.pid },
+              });
+      
+              return NextResponse.json({ success: true, message: 'Bot démarré' });
+      
+            case 'restart':
+              // 1. Stop
+              if (bot.status === 'running' && bot.processId) {
+                  try {
+                      await new Promise<void>((resolve) => {
+                          treeKill(bot.processId!, 'SIGTERM', () => resolve());
+                      });
+                  } catch (e) {
+                      console.error('Restart: Error stopping', e);
+                  }
+              }
+              
+              // 2. Wait a bit
+              await new Promise(resolve => setTimeout(resolve, 2000));
+      
+              // 3. Start (Copy logic from start case)
+              // Check Disk
+              if ((await getDirectorySize(instancePath)) > MAX_DISK_USAGE) {
+                   return NextResponse.json({ error: 'Espace disque insuffisant' }, { status: 403 });
+              }
+      
+              // Clear logs
+              await fs.writeFile(logPath, '');
+              const restartLogFd = await fs.open(logPath, 'a');
+      
+              const restartChild = spawn('node', [`--max-old-space-size=${MAX_RAM_MB}`, 'index.js'], {
+                cwd: instancePath,
+                shell: false,
+                detached: true,
+                stdio: ['ignore', restartLogFd, restartLogFd]
+              });
+              
+              restartChild.unref();
+              await fs.close(restartLogFd);
+      
+              await prisma.bot.update({
+                where: { id: bot.id },
+                data: { status: 'running', processId: restartChild.pid },
+              });
+      
+              return NextResponse.json({ success: true, message: 'Bot redémarré' });
+      
+            case 'stop':        if (bot.status === 'stopped') return NextResponse.json({ message: 'Déjà arrêté' });
         
         if (bot.processId) {
             try {
