@@ -2,6 +2,8 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const treeKill = require('tree-kill');
 
+console.log(">>> CHARGEMENT DE CRON.JS VERSION SÉCURISÉE (v2) <<<");
+
 async function checkAndDeduct() {
     const now = new Date();
     console.log(`\n--- [${now.toLocaleString()}] Démarrage de la vérification des coins ---`);
