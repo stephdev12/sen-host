@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Bot, CreditCard, ShoppingCart, Check, Zap, ArrowLeft, Sun, Moon, LogOut, Plus } from 'lucide-react';
+import { Bot, CreditCard, ShoppingCart, Check, Zap, ArrowLeft, Sun, Moon, LogOut, Plus, Smartphone, MessageSquare, Wallet } from 'lucide-react';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { useRouter } from 'next/navigation';
@@ -94,7 +94,7 @@ export default function BillingPage() {
             <p className="text-neutral-500 dark:text-neutral-400 text-lg">Choisissez le pack qui correspond à vos besoins. Les coins sont débités automatiquement chaque 24h pour vos bots actifs.</p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-20">
             {packs.map((pack, i) => (
                 <motion.div 
                     key={i}
@@ -121,7 +121,7 @@ export default function BillingPage() {
                     <ul className="space-y-4 mb-8 flex-1">
                         <li className="flex items-center gap-3 text-sm text-neutral-600 dark:text-neutral-400">
                             <Check className="w-5 h-5 text-green-500" />
-                            Accès instantané
+                            Accès instantané (API)
                         </li>
                         <li className="flex items-center gap-3 text-sm text-neutral-600 dark:text-neutral-400">
                             <Check className="w-5 h-5 text-green-500" />
@@ -141,10 +141,76 @@ export default function BillingPage() {
                             : 'bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-900 dark:text-white'
                         }`}
                     >
-                        Acheter maintenant
+                        Payer via API
                     </button>
                 </motion.div>
             ))}
+        </div>
+
+        {/* Manual Payment Methods */}
+        <div className="max-w-5xl mx-auto">
+            <h2 className="text-2xl font-bold mb-8 text-center">Autres moyens de paiement</h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                {/* Local Mobile Money */}
+                <div className="p-6 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 flex flex-col">
+                    <div className="p-3 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 w-fit rounded-xl mb-4">
+                        <Smartphone className="w-6 h-6" />
+                    </div>
+                    <h3 className="text-lg font-bold mb-4">Paiement Local</h3>
+                    <div className="space-y-4 mb-6">
+                        <div className="p-3 bg-neutral-50 dark:bg-neutral-950 rounded-xl border border-neutral-100 dark:border-neutral-800">
+                            <p className="text-xs text-neutral-500 uppercase font-bold mb-1">Orange Money</p>
+                            <p className="font-mono text-lg font-bold">698711207</p>
+                        </div>
+                        <div className="p-3 bg-neutral-50 dark:bg-neutral-950 rounded-xl border border-neutral-100 dark:border-neutral-800">
+                            <p className="text-xs text-neutral-500 uppercase font-bold mb-1">MTN Money</p>
+                            <p className="font-mono text-lg font-bold">650471093</p>
+                        </div>
+                    </div>
+                    <div className="mt-auto flex items-start gap-2 text-sm text-neutral-500">
+                         <MessageSquare className="w-4 h-4 mt-0.5 shrink-0" />
+                         <span>Envoyez une capture au <span className="text-indigo-500 font-bold">+237 698 711 207</span></span>
+                    </div>
+                </div>
+
+                {/* MiniPay */}
+                <div className="p-6 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 flex flex-col">
+                    <div className="p-3 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 w-fit rounded-xl mb-4">
+                        <Wallet className="w-6 h-6" />
+                    </div>
+                    <h3 className="text-lg font-bold mb-2">MiniPay</h3>
+                    <p className="text-sm text-neutral-500 mb-4">La solution de paiement Celo ultra-rapide.</p>
+                    <ol className="text-sm space-y-3 mb-6 list-decimal pl-4 text-neutral-600 dark:text-neutral-400">
+                        <li>Téléchargez <a href="https://link.minipay.xyz/invite?ref=1KT7MleY" target="_blank" className="text-indigo-500 hover:underline">MiniPay ici</a></li>
+                        <li>Connectez-vous et rechargez</li>
+                        <li>Envoyez le montant au <span className="font-bold text-neutral-900 dark:text-white">650471093</span></li>
+                    </ol>
+                     <div className="mt-auto pt-4 flex items-center gap-2 text-xs text-neutral-500">
+                        <Check className="w-4 h-4 text-green-500" />
+                        Traitement manuel rapide
+                    </div>
+                </div>
+
+                {/* Binance */}
+                <div className="p-6 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 md:col-span-2 lg:col-span-1 flex flex-col">
+                    <div className="p-3 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 w-fit rounded-xl mb-4">
+                        <CreditCard className="w-6 h-6" />
+                    </div>
+                    <h3 className="text-lg font-bold mb-4">Binance Pay</h3>
+                    <div className="space-y-4 mb-6">
+                         <div className="p-4 bg-neutral-950 rounded-xl border border-yellow-500/20 text-center">
+                            <p className="text-xs text-yellow-500 uppercase font-bold mb-1">Binance ID</p>
+                            <p className="font-mono text-2xl font-bold text-white tracking-widest">843486960</p>
+                        </div>
+                    </div>
+                        <p className="text-sm text-center text-neutral-500">
+                             Une fois effectué, envoyez la capture d&apos;écran au <br/>
+                             <span className="text-indigo-500 font-bold font-mono">+237 698 711 207</span>
+                        </p>
+                </div>
+
+            </div>
         </div>
       </main>
     </div>

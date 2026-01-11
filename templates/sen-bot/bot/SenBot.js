@@ -3,7 +3,8 @@
  * Copyright (c) 2024 𝙎𝙏𝙀𝙋𝙃𝘿𝙀𝙑
  */
 
-import makeWASocket, {
+import makeWASocket from '@whiskeysockets/baileys';
+import {
     useMultiFileAuthState,
     DisconnectReason,
     fetchLatestBaileysVersion,
@@ -38,6 +39,10 @@ import { revealViewOnce } from '../commands/viewonce.js';
 
 import { servicesCommand, handleServiceClick } from '../commands/services.js';
 
+// New Managers
+import presenceManager from '../lib/presenceManager.js';
+import statusManager from '../lib/statusManager.js';
+import antiDelete from '../lib/antiDelete.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -65,7 +70,7 @@ export class SenBot {
         this.pairingRequested = false;
         
         // Readline interface
-        this.rl = process.stdin.isTTY ? readline.createInterface({ 
+        this.rl = process.stdin.isTTY ? readline.createInterface({
             input: process.stdin, 
             output: process.stdout 
         }) : null;
@@ -82,70 +87,29 @@ export class SenBot {
     }
     
     getPhoneNumber() {
-        // 1. Vérifier .env (PHONE_NUMBER)
-        if (process.env.PHONE_NUMBER) {
-            return process.env.PHONE_NUMBER.replace(/[^0-9]/g, '');
-        }
-        
-        // 2. Vérifier .env (OWNER_NUMBER)
-        if (process.env.OWNER_NUMBER) {
-            return process.env.OWNER_NUMBER.replace(/[^0-9]/g, '');
-        }
-        
-        // 3. Fallback sur configs.js (phoneNumber)
-        if (configs.phoneNumber) {
-            return configs.phoneNumber.replace(/[^0-9]/g, '');
-        }
-        
-        // 4. Fallback sur configs.js (ownerNumber)
-        if (configs.ownerNumber) {
-            return configs.ownerNumber.replace(/[^0-9]/g, '');
-        }
-        
-        // 5. Si rien n'est trouvé, retourner null (sera demandé au prompt)
+        if (process.env.PHONE_NUMBER) return process.env.PHONE_NUMBER.replace(/[^0-9]/g, '');
+        if (process.env.OWNER_NUMBER) return process.env.OWNER_NUMBER.replace(/[^0-9]/g, '');
+        if (configs.phoneNumber) return configs.phoneNumber.replace(/[^0-9]/g, '');
+        if (configs.ownerNumber) return configs.ownerNumber.replace(/[^0-9]/g, '');
         return null;
     }
     
-    /**
-     * 👤 Obtenir le numéro du owner
-     */
     getOwnerNumber() {
-        // 1. Vérifier .env
-        if (process.env.OWNER_NUMBER) {
-            return process.env.OWNER_NUMBER.replace(/[^0-9]/g, '');
-        }
-        
-        // 2. Fallback sur configs.js
-        if (configs.ownerNumber) {
-            return configs.ownerNumber.replace(/[^0-9]/g, '');
-        }
-        
-        // 3. Utiliser le phoneNumber comme fallback
+        if (process.env.OWNER_NUMBER) return process.env.OWNER_NUMBER.replace(/[^0-9]/g, '');
+        if (configs.ownerNumber) return configs.ownerNumber.replace(/[^0-9]/g, '');
         return this.phoneNumber;
     }
     
-    /**
-     * 📋 Logger la source du numéro
-     */
     logPhoneNumberSource() {
         let source = 'Unknown';
-        
-        if (process.env.PHONE_NUMBER) {
-            source = '.env (PHONE_NUMBER)';
-        } else if (process.env.OWNER_NUMBER) {
-            source = '.env (OWNER_NUMBER)';
-        } else if (configs.phoneNumber && configs.phoneNumber !== "911234567890") {
-            source = 'configs.js (phoneNumber)';
-        } else if (configs.ownerNumber && configs.ownerNumber !== "911234567890") {
-            source = 'configs.js (ownerNumber)';
-        } else {
-            source = 'Will be prompted';
-        }
+        if (process.env.PHONE_NUMBER) source = '.env (PHONE_NUMBER)';
+        else if (process.env.OWNER_NUMBER) source = '.env (OWNER_NUMBER)';
+        else if (configs.phoneNumber && configs.phoneNumber !== "911234567890") source = 'configs.js (phoneNumber)';
+        else if (configs.ownerNumber && configs.ownerNumber !== "911234567890") source = 'configs.js (ownerNumber)';
+        else source = 'Will be prompted';
         
         console.log(chalk.cyan(`📱 Phone Number Source: ${source}`));
-        if (this.phoneNumber) {
-            console.log(chalk.cyan(`📱 Phone Number: +${this.phoneNumber}`));
-        }
+        if (this.phoneNumber) console.log(chalk.cyan(`📱 Phone Number: +${this.phoneNumber}`));
     }    
     
     
@@ -166,122 +130,131 @@ export class SenBot {
             { name: 'warnings', aliases: ['warn'], file: '../commands/protection.js', func: 'warningsCommand' },
             { name: 'resetwarnings', aliases: ['resetwarn'], file: '../commands/protection.js', func: 'resetwarningsCommand' },
             { name: 'groupstatus', aliases: ['gstatus', 'protection'], file: '../commands/protection.js', func: 'groupstatusCommand' }, 
-    { name: 'setname', aliases: [], file: '../commands/customization.js', func: 'setname' },
+            { name: 'setname', aliases: [], file: '../commands/customization.js', func: 'setname' },
             { name: 'setprefix', aliases: ['prefix'], file: '../commands/customization.js', func: 'setprefix' },
             { name: 'setmenu', aliases: ['setimg'], file: '../commands/customization.js', func: 'setmenu' },
             { name: 'setaudio', aliases: [], file: '../commands/customization.js', func: 'setaudio' },
             { name: 'setstyle', aliases: [], file: '../commands/customization.js', func: 'setstyle' },
             { name: 'audio', aliases: [], file: '../commands/customization.js', func: 'audio' }, 
-{ name: 'tourl', aliases: ['url', 'upload'], file: '../commands/tourl.js', func: 'tourlCommand' }, 
-{ name: 'welcome', aliases: [], file: '../commands/welcome.js', func: 'welcome' },
-{ name: 'goodbye', aliases: [], file: '../commands/welcome.js', func: 'goodbye' },
-{ name: 'setwelcome', aliases: [], file: '../commands/welcome.js', func: 'setwelcome' },
-{ name: 'setgoodbye', aliases: [], file: '../commands/welcome.js', func: 'setgoodbye' }, 
-{ name: 'antipromote', aliases: [], file: '../commands/protection.js', func: 'antipromoteCommand' },
-{ name: 'antidemote', aliases: [], file: '../commands/protection.js', func: 'antidemoteCommand' }, 
-{ name: 'add', aliases: [], file: '../commands/group.js', func: 'add' },
-{ name: 'kick', aliases: ['remove'], file: '../commands/group.js', func: 'kick' },
-{ name: 'promote', aliases: [], file: '../commands/group.js', func: 'promote' },
-{ name: 'demote', aliases: [], file: '../commands/group.js', func: 'demote' },
-{ name: 'demoteall', aliases: [], file: '../commands/group.js', func: 'demoteall' },
-{ name: 'gname', aliases: ['setname'], file: '../commands/group.js', func: 'gname' },
-{ name: 'gdesc', aliases: ['setdesc'], file: '../commands/group.js', func: 'gdesc' },
-{ name: 'glink', aliases: ['link', 'grouplink'], file: '../commands/group.js', func: 'glink' }, 
-{ name: 'vv', aliases: ['viewonce', 'reveal'], file: '../commands/viewonce.js', func: 'viewOnceCommand' },
-{ name: 'movie', aliases: ['film'], file: '../commands/movie.js', func: 'movieCommand' },
-{ name: 'serie', aliases: ['infoserie'], file: '../commands/series.js', func: 'serieCommand' },
-{ name: 'dlserie', aliases: ['tvdl', 'dlepisode'], file: '../commands/series.js', func: 'dlSerieCommand' },
-// AI
-{ name: 'gpt4', aliases: ['gpt'], file: '../commands/ai.js', func: 'gpt4Command' },
-{ name: 'gpt4o', aliases: [], file: '../commands/ai.js', func: 'gpt4oCommand' },
-{ name: 'mistral', aliases: [], file: '../commands/ai.js', func: 'mistralCommand' },
-{ name: 'flux', aliases: ['genimg'], file: '../commands/ai.js', func: 'fluxCommand' },
+            { name: 'tourl', aliases: ['url', 'upload'], file: '../commands/tourl.js', func: 'tourlCommand' }, 
+            { name: 'welcome', aliases: [], file: '../commands/welcome.js', func: 'welcome' },
+            { name: 'goodbye', aliases: [], file: '../commands/welcome.js', func: 'goodbye' },
+            { name: 'setwelcome', aliases: [], file: '../commands/welcome.js', func: 'setwelcome' },
+            { name: 'setgoodbye', aliases: [], file: '../commands/welcome.js', func: 'setgoodbye' }, 
+            { name: 'antipromote', aliases: [], file: '../commands/protection.js', func: 'antipromoteCommand' },
+            { name: 'antidemote', aliases: [], file: '../commands/protection.js', func: 'antidemoteCommand' }, 
+            { name: 'add', aliases: [], file: '../commands/group.js', func: 'add' },
+            { name: 'kick', aliases: ['remove'], file: '../commands/group.js', func: 'kick' },
+            { name: 'promote', aliases: [], file: '../commands/group.js', func: 'promote' },
+            { name: 'demote', aliases: [], file: '../commands/group.js', func: 'demote' },
+            { name: 'demoteall', aliases: [], file: '../commands/group.js', func: 'demoteall' },
+            { name: 'gname', aliases: ['setname'], file: '../commands/group.js', func: 'gname' },
+            { name: 'gdesc', aliases: ['setdesc'], file: '../commands/group.js', func: 'gdesc' },
+            { name: 'glink', aliases: ['link', 'grouplink'], file: '../commands/group.js', func: 'glink' }, 
+            { name: 'vv', aliases: ['viewonce', 'reveal'], file: '../commands/viewonce.js', func: 'viewOnceCommand' },
+            { name: 'movie', aliases: ['film'], file: '../commands/movie.js', func: 'movieCommand' },
+            { name: 'serie', aliases: ['infoserie'], file: '../commands/series.js', func: 'serieCommand' },
+            { name: 'dlserie', aliases: ['tvdl', 'dlepisode'], file: '../commands/series.js', func: 'dlSerieCommand' },
+            // AI
+            { name: 'gpt4', aliases: ['gpt'], file: '../commands/ai.js', func: 'gpt4Command' },
+            { name: 'gpt4o', aliases: [], file: '../commands/ai.js', func: 'gpt4oCommand' },
+            { name: 'mistral', aliases: [], file: '../commands/ai.js', func: 'mistralCommand' },
+            { name: 'flux', aliases: ['genimg'], file: '../commands/ai.js', func: 'fluxCommand' },
 
-// Tools
-{ name: 'dns', aliases: [], file: '../commands/tools.js', func: 'dnsCommand' },
-{ name: 'obfuscate', aliases: ['encrypt'], file: '../commands/tools.js', func: 'obfuscateCommand' },
-{ name: 'dbinary', aliases: ['decodebin'], file: '../commands/tools.js', func: 'dbinaryCommand' },
-{ name: 'fancy', aliases: ['style'], file: '../commands/tools.js', func: 'fancyCommand' },
+            // Tools
+            { name: 'dns', aliases: [], file: '../commands/tools.js', func: 'dnsCommand' },
+            { name: 'obfuscate', aliases: ['encrypt'], file: '../commands/tools.js', func: 'obfuscateCommand' },
+            { name: 'dbinary', aliases: ['decodebin'], file: '../commands/tools.js', func: 'dbinaryCommand' },
+            { name: 'fancy', aliases: ['style'], file: '../commands/tools.js', func: 'fancyCommand' },
 
-// Anime - Gifs
-{ name: 'hug', aliases: ['calin'], file: '../commands/anime.js', func: 'hugCommand' },
-{ name: 'happy', aliases: ['heureux'], file: '../commands/anime.js', func: 'happyCommand' },
-{ name: 'kiss', aliases: ['bisous'], file: '../commands/anime.js', func: 'kissCommand' },
+            // Anime - Gifs
+            { name: 'hug', aliases: ['calin'], file: '../commands/anime.js', func: 'hugCommand' },
+            { name: 'happy', aliases: ['heureux'], file: '../commands/anime.js', func: 'happyCommand' },
+            { name: 'kiss', aliases: ['bisous'], file: '../commands/anime.js', func: 'kissCommand' },
 
-// Anime - Images
-{ name: 'akiyama', aliases: [], file: '../commands/anime.js', func: 'akiyamaCommand' },
-{ name: 'boruto', aliases: [], file: '../commands/anime.js', func: 'borutoCommand' },
-{ name: 'deidara', aliases: [], file: '../commands/anime.js', func: 'deidaraCommand' },
-{ name: 'fanart', aliases: [], file: '../commands/anime.js', func: 'fanartCommand' },
-{ name: 'sasuke', aliases: [], file: '../commands/anime.js', func: 'sasukeCommand' },
-{ name: 'waifu', aliases: [], file: '../commands/anime.js', func: 'waifuCommand' },
-{ name: 'bluearchive', aliases: ['ba'], file: '../commands/anime.js', func: 'bluearchiveCommand' },
-{ name: 'loli', aliases: [], file: '../commands/anime.js', func: 'loliCommand' },
+            // Anime - Images
+            { name: 'akiyama', aliases: [], file: '../commands/anime.js', func: 'akiyamaCommand' },
+            { name: 'boruto', aliases: [], file: '../commands/anime.js', func: 'borutoCommand' },
+            { name: 'deidara', aliases: [], file: '../commands/anime.js', func: 'deidaraCommand' },
+            { name: 'fanart', aliases: [], file: '../commands/anime.js', func: 'fanartCommand' },
+            { name: 'sasuke', aliases: [], file: '../commands/anime.js', func: 'sasukeCommand' },
+            { name: 'waifu', aliases: [], file: '../commands/anime.js', func: 'waifuCommand' },
+            { name: 'bluearchive', aliases: ['ba'], file: '../commands/anime.js', func: 'bluearchiveCommand' },
+            { name: 'loli', aliases: [], file: '../commands/anime.js', func: 'loliCommand' },
 
-// Anime - NSFW
-{ name: 'nsfw', aliases: [], file: '../commands/anime.js', func: 'nsfwCommand' },
-{ name: 'hneko', aliases: [], file: '../commands/anime.js', func: 'hnekoCommand' },
-{ name: 'hwaifu', aliases: [], file: '../commands/anime.js', func: 'hwaifuCommand' },
-{ name: 'locate', aliases: ['location', 'gps', 'position'], file: '../commands/locate.js', func: 'locateCommand' },
-
-
-// Downloads
-{ name: 'apk', aliases: ['app'], file: '../commands/apk.js', func: 'apkCommand' },
-{ name: 'quizz', aliases: ['quiz', 'trivia'], file: '../commands/quizz.js', func: 'quizzCommand' },
-{name: 'quizzstop', aliases: ['stopquiz', 'endquiz'], file: '../commands/quizz.js', func: 'quizzstopCommand' },
-{ name: 'pinterest', aliases: ['pin'], file: '../commands/pinterest.js', func: 'pinterestCommand' },
-// Media
-{ name: 'sticker', aliases: ['s', 'stiker'], file: '../commands/media.js', func: 'stickerCommand' },
-{ name: 'steal', aliases: ['take'], file: '../commands/media.js', func: 'stickerCommand' },
-{ name: 'store', aliases: [], file: '../commands/media.js', func: 'storeCommand' },
-{ name: 'ad', aliases: [], file: '../commands/media.js', func: 'adCommand' },
-{ name: 'vd', aliases: ['video'], file: '../commands/media.js', func: 'vdCommand' },
-{ name: 'listmedia', aliases: ['medialist'], file: '../commands/media.js', func: 'listMediaCommand' },
-{ name: 'delmedia', aliases: ['deletemedia'], file: '../commands/media.js', func: 'deleteMediaCommand' },
-{ name: 'play', aliases: ['song', 'mp3'], file: '../commands/play.js', func: 'playCommand' },
+            // Anime - NSFW
+            { name: 'nsfw', aliases: [], file: '../commands/anime.js', func: 'nsfwCommand' },
+            { name: 'hneko', aliases: [], file: '../commands/anime.js', func: 'hnekoCommand' },
+            { name: 'hwaifu', aliases: [], file: '../commands/anime.js', func: 'hwaifuCommand' },
+            { name: 'locate', aliases: ['location', 'gps', 'position'], file: '../commands/locate.js', func: 'locateCommand' },
 
 
-// Utility commands
-{ name: 'getpp', aliases: ['pp', 'pfp'], file: '../commands/utility.js', func: 'getppCommand' },
-{ name: 'save', aliases: ['savestatus'], file: '../commands/utility.js', func: 'saveCommand' },
-{ name: 'respond', aliases: [], file: '../commands/respond.js', func: 'respondCommand' },
-{ name: 'setrespond', aliases: [], file: '../commands/respond.js', func: 'setrespondCommand' },
-{ name: 'clearrespond', aliases: [], file: '../commands/respond.js', func: 'clearrespondCommand' },
-{ name: 'youtube', aliases: ['yt', 'video'], file: '../commands/youtube.js', func: 'ytSearchCommand' },
-{ name: 'ytmp3', aliases: ['ytaudio'], file: '../commands/youtube.js', func: 'ytAudioCommand' },
-{ name: 'ytmp4', aliases: ['ytvideo'], file: '../commands/youtube.js', func: 'ytVideoCommand' },
-{ name: 'nanobanana', aliases: ['nano', 'banana', 'ai-edit'], file: '../commands/nanobanana.js', func: 'nanobananaCommand' },
-{ name: 'sora', aliases: ['text2video', 'soragen'], file: '../commands/sora.js', func: 'soraCommand' },
+            // Downloads
+            { name: 'apk', aliases: ['app'], file: '../commands/apk.js', func: 'apkCommand' },
+            { name: 'quizz', aliases: ['quiz', 'trivia'], file: '../commands/quizz.js', func: 'quizzCommand' },
+            {name: 'quizzstop', aliases: ['stopquiz', 'endquiz'], file: '../commands/quizz.js', func: 'quizzstopCommand' },
+            { name: 'pinterest', aliases: ['pin'], file: '../commands/pinterest.js', func: 'pinterestCommand' },
+            // Media
+            { name: 'sticker', aliases: ['s', 'stiker'], file: '../commands/media.js', func: 'stickerCommand' },
+            { name: 'steal', aliases: ['take'], file: '../commands/media.js', func: 'stickerCommand' },
+            { name: 'store', aliases: [], file: '../commands/media.js', func: 'storeCommand' },
+            { name: 'ad', aliases: [], file: '../commands/media.js', func: 'adCommand' },
+            { name: 'vd', aliases: ['video'], file: '../commands/media.js', func: 'vdCommand' },
+            { name: 'listmedia', aliases: ['medialist'], file: '../commands/media.js', func: 'listMediaCommand' },
+            { name: 'delmedia', aliases: ['deletemedia'], file: '../commands/media.js', func: 'deleteMediaCommand' },
+            { name: 'toimg', aliases: [], file: '../commands/media.js', func: 'toimgCommand' },
+            { name: 'tovideo', aliases: [], file: '../commands/media.js', func: 'tovideoCommand' },
+            { name: 'play', aliases: ['song', 'mp3'], file: '../commands/play.js', func: 'playCommand' },
 
-{ name: 'addgapi', aliases: ['setgapi'], file: '../commands/google.js', func: 'addgapiCommand' },
-{ name: 'removegapi', aliases: ['delgapi'], file: '../commands/google.js', func: 'removegapiCommand' },
-{ name: 'gemini', aliases: ['gem'], file: '../commands/google.js', func: 'geminiCommand' },
-{ name: 'vision', aliases: ['gemvision'], file: '../commands/google.js', func: 'visionCommand' },
-{ name: 'imagefx', aliases: ['imagen'], file: '../commands/google.js', func: 'imagefxCommand' },
-{ name: 'gstatus', aliases: ['googlestatus'], file: '../commands/google.js', func: 'gstatusCommand' },
 
-// MovieBox Commands
-{ name: 'serieinfo', aliases: ['sinfo'], file: '../commands/moviebox.js', func: 'serieinfoCommand' },
-{ name: 'deservdl', aliases: ['sdl'], file: '../commands/moviebox.js', func: 'deservdlCommand' },
-{ name: 'moviesearch', aliases: ['msearch'], file: '../commands/moviebox.js', func: 'moviesearchCommand' },
-{ name: 'moviedl', aliases: ['mdl'], file: '../commands/moviebox.js', func: 'moviedlCommand' },
-{ name: 'trending', aliases: ['trend'], file: '../commands/moviebox.js', func: 'trendingCommand' },
+            // Utility commands
+            { name: 'getpp', aliases: ['pp', 'pfp'], file: '../commands/utility.js', func: 'getppCommand' },
+            { name: 'save', aliases: ['savestatus'], file: '../commands/utility.js', func: 'saveCommand' },
+            { name: 'respond', aliases: [], file: '../commands/respond.js', func: 'respondCommand' },
+            { name: 'setrespond', aliases: [], file: '../commands/respond.js', func: 'setrespondCommand' },
+            { name: 'clearrespond', aliases: [], file: '../commands/respond.js', func: 'clearrespondCommand' },
+            { name: 'youtube', aliases: ['yt', 'video'], file: '../commands/youtube.js', func: 'ytSearchCommand' },
+            { name: 'ytmp3', aliases: ['ytaudio'], file: '../commands/youtube.js', func: 'ytAudioCommand' },
+            { name: 'ytmp4', aliases: ['ytvideo'], file: '../commands/youtube.js', func: 'ytVideoCommand' },
+            { name: 'nanobanana', aliases: ['nano', 'banana', 'ai-edit'], file: '../commands/nanobanana.js', func: 'nanobananaCommand' },
+            { name: 'sora', aliases: ['text2video', 'soragen'], file: '../commands/sora.js', func: 'soraCommand' },
 
-// Image Tools
-{ name: 'removebg', aliases: ['rbg', 'nobg'], file: '../commands/image.js', func: 'removebgCommand' },
-{ name: 'upscale', aliases: ['hd', 'remini', 'enhance'], file: '../commands/image.js', func: 'upscaleCommand' },
-{ name: 'img2sketch', aliases: ['sketch', 'dessin'], file: '../commands/image.js', func: 'img2sketchCommand' },
+            { name: 'addgapi', aliases: ['setgapi'], file: '../commands/google.js', func: 'addgapiCommand' },
+            { name: 'removegapi', aliases: ['delgapi'], file: '../commands/google.js', func: 'removegapiCommand' },
+            { name: 'gemini', aliases: ['gem'], file: '../commands/google.js', func: 'geminiCommand' },
+            { name: 'vision', aliases: ['gemvision'], file: '../commands/google.js', func: 'visionCommand' },
+            { name: 'imagefx', aliases: ['imagen'], file: '../commands/google.js', func: 'imagefxCommand' },
+            { name: 'gstatus', aliases: ['googlestatus'], file: '../commands/google.js', func: 'gstatusCommand' },
 
-{ name: 'autovv', aliases: ['avv'], file: '../commands/autovv.js', func: 'autovvCommand' },
-// Group Mentions
-{ name: 'tagall', aliases: ['everyone', 'tous'], file: '../commands/tag.js', func: 'tagAllCommand' },
-{ name: 'hidetag', aliases: ['tag', 'ht'], file: '../commands/tag.js', func: 'hideTagCommand' },
-{ name: 'walink', aliases: ['wame'], file: '../commands/tools.js', func: 'walinkCommand' },
-{ name: 'lyrics', aliases: ['paroles'], file: '../commands/tools.js', func: 'lyricsCommand' },
-{ name: 'services', aliases: ['service', 'nos-services'], file: '../commands/services.js', func: 'servicesCommand' },
+            // MovieBox Commands
+            { name: 'serieinfo', aliases: ['sinfo'], file: '../commands/moviebox.js', func: 'serieinfoCommand' },
+            { name: 'deservdl', aliases: ['sdl'], file: '../commands/moviebox.js', func: 'deservdlCommand' },
+            { name: 'moviesearch', aliases: ['msearch'], file: '../commands/moviebox.js', func: 'moviesearchCommand' },
+            { name: 'moviedl', aliases: ['mdl'], file: '../commands/moviebox.js', func: 'moviedlCommand' },
+            { name: 'trending', aliases: ['trend'], file: '../commands/moviebox.js', func: 'trendingCommand' },
+
+            // Image Tools
+            { name: 'removebg', aliases: ['rbg', 'nobg'], file: '../commands/image.js', func: 'removebgCommand' },
+            { name: 'upscale', aliases: ['hd', 'remini', 'enhance'], file: '../commands/image.js', func: 'upscaleCommand' },
+            { name: 'img2sketch', aliases: ['sketch', 'dessin'], file: '../commands/image.js', func: 'img2sketchCommand' },
+
+            { name: 'autovv', aliases: ['avv'], file: '../commands/autovv.js', func: 'autovvCommand' },
+            // Group Mentions
+            { name: 'tagall', aliases: ['everyone', 'tous'], file: '../commands/tag.js', func: 'tagAllCommand' },
+            { name: 'hidetag', aliases: ['tag', 'ht'], file: '../commands/tag.js', func: 'hideTagCommand' },
+            { name: 'walink', aliases: ['wame'], file: '../commands/tools.js', func: 'walinkCommand' },
+            { name: 'lyrics', aliases: ['paroles'], file: '../commands/tools.js', func: 'lyricsCommand' },
+            { name: 'services', aliases: ['service', 'nos-services'], file: '../commands/services.js', func: 'servicesCommand' },
+
+            // Automation Commands
+            { name: 'autowrite', aliases: [], file: '../commands/automation.js', func: 'autowriteCommand' },
+            { name: 'autorecord', aliases: [], file: '../commands/automation.js', func: 'autorecordCommand' },
+            { name: 'autostatus', aliases: [], file: '../commands/automation.js', func: 'autostatusCommand' },
+            { name: 'antidelete', aliases: [], file: '../commands/automation.js', func: 'antideleteCommand' },
+            { name: 'update', aliases: [], file: '../commands/update.js', func: 'updateCommand' },
         ];
         
-const textEffects = [
+        const textEffects = [
             'metallic', 'ice', 'snow', 'impressive', 'matrix', 'light',
             'neon', 'devil', 'purple', 'thunder', 'leaves', '1917',
             'arena', 'hacker', 'sand', 'glitch', 'fire',
@@ -293,7 +266,7 @@ const textEffects = [
 
         // On injecte chaque effet comme une commande pointant vers textmaker.js
         textEffects.forEach(effect => {
-            commandFiles.push({ 
+            commandFiles.push({
                 name: effect, 
                 aliases: [], 
                 file: '../commands/textmaker.js', 
@@ -341,9 +314,7 @@ const textEffects = [
             const { state, saveCreds } = await useMultiFileAuthState('./session');
             const msgRetryCounterCache = new NodeCache();
             
-            // Dans bot/SenBot.js
-
-this.socket = makeWASocket({
+            this.socket = makeWASocket({
                 version,
                 logger: pino({ level: 'silent' }),
                 printQRInTerminal: !this.pairingCode,
@@ -355,17 +326,17 @@ this.socket = makeWASocket({
                 markOnlineOnConnect: true,
                 generateHighQualityLinkPreview: true,
                 syncFullHistory: false,
-                getMessage: async (key) => {
-                    let jid = jidNormalizedUser(key.remoteJid);
-                    let msg = await this.store.loadMessage(jid, key.id);
-                    return msg?.message || "";
-                },
                 msgRetryCounterCache,
                 defaultQueryTimeoutMs: 60000,
                 connectTimeoutMs: 60000,
                 keepAliveIntervalMs: 10000,
             });
             
+            // Initialize Managers
+            presenceManager.init(this.socket);
+            statusManager.init(this.socket);
+            antiDelete.init(this.socket); // Plus besoin de store externe
+
             this.setupEventHandlers(saveCreds);
             
             if (!credsExists && !this.pairingRequested && this.pairingCode) {
@@ -382,6 +353,7 @@ this.socket = makeWASocket({
         }
     }
     
+    // ... (handlePairing code remains same) ...
     async handlePairing() {
     if (!this.socket.authState.creds.registered) {
         if (this.useMobile) {
@@ -427,12 +399,26 @@ this.socket = makeWASocket({
         }, 3000);
     }
 }
-    
+
     setupEventHandlers(saveCreds) {
         this.socket.ev.on('creds.update', saveCreds);
         
         this.socket.ev.on('messages.upsert', async (chatUpdate) => {
+            const mek = chatUpdate.messages[0];
+            if (!mek.message) return;
+
+            // AntiDelete Storage
+            await antiDelete.storeMessage(mek);
+
             await this.handleMessages(chatUpdate);
+            // Handle Status
+            if (mek.key?.remoteJid === 'status@broadcast') {
+                await statusManager.handleStatus(mek);
+            }
+            // Handle Antidelete (Revoke)
+            if (mek.message?.protocolMessage) {
+                await antiDelete.handleRevoke(mek);
+            }
         });
         
         this.socket.ev.on('connection.update', async (update) => {
@@ -503,7 +489,7 @@ this.socket.ev.on('group-participants.update', async (event) => {
             } catch (e) { 
                 console.error('Failed to get group metadata:', e.message);
                 return; 
-            }
+            } 
 
             for (const participant of participants) {
                 try {
@@ -576,6 +562,9 @@ const autoRespondManager = (await import('../lib/autoRespondManager.js')).defaul
             const chatId = sen.key.remoteJid;
             const isGroup = chatId.endsWith('@g.us');
             const senderId = sen.key.participant || sen.key.remoteJid;
+
+            // Handle Presence
+            await presenceManager.handleMessage(chatId);
 
             // ========================================
             // 📝 RÉCUPÉRATION DU TEXTE (EN PREMIER)
@@ -672,7 +661,8 @@ if (buttonId && buttonId.startsWith('seriedl_')) {
     const subjectId = buttonId.replace('seriedl_', '');
     
     await sock.sendMessage(chatId, { 
-        text: `📺 *Download Serie*\n\nUse: .deservdl ${subjectId} | <season> | <episode> | [subtitle]\n\n*Examples:*\n• .deservdl ${subjectId} | 1 | 1\n• .deservdl ${subjectId} | 1 | 1 | français\n• .deservdl ${subjectId} | 2 | 5 | english`
+        text: `📺 *Download Serie*\n\nUse: .deservdl ${subjectId} | <season> | <episode> | [subtitle]\n\n*Examples:*
+• .deservdl ${subjectId} | 1 | 1\n• .deservdl ${subjectId} | 1 | 1 | français\n• .deservdl ${subjectId} | 2 | 5 | english`
     }, { quoted: sen });
     return;
 }
