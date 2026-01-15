@@ -104,7 +104,7 @@ export async function nanomixCommand(sock, chatId, message, args) {
         // 4. APPEL NANOBANANA
         await sock.sendMessage(chatId, { text: '🍌 Fusion effectuée, traitement IA en cours...' }, { quoted: message });
 
-        const apiUrl = `https://apis.davidcyriltech.my.id/nanobanana?url=${collageUrl}&prompt=${encodeURIComponent(prompt)}`;
+        const apiUrl = `https://apis.davidcyril.name.ng/nanobanana?url=${collageUrl}&prompt=${encodeURIComponent(prompt)}`;
         const { data } = await axios.get(apiUrl);
 
         if (!data.success || !data.result || !data.result.image) {

@@ -4,6 +4,7 @@
  */
 
 import axios from 'axios';
+import yts from 'yt-search';
 import response from '../lib/response.js'; // Pour la police si besoin
 
 export async function playCommand(sock, chatId, message, args) {
@@ -19,31 +20,41 @@ export async function playCommand(sock, chatId, message, args) {
         // 1. Réaction de chargement
         await sock.sendMessage(chatId, { react: { text: '🎧', key: message.key } });
 
-        // 2. Appel API
-        const url = `https://apis.davidcyriltech.my.id/play?query=${encodeURIComponent(query)}&apikey=`;
-        const { data } = await axios.get(url);
+        // 2. Recherche Youtube
+        const searchResult = await yts(query);
+        const video = searchResult.videos[0];
 
-        if (!data.status || !data.result) {
+        if (!video) {
+            return await sock.sendMessage(chatId, { text: '❌ Vidéo introuvable.' }, { quoted: message });
+        }
+
+        // 3. Appel API Download
+        const url = `https://apis.davidcyril.name.ng/youtube/mp3?url=${video.url}&apikey=`;
+        const { data } = await axios.get(url, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            }
+        });
+
+        if (!data.success || !data.result) {
             return await sock.sendMessage(chatId, { text: '❌ Audio introuvable.' }, { quoted: message });
         }
 
         const song = data.result;
 
         // Astuce pour trouver l'auteur si le titre est "Auteur - Titre"
-        let author = "Inconnu";
+        let author = video.author.name || "Inconnu";
         let title = song.title;
         
         if (song.title.includes('-')) {
             const parts = song.title.split('-');
-            author = parts[0].trim();
+            if (!video.author.name) author = parts[0].trim();
             title = parts.slice(1).join('-').trim();
         }
 
         // 3. Préparation du message (Format demandé)
-        // On utilise response.font() si tu veux le style fancy, sinon texte brut.
-        // Ici je respecte ton format strict :
         const caption = `*SEN_DOWNLOADER*\n` +
-                        `> *title / titre* : ${song.title}\n` +
+                        `> *title / titre* : ${title}\n` +
                         `> *auteur* : ${author}`;
 
         // 4. Envoi de l'audio avec le contexte (image en thumbnail)
@@ -51,25 +62,20 @@ export async function playCommand(sock, chatId, message, args) {
             audio: { url: song.download_url },
             mimetype: 'audio/mpeg',
             ptt: false, // Met à true si tu veux que ce soit comme une note vocale
-            fileName: `${song.title}.mp3`,
+            fileName: `${title}.mp3`,
             contextInfo: {
                 externalAdReply: {
-                    title: song.title,
+                    title: title,
                     body: "SEN MUSIC PLAYER",
                     thumbnailUrl: song.thumbnail,
-                    sourceUrl: song.video_url,
+                    sourceUrl: video.url,
                     mediaType: 1,
                     renderLargerThumbnail: true
                 }
             }
         }, { quoted: message });
 
-        // Envoi du texte de détails séparément ou en légende ? 
-        // WhatsApp ne permet pas de mettre de légende sur un message AUDIO pur.
-        // Donc on envoie d'abord l'image avec le texte, puis l'audio, OU juste l'audio avec les métadonnées.
-        
         // Option choisie : On envoie le message texte AVANT l'audio pour respecter ton format visuel
-        // Car on ne peut pas mettre de caption visible sur un fichier audio standard.
         await sock.sendMessage(chatId, { 
             image: { url: song.thumbnail },
             caption: caption

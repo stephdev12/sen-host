@@ -8,7 +8,6 @@ import { isOwner, getPhoneNumber } from '../lib/authHelper.js';
 import configs from '../configs.js';
 import response from '../lib/response.js';
 import chalk from 'chalk';
-import lang from '../lib/languageManager.js';
 
 // Fonction utilitaire pour nettoyer les JIDs
 const cleanJid = (jid) => jid.split('@')[0].split(':')[0] + '@s.whatsapp.net';
@@ -49,7 +48,7 @@ export async function sudoCommand(sock, chatId, message, args) {
         }
         else {
             return await sock.sendMessage(chatId, {
-                text: lang.t('sudo.usage')
+                text: '⚠️ Utilisation invalide.\n\n• Répondez à un message\n• Mentionnez @user\n• Ou écrivez : .sudo 2376000000'
             }, { quoted: message });
         }
 
@@ -62,13 +61,13 @@ export async function sudoCommand(sock, chatId, message, args) {
             await response.sudo(sock, chatId, message, 'add', targetJid);
         } else {
             await sock.sendMessage(chatId, {
-                text: lang.t('sudo.already')
+                text: 'ℹ️ Cet utilisateur est déjà Sudo.'
             }, { quoted: message });
         }
 
     } catch (error) {
         console.error('❌ Erreur sudo command:', error);
-        await sock.sendMessage(chatId, { text: lang.t('errors.commandFailed') }, { quoted: message });
+        await sock.sendMessage(chatId, { text: 'Une erreur est survenue.' }, { quoted: message });
     }
 }
 
@@ -96,7 +95,7 @@ export async function delsudoCommand(sock, chatId, message, args) {
         }
         else {
             return await sock.sendMessage(chatId, {
-                text: lang.t('sudo.usage_del')
+                text: '⚠️ Utilisation : .delsudo @user ou .delsudo 2376000000'
             }, { quoted: message });
         }
 
@@ -107,13 +106,12 @@ export async function delsudoCommand(sock, chatId, message, args) {
             await response.sudo(sock, chatId, message, 'remove', targetJid);
         } else {
             await sock.sendMessage(chatId, {
-                text: lang.t('sudo.notFound')
+                text: 'ℹ️ Cet utilisateur n\'était pas Sudo.'
             }, { quoted: message });
         }
 
     } catch (error) {
         console.error('Error in delsudo command:', error);
-        await sock.sendMessage(chatId, { text: lang.t('errors.commandFailed') }, { quoted: message });
     }
 }
 
@@ -129,7 +127,7 @@ export async function listsudoCommand(sock, chatId, message, args) {
 
         if (!sudoUsers || sudoUsers.length === 0) {
             return await sock.sendMessage(chatId, {
-                text: lang.t('sudo.empty')
+                text: '📂 Aucun utilisateur Sudo enregistré.'
             }, { quoted: message });
         }
 
@@ -138,11 +136,10 @@ export async function listsudoCommand(sock, chatId, message, args) {
             `👤 +${user.phone}\n   📅 ${new Date(user.addedAt).toLocaleDateString()}`
         );
 
-        await response.list(sock, chatId, message, lang.t('sudo.list_title', { count: sudoUsers.length }), items);
+        await response.list(sock, chatId, message, `SUDO USERS (${sudoUsers.length})`, items);
 
     } catch (error) {
         console.error('Error in listsudo command:', error);
-        await sock.sendMessage(chatId, { text: lang.t('errors.commandFailed') }, { quoted: message });
     }
 }
 

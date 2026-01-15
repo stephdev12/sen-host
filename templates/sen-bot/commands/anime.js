@@ -14,28 +14,33 @@ const ENDPOINTS = {
     happy: { path: '/anime/happy', type: 'gif' },
     kiss: { path: '/anime/kiss', type: 'gif' },
     
-    // Images Anime
+    // Images Anime (Old API)
     akiyama: { path: '/anime/akiyama', type: 'image' },
     boruto: { path: '/anime/boruto', type: 'image' },
     deidara: { path: '/anime/deidara', type: 'image' },
     fanart: { path: '/anime/fanart', type: 'image' },
     sasuke: { path: '/anime/sasuke', type: 'image' },
-    waifu: { path: '/anime/waifu', type: 'image' },
-    
-    // Random / Autres
     bluearchive: { path: '/random/ba', type: 'image' },
-    loli: { path: '/random/loli', type: 'image' },
+
+    // Images Anime (New API - PrinceTech)
+    waifu: { url: 'https://api.princetechn.com/api/anime/waifu?apikey=prince', type: 'image' },
+    neko: { url: 'https://api.princetechn.com/api/anime/neko?apikey=prince', type: 'image' },
+    konachan: { url: 'https://api.princetechn.com/api/anime/konachan?apikey=prince', type: 'image' },
+    loli: { url: 'https://api.princetechn.com/api/anime/loli?apikey=prince', type: 'image' },
     
-    // NSFW
-    nsfw: { path: '/random/nsfw', type: 'image' },
-    hneko: { path: '/random/nekonsfw', type: 'image' },
-    hwaifu: { path: '/random/nsfwwaifu', type: 'image' }
+    // NSFW (Removed specific ones moved to Adulte category)
+    nsfw: { path: '/random/nsfw', type: 'image' }
 };
 
 // Fonction pour télécharger un fichier en Buffer
 async function getBuffer(url) {
     try {
-        const res = await axios.get(url, { responseType: 'arraybuffer' });
+        const res = await axios.get(url, { 
+            responseType: 'arraybuffer',
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            }
+        });
         return res.data;
     } catch (e) {
         console.error(`Impossible de télécharger: ${url}`);
@@ -53,8 +58,16 @@ async function sendAnime(sock, chatId, message, cmdName) {
     try {
         await sock.sendMessage(chatId, { react: { text: '⏳', key: message.key } });
 
+        // Déterminer l'URL finale
+        const requestUrl = config.url ? config.url : `${BASE_URL}${config.path}`;
+
         // 1. Récupération de la réponse API (JSON ou Image brute)
-        const { data } = await axios.get(`${BASE_URL}${config.path}`, { responseType: 'arraybuffer' });
+        const { data } = await axios.get(requestUrl, { 
+            responseType: 'arraybuffer',
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            }
+        });
         
         let mediaBuffer;
 
@@ -113,17 +126,18 @@ export async function deidaraCommand(sock, chatId, message, args) { await sendAn
 export async function fanartCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'fanart'); }
 export async function sasukeCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'sasuke'); }
 export async function waifuCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'waifu'); }
+export async function nekoCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'neko'); }
+export async function konachanCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'konachan'); }
 
 export async function bluearchiveCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'bluearchive'); }
 export async function loliCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'loli'); }
 
 export async function nsfwCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'nsfw'); }
-export async function hnekoCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'hneko'); }
-export async function hwaifuCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'hwaifu'); }
 
 export default { 
     hugCommand, happyCommand, kissCommand,
     akiyamaCommand, borutoCommand, deidaraCommand, fanartCommand, sasukeCommand, waifuCommand,
+    nekoCommand, konachanCommand,
     bluearchiveCommand, loliCommand,
-    nsfwCommand, hnekoCommand, hwaifuCommand
+    nsfwCommand
 };

@@ -26,16 +26,17 @@ export async function languageCommand(sock, chatId, message, args) {
             const available = lang.getAvailableLanguages();
             
             let text = `╭━━━━━━━━━━━━━━━━━━━╮\n`;
-            text += `│  🌍 *${lang.t('language.title')}*  │\n`;
+            text += `│  🌍 *Language Settings*  │\n`;
             text += `╰━━━━━━━━━━━━━━━━━━━╯\n\n`;
-            text += `📌 *${lang.t('language.current')}:* ${currentLang.toUpperCase()}\n\n`;
-            text += `🗣️ *${lang.t('language.available')}:*\n\n`;
+            text += `📌 *Current:* ${currentLang.toUpperCase()}\n\n`;
+            text += `🗣️ *Available Languages:*\n\n`;
             
             available.forEach(l => {
                 text += `${l.flag} ${l.code.toUpperCase()} - ${l.name}\n`;
             });
             
-            text += `\n${lang.t('language.usage')}`;
+            text += `\n💡 Usage: .language <code>\n`;
+            text += `Example: .language fr`;
             
             return await sock.sendMessage(chatId, {
                 text: text
@@ -47,11 +48,11 @@ export async function languageCommand(sock, chatId, message, args) {
 
         if (result.success) {
             await sock.sendMessage(chatId, {
-                text: lang.t('language.success', { lang: newLang.toUpperCase() })
+                text: `✅ *Language Changed*\n\n🌍 Language: ${newLang.toUpperCase()}\n✨ All bot messages will now be in ${newLang}!`
             }, { quoted: message });
         } else {
             await sock.sendMessage(chatId, {
-                text: `❌ ${result.message}\n\n${lang.t('language.available')}`
+                text: `❌ ${result.message}\n\nUse .language to see available languages.`
             }, { quoted: message });
         }
 

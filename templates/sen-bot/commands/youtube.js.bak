@@ -125,7 +125,7 @@ export async function ytAudioCommand(sock, chatId, message, args) {
     try {
         await sock.sendMessage(chatId, { react: { text: '⏳', key: message.key } });
         
-        const { data } = await axios.get(`https://apis.davidcyriltech.my.id/youtube/mp3?url=${url}&apikey=`);
+        const { data } = await axios.get(`https://apis.davidcyril.name.ng/youtube/mp3?url=${url}&apikey=`);
         
         if (!data.success) throw new Error('API Fail');
         
@@ -160,7 +160,7 @@ export async function ytVideoCommand(sock, chatId, message, args) {
     try {
         await sock.sendMessage(chatId, { react: { text: '⏳', key: message.key } });
         
-        const { data } = await axios.get(`https://apis.davidcyriltech.my.id/download/ytmp4?url=${url}&apikey=`);
+        const { data } = await axios.get(`https://apis.davidcyril.name.ng/download/ytmp4?url=${url}&apikey=`);
         
         if (!data.success) throw new Error('API Failed');
         

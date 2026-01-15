@@ -19,31 +19,35 @@ export async function apkCommand(sock, chatId, message, args) {
     try {
         await sock.sendMessage(chatId, { react: { text: '📲', key: message.key } });
 
-        const apiUrl = `https://apis.davidcyriltech.my.id/download/apk?text=${encodeURIComponent(query)}&apikey=`;
-        const { data } = await axios.get(apiUrl);
+        const apiUrl = `https://api.princetechn.com/api/download/apkdl?apikey=prince&appName=${encodeURIComponent(query)}`;
+        const { data } = await axios.get(apiUrl, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            }
+        });
 
-        if (!data.status || !data.apk) {
+        if (!data.success || !data.result) {
             return await sock.sendMessage(chatId, { 
                 text: lang.t('commands.apk.notFound') 
             }, { quoted: message });
         }
 
-        const app = data.apk;
+        const app = data.result;
 
         const caption = lang.t('commands.apk.info', {
-            name: app.name,
-            package: app.package,
-            updated: app.lastUpdated
+            name: app.appname,
+            package: app.package || 'N/A',
+            updated: 'N/A' // API doesn't provide update date anymore
         });
 
         await ui.urlButtons(chatId, {
             text: caption,
             footer: lang.t('commands.apk.footer'),
-            image: app.icon,
+            image: app.appicon,
             buttons: [
                 {
                     text: lang.t('commands.apk.downloadButton'),
-                    url: app.downloadLink
+                    url: app.download_url
                 }
             ],
             quoted: message

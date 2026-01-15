@@ -67,7 +67,7 @@ export async function setwelcome(sock, chatId, message, args) {
     const text = args.join(' ');
     if (!text) {
         return await sock.sendMessage(chatId, { 
-            text: lang.t('welcome.setUsage')
+            text: '*SETWELCOME*\n\nUsage: .setwelcome <message>\n\nVariables:\n{group} - Group name\n{user} - User mention\n{members} - Member count\n{desc} - Group description\n\nExample:\n.setwelcome Welcome @user to {group}!'
         }, { quoted: message });
     }
     
@@ -77,7 +77,7 @@ export async function setwelcome(sock, chatId, message, args) {
     });
     
     await sock.sendMessage(chatId, { 
-        text: lang.t('welcome.setSuccess', { msg: text })
+        text: '*WELCOME MESSAGE SAVED*\n\nMessage: ' + text + '\n\nWelcome is now enabled!'
     }, { quoted: message });
 }
 
@@ -88,7 +88,7 @@ export async function setgoodbye(sock, chatId, message, args) {
     const text = args.join(' ');
     if (!text) {
         return await sock.sendMessage(chatId, { 
-            text: lang.t('goodbye.setUsage')
+            text: '*SETGOODBYE*\n\nUsage: .setgoodbye <message>\n\nVariables:\n{group} - Group name\n{user} - User mention\n{members} - Member count\n\nExample:\n.setgoodbye Goodbye @user from {group}'
         }, { quoted: message });
     }
     
@@ -98,7 +98,7 @@ export async function setgoodbye(sock, chatId, message, args) {
     });
     
     await sock.sendMessage(chatId, { 
-        text: lang.t('goodbye.setSuccess', { msg: text })
+        text: '*GOODBYE MESSAGE SAVED*\n\nMessage: ' + text + '\n\nGoodbye is now enabled!'
     }, { quoted: message });
 }
 

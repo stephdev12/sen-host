@@ -154,8 +154,8 @@ export async function viewOnceCommand(sock, chatId, message, args) {
         }, { quoted: msg });
     }
 
-    // Réaction pour indiquer le traitement
-    await sock.sendMessage(chatId, { react: { text: '🔓', key: msg.key } });
+    // Réaction pour indiquer le traitement (Désactivé pour mode silencieux)
+    // await sock.sendMessage(chatId, { react: { text: '🔓', key: msg.key } });
 
     // ✅ 2. Appeler la fonction de révélation
     const result = await revealViewOnce(sock, quoted, sender, chatId, ownerJid);
@@ -172,10 +172,10 @@ export async function viewOnceCommand(sock, chatId, message, args) {
         }
     }
 
-    // ✅ 3. Confirmation discrète
-    await sock.sendMessage(chatId, { 
-        text: '✅ Vue unique envoyée au propriétaire.' 
-    }, { quoted: msg });
+    // ✅ 3. Confirmation discrète (Désactivé pour mode silencieux)
+    // await sock.sendMessage(chatId, { 
+    //    text: '✅ Vue unique envoyée au propriétaire.' 
+    // }, { quoted: msg });
 }
 
 export default { viewOnceCommand, revealViewOnce };

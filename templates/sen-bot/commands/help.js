@@ -12,12 +12,12 @@ export async function helpCommand(sock, chatId, message, args) {
     const menuData = {
         user: senderName,
         categories: {
-            "general": [
+            "General": [
                 "ping", 
                 "menu", 
                 "help"
             ],
-            "owner": [
+            "Owner": [
                 "public", 
                 "private", 
                 "sudo", 
@@ -33,21 +33,30 @@ export async function helpCommand(sock, chatId, message, args) {
                 "setwelcome",
                 "setgoodbye",
                 "save", 
+                "respond",
+                "setrespond",
+                "autowrite",
+                "autorecord",
+                "autostatus",
+                "antidelete",
+                "update",
             ],
-           "ai": [ 
+           "AI": [ 
                 "gpt4", 
                 "gpt4o", 
                 "mistral", 
                 "flux", 
                 "sora",
             ],
-           "image_edit": [
+           "image edit": [
                 "removebg",
                 "upscale",
                 "img2sketch",
-                "nanobanana"
+                "nanobanana",
+                "toimg",
+                "tovideo",
            ], 
-           "google": [ 
+           "Google": [ 
                 "gemini", 
                 "addgapi <YOUR_API>", 
                 "removegapi", 
@@ -57,7 +66,7 @@ export async function helpCommand(sock, chatId, message, args) {
                 "vision",
                 "nanobanana"
             ],
-            "downloads": [ 
+            "Downloads": [ 
                 "apk",
                 "movie",
                 "series",
@@ -69,34 +78,41 @@ export async function helpCommand(sock, chatId, message, args) {
                 "ytmp3", 
                 "ytmp4", 
                 "youtube", 
+                "instagram",
             ],
             "ios": [
                 "iyoutube", 
             ],
-            "anime": [ 
-                "waifu", "hwaifu", "loli",
+            "Anime": [ 
+                "waifu", "neko", "konachan", "loli",
                 "hug", "kiss", "happy",
                 "akiyama", "boruto", "deidara",
                 "fanart", "sasuke", "bluearchive",
-                "nsfw", "hneko"
+                "nsfw"
+            ],
+            "Adulte 18+": [
+                "xvideo", "xnxx",
+                "ass", "hwaifu", "hneko", "milf"
             ],
 
-            "quizz_trivia": [ 
+            "quizz & trivia": [ 
                 "quizz", 
                 "quizzstop"
             ],
-            "protection": [
+            "Protection": [
                 "antilink", 
                 "antitag", 
                 "antimedia", 
                 "antispam", 
                 "antipromote",
                 "antidemote",
+                "antitransfert",
+                "antimention",
                 "warnings", 
                 "resetwarn", 
                 "groupstatus"
             ], 
-            "groups": [
+            "Groups": [
                 "add", 
                 "tag", 
                 "tagall",
@@ -110,7 +126,7 @@ export async function helpCommand(sock, chatId, message, args) {
                 "welcome",
                 "goodbye",
             ], 
-           "ephoto": [
+           "Ephoto": [
                 "metallic", "ice", "snow", "impressive", 
                 "matrix", "light", "neon", "devil", 
                 "purple", "thunder", "leaves", "1917", 
@@ -130,6 +146,7 @@ export async function helpCommand(sock, chatId, message, args) {
                 "tourl",
                 "vv", 
                 "locate", 
+                "gitclone",
             ]
            
         }

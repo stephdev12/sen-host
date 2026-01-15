@@ -9,6 +9,7 @@ import { Sticker, StickerTypes } from 'wa-sticker-formatter';
 import { isOwner } from '../lib/authHelper.js';
 import lang from '../lib/languageManager.js';
 import configs from '../configs.js';
+import { uploadToTelegraph, webp2mp4File } from '../lib/converter.js';
 
 const MEDIA_BASE_DIR = './data/user_media';
 
@@ -72,10 +73,12 @@ export async function stickerCommand(sock, chatId, message, args) {
             pack: pack,
             author: author,
             type: StickerTypes.FULL,
-            quality: 60
+            quality: 50,
+            background: 'transparent'
         });
 
-        await sock.sendMessage(chatId, await sticker.toMessage(), { quoted: message });
+        const stickerBuffer = await sticker.toBuffer();
+        await sock.sendMessage(chatId, { sticker: stickerBuffer }, { quoted: message });
 
     } catch (error) {
         console.error('Sticker Error:', error);
@@ -116,7 +119,7 @@ export async function storeCommand(sock, chatId, message, args) {
         const filePath = path.join(userDir, name.toLowerCase() + ext);
 
         const stream = await downloadContentFromMessage(
-            quoted.videoMessage || quoted.audioMessage, 
+            quoted.videoMessage || quoted.audioMessage,
             isVideo ? 'video' : 'audio'
         );
         
@@ -278,12 +281,12 @@ export async function deleteMediaCommand(sock, chatId, message, args) {
         try { 
             await fs.unlink(path.join(userDir, name + '.mp3')); 
             deleted = true; 
-        } catch {}
+        } catch {} 
         
         try { 
             await fs.unlink(path.join(userDir, name + '.mp4')); 
             deleted = true; 
-        } catch {}
+        } catch {} 
 
         if (deleted) {
             await sock.sendMessage(chatId, { 
@@ -303,11 +306,76 @@ export async function deleteMediaCommand(sock, chatId, message, args) {
     }
 }
 
+export async function toimgCommand(sock, chatId, message, args) {
+    try {
+        const quoted = message.message?.extendedTextMessage?.contextInfo?.quotedMessage;
+        if (!quoted?.stickerMessage) {
+            return sock.sendMessage(chatId, { text: lang.t('commands.toimg.noSticker') }, { quoted: message });
+        }
+
+        if (quoted.stickerMessage.isAnimated) {
+            return sock.sendMessage(chatId, { text: lang.t('commands.toimg.animated') }, { quoted: message });
+        }
+
+        await sock.sendMessage(chatId, { react: { text: '🔄', key: message.key } });
+
+        const stream = await downloadContentFromMessage(quoted.stickerMessage, 'sticker');
+        let buffer = Buffer.from([]);
+        for await (const chunk of stream) {
+            buffer = Buffer.concat([buffer, chunk]);
+        }
+
+        await sock.sendMessage(chatId, { image: buffer, caption: lang.t('commands.toimg.success') }, { quoted: message });
+
+    } catch (error) {
+        console.error('ToImg Error:', error);
+        await sock.sendMessage(chatId, { text: lang.t('commands.toimg.error') }, { quoted: message });
+    }
+}
+
+export async function tovideoCommand(sock, chatId, message, args) {
+    try {
+        const quoted = message.message?.extendedTextMessage?.contextInfo?.quotedMessage;
+        if (!quoted?.stickerMessage?.isAnimated) {
+            return sock.sendMessage(chatId, { text: lang.t('commands.tovideo.noSticker') }, { quoted: message });
+        }
+
+        await sock.sendMessage(chatId, { react: { text: '🔄', key: message.key } });
+
+        const stream = await downloadContentFromMessage(quoted.stickerMessage, 'sticker');
+        let buffer = Buffer.from([]);
+        for await (const chunk of stream) {
+            buffer = Buffer.concat([buffer, chunk]);
+        }
+
+        // Save temp file
+        const tempPath = path.join(process.cwd(), 'temp', `sticker_${Date.now()}.webp`);
+        await fs.writeFile(tempPath, buffer);
+
+        // Convert
+        try {
+            const videoUrl = await webp2mp4File(tempPath);
+            await sock.sendMessage(chatId, { video: { url: videoUrl }, caption: lang.t('commands.tovideo.success') }, { quoted: message });
+        } catch (e) {
+            throw e;
+        } finally {
+            // Cleanup
+            try { await fs.unlink(tempPath); } catch {}
+        }
+
+    } catch (error) {
+        console.error('ToVideo Error:', error);
+        await sock.sendMessage(chatId, { text: lang.t('commands.tovideo.error') }, { quoted: message });
+    }
+}
+
 export default { 
     stickerCommand, 
     storeCommand, 
     adCommand, 
     vdCommand, 
     listMediaCommand, 
-    deleteMediaCommand 
+    deleteMediaCommand,
+    toimgCommand,
+    tovideoCommand
 };

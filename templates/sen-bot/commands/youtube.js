@@ -148,7 +148,11 @@ export async function ytAudioCommand(sock, chatId, message, args) {
     try {
         await sock.sendMessage(chatId, { react: { text: '⏳', key: message.key } });
         
-        const { data } = await axios.get(`https://apis.davidcyriltech.my.id/youtube/mp3?url=${url}&apikey=`);
+        const { data } = await axios.get(`https://apis.davidcyril.name.ng/youtube/mp3?url=${url}&apikey=`, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            }
+        });
         
         if (!data.success) throw new Error('API Fail');
         
@@ -184,43 +188,29 @@ export async function ytVideoCommand(sock, chatId, message, args) {
     try {
         await sock.sendMessage(chatId, { react: { text: '⏳', key: message.key } });
         
-        const { data } = await axios.get(`https://apis.davidcyriltech.my.id/download/ytmp4?url=${url}&apikey=`);
+        const { data } = await axios.get(`https://apis.davidcyril.name.ng/download/ytmp4?url=${url}&apikey=`, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            }
+        });
         
         if (!data.success) throw new Error('API Failed');
         
         const videoUrl = data.result.download_url;
         const title = data.result.title;
         
-        const fileSize = await getFileSize(videoUrl);
-        const fileSizeMB = fileSize / (1024 * 1024);
+        // Removed file size check for now as the new API doesn't provide content-length in headers reliably sometimes, 
+        // or we rely on the API to give us a valid link. 
+        // We will try to send as video directly.
         
-        const MAX_SIZE_MB = 50;
-        
-        if (fileSizeMB > MAX_SIZE_MB) {
-            console.log(chalk.yellow(`📦 Sending as document (${fileSizeMB.toFixed(2)} MB)`));
-            
-            await sock.sendMessage(chatId, {
-                document: { url: videoUrl },
-                fileName: `${title}.mp4`,
-                mimetype: 'video/mp4',
-                caption: lang.t('commands.youtube.videoCaption', { 
-                    title, 
-                    size: formatBytes(fileSize) 
-                })
-            }, { quoted: message });
-            
-        } else {
-            console.log(chalk.green(`🎬 Sending as video (${fileSizeMB.toFixed(2)} MB)`));
-            
-            await sock.sendMessage(chatId, { 
-                video: { url: videoUrl }, 
-                caption: lang.t('commands.youtube.videoCaption', { 
-                    title, 
-                    size: formatBytes(fileSize) 
-                }), 
-                gifPlayback: false 
-            }, { quoted: message });
-        }
+        await sock.sendMessage(chatId, { 
+            video: { url: videoUrl }, 
+            caption: lang.t('commands.youtube.videoCaption', { 
+                title, 
+                size: 'Unknown' 
+            }), 
+            gifPlayback: false 
+        }, { quoted: message });
         
         await sock.sendMessage(chatId, { react: { text: '✅', key: message.key } });
         

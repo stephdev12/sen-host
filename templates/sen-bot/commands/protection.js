@@ -77,6 +77,16 @@ export async function antidemoteCommand(sock, chatId, message, args) {
     await toggle(sock, chatId, message, args, 'antidemote', 'ANTI-DEMOTE', true);
 }
 
+// --- ANTITRANSFERT ---
+export async function antitransfertCommand(sock, chatId, message, args) {
+    await toggle(sock, chatId, message, args, 'antitransfert', 'ANTI-TRANSFERT', true);
+}
+
+// --- ANTIMENTION ---
+export async function antimentionCommand(sock, chatId, message, args) {
+    await toggle(sock, chatId, message, args, 'antimention', 'ANTI-MENTION', true);
+}
+
 // --- WARNINGS ---
 export async function warningsCommand(sock, chatId, message, args) {
     try {
@@ -209,6 +219,8 @@ export default {
     antispamCommand,
     antipromoteCommand,
     antidemoteCommand,
+    antitransfertCommand,
+    antimentionCommand,
     warningsCommand,
     resetwarningsCommand,
     groupstatusCommand

@@ -5,7 +5,6 @@
 
 import autoVvManager from '../lib/autoVvManager.js';
 import { isOwner } from '../lib/authHelper.js';
-import lang from '../lib/languageManager.js';
 import configs from '../configs.js';
 
 export async function autovvCommand(sock, chatId, message, args) {
@@ -14,7 +13,7 @@ export async function autovvCommand(sock, chatId, message, args) {
     
     if (!owner) {
         return await sock.sendMessage(chatId, {
-            text: lang.t('errors.ownerOnly')
+            text: '❌ Cette commande est réservée au propriétaire.'
         }, { quoted: message });
     }
 
@@ -24,16 +23,17 @@ export async function autovvCommand(sock, chatId, message, args) {
     if (!action) {
         const status = autoVvManager.getStatus();
         
-        let dateStr = '';
+        let statusText = `*AUTO VIEW ONCE STATUS*\n\n`;
+        statusText += `> *Status* : ${status.enabled ? '✅ Enabled' : '❌ Disabled'}\n`;
+        
         if (status.enabled && status.enabledAt) {
             const date = new Date(status.enabledAt);
-            dateStr = lang.t('autovv.since', { date: date.toLocaleString() });
+            statusText += `> *Enabled since* : ${date.toLocaleString()}\n`;
         }
         
-        const statusText = lang.t('autovv.status', {
-            status: status.enabled ? lang.t('autovv.enabled') : lang.t('autovv.disabled'),
-            date: dateStr
-        }) + lang.t('autovv.usage');
+        statusText += `\n*Usage:*\n`;
+        statusText += `• .autovv on - Enable auto reveal\n`;
+        statusText += `• .autovv off - Disable auto reveal`;
         
         return await sock.sendMessage(chatId, {
             text: statusText
@@ -45,7 +45,7 @@ export async function autovvCommand(sock, chatId, message, args) {
         autoVvManager.enable();
         
         return await sock.sendMessage(chatId, {
-            text: lang.t('autovv.onMsg')
+            text: '✅ *Auto ViewOnce Enabled*\n\nToutes les vues uniques reçues seront automatiquement révélées et envoyées en DM.'
         }, { quoted: message });
     }
 
@@ -54,13 +54,13 @@ export async function autovvCommand(sock, chatId, message, args) {
         autoVvManager.disable();
         
         return await sock.sendMessage(chatId, {
-            text: lang.t('autovv.offMsg')
+            text: '❌ *Auto ViewOnce Disabled*\n\nLes vues uniques ne seront plus révélées automatiquement.'
         }, { quoted: message });
     }
 
     // Commande invalide
     return await sock.sendMessage(chatId, {
-        text: lang.t('autovv.invalid')
+        text: '❌ Usage: .autovv <on|off>'
     }, { quoted: message });
 }
 

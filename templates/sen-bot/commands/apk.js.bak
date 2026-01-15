@@ -21,7 +21,7 @@ export async function apkCommand(sock, chatId, message, args) {
         await sock.sendMessage(chatId, { react: { text: '📲', key: message.key } });
 
         // Appel API David Cyril
-        const apiUrl = `https://apis.davidcyriltech.my.id/download/apk?text=${encodeURIComponent(query)}&apikey=`;
+        const apiUrl = `https://apis.davidcyril.name.ng/download/apk?text=${encodeURIComponent(query)}&apikey=`;
         const { data } = await axios.get(apiUrl);
 
         // Vérification basée sur la nouvelle structure { status: true, apk: { ... } }

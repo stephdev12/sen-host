@@ -43,7 +43,7 @@ export async function nanobananaCommand(sock, chatId, message, args) {
         }
 
         // 2. Appel API NanoBanana avec l'URL ImgBB obtenue
-        const apiUrl = `https://apis.davidcyriltech.my.id/nanobanana?url=${imageUrl}&prompt=${encodeURIComponent(prompt)}`;
+        const apiUrl = `https://apis.davidcyril.name.ng/nanobanana?url=${imageUrl}&prompt=${encodeURIComponent(prompt)}`;
         const { data } = await axios.get(apiUrl);
 
         if (!data.success || !data.result || !data.result.image) {

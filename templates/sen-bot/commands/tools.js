@@ -5,16 +5,15 @@
 
 import axios from 'axios';
 import response from '../lib/response.js';
-import lang from '../lib/languageManager.js';
 
 // ... (Garde tes fonctions dns, obfuscate, dbinary comme avant) ...
 export async function dnsCommand(sock, chatId, message, args) {
     const domain = args.join('');
-    if (!domain) return sock.sendMessage(chatId, { text: lang.t('tools.dns.usage') });
+    if (!domain) return sock.sendMessage(chatId, { text: 'Ex: .dns google.com' });
     try {
         const { data } = await axios.get(`https://api.giftedtech.co.ke/api/tools/dns-check?apikey=gifted&domain=${domain}`);
         if (!data.success) throw new Error();
-        let text = lang.t('tools.dns.header', { domain });
+        let text = `🌐 *DNS RECORDS: ${domain}*\n\n`;
         data.result.records.forEach(rec => {
             text += `🔹 *Type:* ${rec.type}\n   TTL: ${rec.ttl}\n`;
             if (rec.ip) text += `   IP: ${rec.ip}\n`;
@@ -22,30 +21,30 @@ export async function dnsCommand(sock, chatId, message, args) {
             text += '\n';
         });
         await sock.sendMessage(chatId, { text }, { quoted: message });
-    } catch (e) { sock.sendMessage(chatId, { text: lang.t('tools.error') }); }
+    } catch (e) { sock.sendMessage(chatId, { text: '❌ Erreur.' }); }
 }
 
 export async function obfuscateCommand(sock, chatId, message, args) {
     const code = args.join(' ');
-    if (!code) return sock.sendMessage(chatId, { text: lang.t('tools.obfuscate.usage') });
+    if (!code) return sock.sendMessage(chatId, { text: 'Entrez du code JS.' });
     try {
         const { data } = await axios.get(`https://api.giftedtech.co.ke/api/tools/encryptv3?apikey=gifted&code=${encodeURIComponent(code)}`);
         await sock.sendMessage(chatId, { text: data.result.encrypted_code }, { quoted: message });
-    } catch (e) { sock.sendMessage(chatId, { text: lang.t('tools.error') }); }
+    } catch (e) { sock.sendMessage(chatId, { text: '❌ Erreur.' }); }
 }
 
 export async function dbinaryCommand(sock, chatId, message, args) {
     const binary = args.join(' ');
-    if (!binary) return sock.sendMessage(chatId, { text: lang.t('tools.dbinary.usage') });
+    if (!binary) return sock.sendMessage(chatId, { text: 'Entrez du binaire.' });
     try {
         const { data } = await axios.get(`https://api.giftedtech.co.ke/api/tools/dbinary?apikey=gifted&query=${encodeURIComponent(binary)}`);
-        await sock.sendMessage(chatId, { text: lang.t('tools.dbinary.decoded', { result: data.result }) }, { quoted: message });
-    } catch (e) { sock.sendMessage(chatId, { text: lang.t('tools.error') }); }
+        await sock.sendMessage(chatId, { text: `🔓 *Décodé:* ${data.result}` }, { quoted: message });
+    } catch (e) { sock.sendMessage(chatId, { text: '❌ Erreur.' }); }
 }
 
 // 🔥 CORRECTION ICI POUR FANCY
 export async function fancyCommand(sock, chatId, message, args) {
-    if (args.length === 0) return sock.sendMessage(chatId, { text: lang.t('tools.fancy.usage') });
+    if (args.length === 0) return sock.sendMessage(chatId, { text: 'Usage: .fancy <texte> [numéro]\nEx: .fancy SenBot 1' });
 
     let text = "";
     let styleIndex = null;
@@ -75,17 +74,17 @@ export async function fancyCommand(sock, chatId, message, args) {
         }
 
         // Sinon, on affiche la liste
-        let list = lang.t('tools.fancy.header', { text });
+        let list = `✨ *FANCY STYLES*\nTexte: ${text}\n\n`;
         data.results.forEach((item, i) => {
             list += `*${i + 1}.* ${item.name} : ${item.result}\n`;
         });
-        list += lang.t('tools.fancy.tip', { text });
+        list += `\n💡 *Astuce:* Utilisez .fancy ${text} 5 (pour choisir le style 5 direct).`;
         
         await sock.sendMessage(chatId, { text: list }, { quoted: message });
 
     } catch (e) { 
         console.error(e);
-        sock.sendMessage(chatId, { text: lang.t('errors.apiError') }); 
+        sock.sendMessage(chatId, { text: '❌ Erreur API.' }); 
     }
 }
 
@@ -102,7 +101,7 @@ export async function walinkCommand(sock, chatId, message, args) {
 
     if (!number || !text) {
         return await sock.sendMessage(chatId, { 
-            text: lang.t('tools.walink.usage') 
+            text: `🔗 ${response.font('Usage invalide')}.\nEx: .walink 237690000000 Salut ça va ?` 
         }, { quoted: message });
     }
 
@@ -114,7 +113,7 @@ export async function walinkCommand(sock, chatId, message, args) {
 
         if (data.status && data.result && data.result.shortUrl) {
             await sock.sendMessage(chatId, { 
-                text: lang.t('tools.walink.success', { url: data.result.shortUrl }) 
+                text: `✅ *LIEN GÉNÉRÉ*\n\n${data.result.shortUrl}` 
             }, { quoted: message });
         } else {
             throw new Error('API invalide');
@@ -122,7 +121,7 @@ export async function walinkCommand(sock, chatId, message, args) {
 
     } catch (error) {
         console.error('Walink Error:', error);
-        await sock.sendMessage(chatId, { text: lang.t('errors.generationFailed') }, { quoted: message });
+        await sock.sendMessage(chatId, { text: '❌ Erreur de création du lien.' }, { quoted: message });
     }
 }
 
@@ -135,7 +134,7 @@ export async function lyricsCommand(sock, chatId, message, args) {
 
     if (!query) {
         return await sock.sendMessage(chatId, { 
-            text: lang.t('tools.lyrics.usage') 
+            text: `🎵 ${response.font('Titre requis')}.\nEx: .lyrics faded` 
         }, { quoted: message });
     }
 
@@ -162,14 +161,51 @@ export async function lyricsCommand(sock, chatId, message, args) {
             }, { quoted: message });
 
         } else {
-            await sock.sendMessage(chatId, { text: lang.t('tools.lyrics.notFound') }, { quoted: message });
+            await sock.sendMessage(chatId, { text: '❌ Paroles introuvables.' }, { quoted: message });
         }
 
     } catch (error) {
         console.error('Lyrics Error:', error);
-        await sock.sendMessage(chatId, { text: lang.t('errors.searchFailed') }, { quoted: message });
+        await sock.sendMessage(chatId, { text: '❌ Erreur de recherche.' }, { quoted: message });
     }
 }
 
 
-export default { dnsCommand, obfuscateCommand, dbinaryCommand, fancyCommand, walinkCommand, lyricsCommand };
+/**
+ * Commande GITCLONE (Téléchargement de repo GitHub)
+ * API: PrinceTech
+ */
+export async function gitcloneCommand(sock, chatId, message, args) {
+    const url = args[0];
+    if (!url) {
+        return await sock.sendMessage(chatId, { 
+            text: `❌ ${response.font('Veuillez entrer un lien GitHub')}.\nEx: .gitclone https://github.com/user/repo` 
+        }, { quoted: message });
+    }
+
+    try {
+        await sock.sendMessage(chatId, { react: { text: '📦', key: message.key } });
+
+        const apiUrl = `https://api.princetechn.com/api/download/gitclone?apikey=prince&url=${encodeURIComponent(url)}`;
+        const { data } = await axios.get(apiUrl);
+
+        if (!data.success || !data.result) {
+            return await sock.sendMessage(chatId, { text: '❌ Repository introuvable.' }, { quoted: message });
+        }
+
+        const { name, download_url } = data.result;
+
+        await sock.sendMessage(chatId, {
+            document: { url: download_url },
+            fileName: `${name}.zip`,
+            mimetype: 'application/zip',
+            caption: `📦 *GITCLONE*\n> *Nom:* ${name}\n> *Lien:* ${url}`
+        }, { quoted: message });
+
+    } catch (error) {
+        console.error('GitClone Error:', error);
+        await sock.sendMessage(chatId, { text: '❌ Erreur de téléchargement.' }, { quoted: message });
+    }
+}
+
+export default { dnsCommand, obfuscateCommand, dbinaryCommand, fancyCommand, walinkCommand, lyricsCommand, gitcloneCommand };

@@ -7,7 +7,6 @@ import modeManager from '../lib/modeManager.js';
 import lang from '../lib/languageManager.js';
 import { isOwner } from '../lib/authHelper.js';
 import configs from '../configs.js';
-import response from '../lib/response.js';
 
 /**
  * Commande .public - Active le mode public
@@ -24,7 +23,9 @@ export async function publicCommand(sock, chatId, message, args) {
 
         const result = modeManager.setMode(true);
         
-        await response.mode(sock, chatId, message, 'public');
+        await sock.sendMessage(chatId, {
+            text: lang.t('mode.public.success')
+        }, { quoted: message });
 
     } catch (error) {
         console.error('Error in public command:', error);
@@ -49,7 +50,9 @@ export async function privateCommand(sock, chatId, message, args) {
 
         const result = modeManager.setMode(false);
         
-        await response.mode(sock, chatId, message, 'private');
+        await sock.sendMessage(chatId, {
+            text: lang.t('mode.private.success')
+        }, { quoted: message });
 
     } catch (error) {
         console.error('Error in private command:', error);
