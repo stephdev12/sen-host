@@ -7,7 +7,6 @@
 import { generateWAMessageFromContent } from '@whiskeysockets/baileys';
 import fs from 'fs';
 import StephUI from 'stephtech-ui'; // ✅ Import Ajouté pour le bouton menu
-import lang from './languageManager.js';
 
 import settings from './settingsManager.js';
 import configs from '../configs.js';
@@ -55,9 +54,7 @@ class ResponseManager {
      * Style PING
      */
     async ping(sock, chatId, message, speed, uptime) {
-        const speedLabel = lang.t('ping.speed') || 'SPEED';
-        const uptimeLabel = lang.t('ping.uptime') || 'UPTIME';
-        const text = `*${speedLabel}* : ${speed} ms\n*${uptimeLabel}* : ${uptime}\n\n> ${this.footer}`;
+        const text = `*SEN SPEED* : ${speed}\n*UPTIME* : ${uptime}\n\n> ${this.footer}`;
         
         return await sock.sendMessage(chatId, {
             image: { url: this.thumbnail },
@@ -128,11 +125,7 @@ class ResponseManager {
         // Style Boxed (1)
         if (conf.menuStyle === 1) {
             for (const [category, commands] of Object.entries(categories)) {
-                // On garde la catégorie telle quelle ou on la traduit juste pour l'affichage si besoin
-                // Mais l'utilisateur a dit "pas besoin de la traduction de la liste des commandes"
-                // Je traduis le header de catégorie uniquement pour que ce soit propre
-                const categoryName = lang.t(`categories.${category}`) || category; 
-                text += `╭━━━❏ *${this.font(categoryName)}* ❏\n`;
+                text += `╭━━━❏ *${this.font(category.toLowerCase())}* ❏\n`;
                 commands.sort().forEach(cmd => text += `┃◇ ${this.font(cmd)}\n`);
                 text += `╰━━━━━━━━━━━━━━━╯\n\n`;
             }
@@ -140,8 +133,7 @@ class ResponseManager {
         // Style Modern (2)
         else if (conf.menuStyle === 2) {
             for (const [category, commands] of Object.entries(categories)) {
-                const categoryName = (lang.t(`categories.${category}`) || category).toUpperCase();
-                text += `┌─── ❖ ${this.font(categoryName)} \n`;
+                text += `┌─── ❖ ${this.font(category.toUpperCase())} \n`;
                 commands.sort().forEach(cmd => text += `│ ◦ ${this.font(cmd)}\n`);
                 text += `└─────────────\n\n`;
             }
@@ -150,8 +142,7 @@ class ResponseManager {
         else {
             text += `*— ${this.font('COMMAND LIST')} —*\n\n`;
             for (const [category, commands] of Object.entries(categories)) {
-                const categoryName = (lang.t(`categories.${category}`) || category).toUpperCase();
-                text += `*${this.font(categoryName)}*\n`;
+                text += `*${this.font(category.toUpperCase())}*\n`;
                 text += commands.map(c => `• ${this.font(c)}`).join('\n');
                 text += `\n\n`;
             }
@@ -180,7 +171,7 @@ class ResponseManager {
                 audio: { url: conf.audioUrl },
                 mimetype: 'audio/mp4',
                 ptt: false 
-            }, { quoted: null });
+            }, { quoted: message });
         }
     }
 

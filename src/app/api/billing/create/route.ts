@@ -27,7 +27,14 @@ export async function POST(request: Request) {
     const { packId, price, coins } = await request.json();
     
     // Conversion: 1$ = 650 FCFA
-    const amount = Math.round(price * 650);
+    let amount = Math.round(price * 650);
+    
+    // Override for Premium
+    if (packId === 'premium') {
+        amount = 9750; // 15$ * 650
+    } else if (packId === 'custom_bot_access') {
+        amount = 1300; // 2$ * 650
+    }
 
     // 3. Préparation des données pour MoneyFusion
     // Utilisation du nom de domaine réel au lieu de localhost pour la validation de l'API
@@ -37,7 +44,13 @@ export async function POST(request: Request) {
 
     // Format spécifique de MoneyFusion: Article est un objet { "Nom": Prix }
     const articleObject: { [key: string]: number } = {};
-    articleObject[`Pack ${coins} Coins`] = amount;
+    if (packId === 'premium') {
+        articleObject[`Abonnement Premium (1 Mois)`] = amount;
+    } else if (packId === 'custom_bot_access') {
+        articleObject[`Accès Bot Custom (Devient Premium)`] = amount;
+    } else {
+        articleObject[`Pack ${coins} Coins`] = amount;
+    }
 
     const payload = {
       nomclient: user.username || 'Client',
@@ -47,7 +60,8 @@ export async function POST(request: Request) {
       personal_Info: [
         {
           userId: user.id,
-          coins: coins,
+          coins: coins || 0,
+          packId: packId, // Pass packId to webhook
           orderId: `order_${Date.now()}`
         }
       ],

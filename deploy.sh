@@ -15,6 +15,11 @@ if [ -f "$DB_FILE" ]; then
     echo "✅ Base de données sauvegardée."
 else
     echo "⚠️ Aucune base de données trouvée à sauvegarder."
+    # Si c'est la première install, ok. Sinon, danger.
+    if [ -d "instances" ]; then
+        echo "⛔ ARRÊT : Des bots existent mais pas de DB. Risque de perte de données."
+        exit 1
+    fi
 fi
 
 # 2. Nettoyage Git pour éviter les conflits
@@ -25,6 +30,18 @@ git clean -fd
 # 3. Pull du code
 echo "⬇️ Récupération du code..."
 git pull $REPO_URL
+
+# RESTAURATION DE SÉCURITÉ
+if [ ! -f "$DB_FILE" ]; then
+    echo "⚠️ Base de données disparue après le pull. Restauration..."
+    LATEST_BACKUP=$(ls -t $BACKUP_DIR/*.bak | head -1)
+    if [ -n "$LATEST_BACKUP" ]; then
+        cp "$LATEST_BACKUP" "$DB_FILE"
+        echo "✅ Base de données restaurée depuis $LATEST_BACKUP"
+    else
+        echo "❌ CRITIQUE : Aucune sauvegarde trouvée !"
+    fi
+fi
 
 # 4. Installation des dépendances
 echo "📦 Installation des dépendances..."

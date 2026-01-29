@@ -11,15 +11,46 @@ datasource db {
 }
 
 model User {
+  id               String   @id @default(cuid())
+  email            String   @unique
+  password         String
+  username         String
+  coins            Int      @default(0)
+  role             String   @default("user") // "user" or "admin"
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  bots             Bot[]
+  lastDailyCoinAt  DateTime?
+  referralCode     String?  @unique
+  referredById     String?
+  emailVerified    DateTime?
+  verificationToken String?
+  referredBy       User?    @relation("Referrals", fields: [referredById], references: [id])
+  referrals        User[]   @relation("Referrals")
+
+  // Ad System
+  lastAdWatchAt    DateTime?
+  dailyAdCount     Int      @default(0)
+  lastDailyAdReset DateTime? @default(now())
+
+  // Premium System
+  isPremium        Boolean  @default(false)
+  premiumExpiresAt DateTime?
+
+  // Notifications
+  fcmToken         String?
+
+  // Community
+  messages         Message[]
+}
+
+model Message {
   id        String   @id @default(cuid())
-  email     String   @unique
-  password  String
-  username  String
-  coins     Int      @default(0)
-  role      String   @default("user") // "user" or "admin"
+  content   String?
+  image     String?  // Path to stored image
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  bots      Bot[]
 }
 
 model Bot {
@@ -30,7 +61,19 @@ model Bot {
   pairingCode String?
   folderPath  String?
   processId   Int?     // PID of the running process
+  
+  // Type definition
+  type        String   @default("TEMPLATE") // "TEMPLATE" or "CUSTOM"
+  
   template    String   @default("sen-bot") // Le dossier dans /templates
+
+  // For Custom Bots
+  repoUrl      String?  // If source is Git
+  zipFilePath  String?  // If source is Uploaded ZIP
+  startCommand String?  @default("npm start")
+  envVars      String?  // Stored as JSON string
+  envFileName  String?  @default(".env")
+
   nodeId      String?  // ID du serveur (null = serveur local)
   node        Node?    @relation(fields: [nodeId], references: [id])
   ownerId     String
@@ -49,4 +92,27 @@ model Node {
   enabled   Boolean  @default(true)
   bots      Bot[]
   createdAt DateTime @default(now())
+}
+
+model GlobalSettings {
+  id              Int     @id @default(1)
+  maxTotalBots    Int     @default(100)
+  minCoinsToCreate Int    @default(10)
+  maintenanceMode Boolean @default(false)
+}
+
+model Template {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  folderName  String   @unique
+  sourceType  String   // 'GIT' or 'ZIP'
+  repoUrl     String?
+  sessionIdUrl String? // URL to get Session ID
+  envVars     String?  // JSON string of detected variables
+  startCommand String? @default("node index.js")
+  envFileName String?  @default(".env")
+  isPublic    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

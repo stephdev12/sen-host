@@ -1,0 +1,7 @@
+-- CreateTable
+CREATE TABLE "GlobalSettings" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT DEFAULT 1,
+    "maxTotalBots" INTEGER NOT NULL DEFAULT 100,
+    "minCoinsToCreate" INTEGER NOT NULL DEFAULT 10,
+    "maintenanceMode" BOOLEAN NOT NULL DEFAULT false
+);

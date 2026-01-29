@@ -2,8 +2,7 @@
 
 # dependencies
 /node_modules
-/templates/sukuna/node_modules
-/templates/sen-bot/node_modules
+**/node_modules
 /.pnp
 .pnp.*
 .yarn/*
@@ -31,6 +30,12 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+*.log
+error.txt
+err.txt
+err2.txt
+build.txt
+build2.txt
 
 # env files (can opt-in for committing if needed)
 .env*
@@ -50,3 +55,7 @@ yarn-error.log*
 next-env.d.ts
 
 /src/generated/prisma
+
+# Templates
+/templates/*
+!/templates/sen-bot/

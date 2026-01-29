@@ -3,204 +3,24 @@
     "name": "Français",
     "flag": "🇫🇷"
   },
-  "commands": {
-    "autovv": {
-      "status": "*STATUT AUTO VIEW ONCE*\n\n> *Statut* : {status}\n{date}",
-      "enabled": "✅ Activé",
-      "disabled": "❌ Désactivé",
-      "since": "> *Activé depuis* : {date}\n",
-      "usage": "\n*Usage:*\n• .autovv on - Activer la révélation auto\n• .autovv off - Désactiver la révélation auto",
-      "onMsg": "✅ *Auto ViewOnce Activé*\n\nToutes les vues uniques reçues seront automatiquement révélées et envoyées en DM.",
-      "offMsg": "❌ *Auto ViewOnce Désactivé*\n\nLes vues uniques ne seront plus révélées automatiquement.",
-      "invalid": "❌ Usage: .autovv <on|off>"
-    },
-    "tools": {
-      "dns": {
-        "usage": "Ex: .dns google.com",
-        "header": "🌐 *ENREGISTREMENTS DNS: {domain}*\n\n"
-      },
-      "obfuscate": {
-        "usage": "Entrez du code JS."
-      },
-      "dbinary": {
-        "usage": "Entrez du binaire.",
-        "decoded": "🔓 *Décodé:* {result}"
-      },
-      "fancy": {
-        "usage": "Usage: .fancy <texte> [numéro]\nEx: .fancy SenBot 1",
-        "header": "✨ *STYLES FANCY*\nTexte: {text}\n\n",
-        "tip": "\n💡 *Astuce:* Utilisez .fancy {text} 5 (pour choisir le style 5 direct)."
-      },
-      "walink": {
-        "usage": "🔗 Usage invalide.\nEx: .walink 237690000000 Salut ça va ?",
-        "success": "✅ *LIEN GÉNÉRÉ*\n\n{url}"
-      },
-      "lyrics": {
-        "usage": "🎵 Titre requis.\nEx: .lyrics faded",
-        "notFound": "❌ Paroles introuvables."
-      },
-      "error": "❌ Erreur."
-    },
-    "ping": {
-      "description": "Vérifier le statut du bot",
-      "pong": "Pong !",
-      "speed": "VITESSE",
-      "uptime": "EN LIGNE"
-    },
-    "help": {
-      "title": "Liste des Commandes",
-      "basic": "Commandes de base",
-      "owner": "Commandes propriétaire",
-      "protection": "Commandes de protection",
-      "info": "Informations du bot"
-    },
-    "language": {
-      "title": "Paramètres de Langue",
-      "current": "Actuelle",
-      "available": "Langues Disponibles",
-      "usage": "Utilisation: .language <code>\nExemple: .language fr",
-      "success": "*Langue Changée*\n\n🌍 Langue: {lang}\n✨ Tous les messages seront maintenant en {lang} !",
-      "error": "Erreur lors du changement de langue"
-    },
-    "categories": {
-      "general": "Général",
-      "owner": "Propriétaire",
-      "ai": "IA",
-      "image_edit": "Édition Image",
-      "google": "Google",
-      "downloads": "Téléchargements",
-      "ios": "iOS",
-      "anime": "Anime",
-      "quizz_trivia": "Quizz & Trivia",
-      "protection": "Protection",
-      "groups": "Groupes",
-      "ephoto": "Ephoto",
-      "utils": "Utilitaires"
-    },
-    "tourl": {
-      "description": "> Convertir une image ou un audio en lien direct",
-      "noMedia": "> Veuillez répondre à une image ou un audio pour le convertir.",
-      "uploading": "> Téléversement vers le serveur en cours...",
-      "success": "> *MÉDIA EN LIGNE*\n\n> *URL :* {url}\n> *Type :* {type}",
-      "error": "> ❌ Échec du téléversement. Veuillez réessayer."
-    },
-    "google": {
-      "addgapi": {
-        "usage": "*AJOUTER CLE API GOOGLE*\n\nUsage: .addgapi YOUR_API_KEY\n\nObtenez votre clé gratuite:\n1. Allez sur https://aistudio.google.com\n2. Cliquez sur 'Get API key'\n3. Créez une nouvelle clé API\n4. Copiez et collez ici",
-        "success": "*CLE API GOOGLE AJOUTEE*\n\nCommandes disponibles (tier gratuit):\n┃ .gemini - Chat AI (10 RPM)\n┃ .vision - Analyser images\n┃ .nanogen - Générer images (500/jour)\n\nPayant uniquement:\n┃ Imagen 4 - Non disponible tier gratuit\n┃ Veo 3.1 - Non disponible tier gratuit",
-        "invalid": "> Clé API invalide\n\nVérifiez votre clé et réessayez"
-      },
-      "removegapi": {
-        "success": "> Clé API Google supprimée"
-      },
-      "noApiKey": "> Aucune clé API Google configurée\n\nUtilisez .addgapi YOUR_KEY pour en ajouter une",
-      "gemini": {
-        "usage": "> Usage: .gemini <question>\n\nExemple: .gemini Explique l'informatique quantique",
-        "response": "*GEMINI AI*\n\n{result}"
-      },
-      "vision": {
-        "usage": "> Répondez à une image avec .vision <question>\n\nExemple: .vision Qu'y a-t-il dans cette image?",
-        "defaultQuery": "Décris cette image en détail",
-        "response": "*GEMINI VISION*\n\n{result}"
-      },
-      "nanogen": {
-        "usage": "> Usage: .nanogen <description>\n\nExemple: .nanogen une ville futuriste au coucher du soleil\n\nGratuit: 500 images/jour, 15 RPM",
-        "generating": "> Génération de l'image...",
-        "success": "*NANO BANANA*\n\nPrompt: {prompt}\n\nRésolution: 1024x1024",
-        "noImage": "> Aucune image générée"
-      },
-      "status": {
-        "display": "*STATUT GOOGLE AI*\n\nClé API: {configured}\nSDK: @google/genai\nTier: Gratuit",
-        "yes": "Configurée",
-        "no": "Non définie"
-      },
-      "quotaExceeded": "> Quota dépassé\n\nTier gratuit: 10 RPM, 250 RPD\nAttendez 1 minute ou passez au tier payant",
-      "rateLimit": "> Limite de taux (15 RPM). Attendez 1 minute",
-      "invalidKey": "> Clé API invalide. Utilisez .addgapi pour mettre à jour"
-    },
-    "image": {
-      "noImage": "> Veuillez répondre à une image",
-      "removebg": "> *REMOVE BG*",
-      "upscale": "> *UPSCALE HD*",
-      "sketch": "> *SKETCH ART*"
-    },
-    "locate": {
-      "request": "*DEMANDE DE LOCALISATION*\n\nVeuillez partager votre position actuelle pour continuer",
-      "footer": "SEN BOT SYSTEM",
-      "header": "LOCALISATION",
-      "button": "PARTAGER MA POSITION"
-    },
-    "respond": {
-      "status": "*AUTO RESPOND*\n\nStatut: {status}\n\nUsage:\n┃ .respond on  - Activer\n┃ .respond off - Désactiver",
-      "on": "ACTIVE",
-      "off": "DESACTIVE",
-      "invalidOption": "> Option invalide. Utilisez: .respond on ou .respond off",
-      "updated": "> Auto respond {status}",
-      "enabled": "ACTIVE",
-      "disabled": "DESACTIVE"
-    },
-    "setrespond": {
-      "usage": "> Répondez à un message (texte, image, vidéo, audio, sticker ou vidéo note)\n\nExemples:\n┃ Répondre à du texte: .setrespond\n┃ Répondre à une image: .setrespond\n┃ Répondre à une vidéo: .setrespond\n┃ Répondre à un audio: .setrespond\n┃ Répondre à un sticker: .setrespond\n┃ Répondre à une vidéo note: .setrespond",
-      "unsupported": "> Type de message non supporté",
-      "success": "*AUTO RESPOND DEFINI*\n\nType: {type}\n\nCe message sera envoyé quand vous serez mentionné dans un groupe"
-    },
-    "clearrespond": {
-      "success": "> Message auto respond supprimé"
-    },
-    "serie": {
-      "usage": "> Nom de la série requis\nEx: .serie Breaking Bad",
-      "notFound": "> Série introuvable",
-      "rating": "Note",
-      "date": "Date",
-      "subs": "Sous-titres",
-      "desc": "Desc",
-      "header": "INFOS SERIE",
-      "downloadButton": "Télécharger S01 E01"
-    },
-    "dlserie": {
-      "usage": "> Format requis:\n.dlserie Nom | Saison | Episode\n\nEx: .dlserie Lupin | 1 | 2",
-      "notFound": "> Série introuvable avec ces critères",
-      "noEpisode": "> Episode {episode} (Saison {season}) introuvable",
-      "downloadButton": "Télécharger {quality}",
-      "info": "*TELECHARGER SERIE*\n\n> *Titre:* {title}\n> *Saison:* {season} | *Episode:* {episode}\n> *Sous-titres:* {subs}",
-      "footer": "SEN DOWNLOADER",
-      "noSubs": "Non spécifié"
-    },
-    "youtube": {
-      "noQuery": "> Veuillez entrer une recherche",
-      "noResults": "> Aucun résultat",
-      "info": "*SEN DOWNLOADER*\n\n> *Titre* : {title}\n> *Auteur* : {author}\n> *Durée* : {duration}\n\nChoisissez un format:",
-      "footer": "BY SEN STUDIO",
-      "audioButton": "AUDIO",
-      "videoButton": "VIDEO",
-      "searchHeader": "RECHERCHE YOUTUBE",
-      "audioCaption": "SEN MUSIC",
-      "videoCaption": "*{title}*\n\nTaille: {size}\n> SEN VIDEO"
-    }
-  },
-  "mode": {
-    "public": {
-      "success": "*MODE DU BOT CHANGE*\n\n> Mode: PUBLIC",
-      "already": "> Le bot est déjà en mode public"
-    },
-    "private": {
-      "success": "*MODE DU BOT CHANGE*\n\n> Mode: PRIVE",
-      "already": "> Le bot est déjà en mode privé",
-      "blocked": "BOT EN MODE PRIVE\n\nSeuls le propriétaire et les utilisateurs sudo peuvent utiliser les commandes.\n\nContactez le propriétaire du bot pour l'accès."
-    }
-  },
-  "sudo": {
-    "added": "UTILISATEUR SUDO AJOUTE\n\nUtilisateur: @{user}\nAccès sudo accordé",
-    "added_short": "EST MAINTENANT SUDO",
-    "removed": "UTILISATEUR SUDO RETIRE\n\nUtilisateur: @{user}\nAccès sudo révoqué",
-    "removed_short": "N'EST PLUS SUDO",
-    "already": "L'utilisateur est déjà sudo",
-    "notFound": "L'utilisateur n'est pas sudo",
-    "list": "LISTE DES UTILISATEURS SUDO\n\nTotal: {count} utilisateur(s)",
-    "usage": "⚠️ Utilisation invalide.\n\n• Répondez à un message\n• Mentionnez @user\n• Ou écrivez : .sudo 2376000000",
-    "usage_del": "⚠️ Utilisation : .delsudo @user ou .delsudo 2376000000",
-    "empty": "📂 Aucun utilisateur Sudo trouvé.",
-    "list_title": "UTILISATEURS SUDO ({count})"
+  "errors": {
+    "ownerOnly": "Seul le propriétaire du bot peut utiliser cette commande",
+    "commandFailed": "Une erreur s'est produite lors de l'exécution de la commande",
+    "commandNotFound": "Commande \"{command}\" introuvable. Utilisez .help pour voir les commandes disponibles",
+    "invalidUsage": "Utilisation invalide. Utilisez: {usage}",
+    "apiError": "> Erreur API",
+    "generationFailed": "> Erreur de génération",
+    "searchFailed": "> Erreur de recherche",
+    "uploadFailed": "> Erreur lors du téléchargement",
+    "stickerFailed": "> Erreur lors de la création du sticker",
+    "saveFailed": "> Erreur lors de l'enregistrement",
+    "playFailed": "> Erreur lors de la lecture",
+    "listFailed": "> Erreur lors de la liste",
+    "deleteFailed": "> Erreur lors de la suppression",
+    "fetchFailed": "> Erreur lors de la récupération",
+    "analysisFailed": "> Erreur d'analyse",
+    "processingFailed": "> Erreur de traitement",
+    "downloadFailed": "> Erreur de téléchargement"
   },
   "protection": {
     "antilink": {
@@ -231,39 +51,37 @@
     "adminOnly": "Seuls les administrateurs du groupe peuvent utiliser cette commande",
     "botNotAdmin": "Le bot doit être administrateur pour utiliser cette fonctionnalité"
   },
-  "errors": {
-    "ownerOnly": "Seul le propriétaire du bot peut utiliser cette commande",
-    "commandFailed": "Une erreur s'est produite lors de l'exécution de la commande",
-    "commandNotFound": "Commande \"{command}\" introuvable. Utilisez .help pour voir les commandes disponibles",
-    "invalidUsage": "Utilisation invalide. Utilisez: {usage}",
-    "apiError": "> Erreur API",
-    "generationFailed": "> Erreur de génération",
-    "searchFailed": "> Erreur de recherche",
-    "uploadFailed": "> Erreur lors du téléchargement",
-    "stickerFailed": "> Erreur lors de la création du sticker",
-    "saveFailed": "> Erreur lors de l'enregistrement",
-    "playFailed": "> Erreur lors de la lecture",
-    "listFailed": "> Erreur lors de la liste",
-    "deleteFailed": "> Erreur lors de la suppression",
-    "fetchFailed": "> Erreur lors de la récupération",
-    "analysisFailed": "> Erreur d'analyse",
-    "processingFailed": "> Erreur de traitement",
-    "downloadFailed": "> Erreur de téléchargement"
+  "mode": {
+    "public": {
+      "success": "*MODE DU BOT CHANGE*\n\n> Mode: PUBLIC",
+      "already": "> Le bot est déjà en mode public"
+    },
+    "private": {
+      "success": "*MODE DU BOT CHANGE*\n\n> Mode: PRIVE",
+      "already": "> Le bot est déjà en mode privé",
+      "blocked": "BOT EN MODE PRIVE\n\nSeuls le propriétaire et les utilisateurs sudo peuvent utiliser les commandes.\n\nContactez le propriétaire du bot pour l'accès."
+    }
   },
-      "welcome": {
-        "enabled": "✅ *MESSAGE DE BIENVENUE ACTIVÉ*\n\nLe bot accueillera les nouveaux membres.",
-        "disabled": "❌ *MESSAGE DE BIENVENUE DÉSACTIVÉ*",
-        "setSuccess": "✅ *MESSAGE DE BIENVENUE DÉFINI*\n\nNouveau message enregistré avec succès.\n\nMessage : {msg}\n\nLa bienvenue est maintenant activée !",
-        "setUsage": "*SETWELCOME*\n\nUsage: .setwelcome <message>\n\nVariables:\n{group} - Nom du groupe\n{user} - Mention utilisateur\n{members} - Nombre de membres\n{desc} - Description du groupe\n\nExemple:\n.setwelcome Bienvenue @user dans {group} !",
-        "default": "Bienvenue @user dans {group} !\nNous sommes maintenant {members} membres.\n\n{desc}"
-      },
-      "goodbye": {
-        "enabled": "✅ *MESSAGE D'ADIEU ACTIVÉ*\n\nLe bot dira au revoir aux membres qui partent.",
-        "disabled": "❌ *MESSAGE D'ADIEU DÉSACTIVÉ*",
-        "setSuccess": "✅ *MESSAGE D'ADIEU DÉFINI*\n\nNouveau message enregistré avec succès.\n\nMessage : {msg}\n\nL'adieu est maintenant activé !",
-        "setUsage": "*SETGOODBYE*\n\nUsage: .setgoodbye <message>\n\nVariables:\n{group} - Nom du groupe\n{user} - Mention utilisateur\n{members} - Nombre de membres\n\nExemple:\n.setgoodbye Au revoir @user de {group}",
-        "default": "Au revoir @user ! Tu vas nous manquer."
-      },  "antipromote": {
+  "sudo": {
+    "added": "UTILISATEUR SUDO AJOUTE\n\nUtilisateur: @{user}\nAccès sudo accordé",
+    "removed": "UTILISATEUR SUDO RETIRE\n\nUtilisateur: @{user}\nAccès sudo révoqué",
+    "already": "L'utilisateur est déjà sudo",
+    "notFound": "L'utilisateur n'est pas sudo",
+    "list": "LISTE DES UTILISATEURS SUDO\n\nTotal: {count} utilisateur(s)"
+  },
+  "welcome": {
+    "enabled": "✅ *MESSAGE DE BIENVENUE ACTIVÉ*\n\nLe bot accueillera les nouveaux membres.",
+    "disabled": "❌ *MESSAGE DE BIENVENUE DÉSACTIVÉ*",
+    "setSuccess": "✅ *MESSAGE DE BIENVENUE DÉFINI*\n\nNouveau message enregistré avec succès.",
+    "default": "Bienvenue @user dans {group} !\nNous sommes maintenant {members} membres.\n\n{desc}"
+  },
+  "goodbye": {
+    "enabled": "✅ *MESSAGE D'ADIEU ACTIVÉ*\n\nLe bot dira au revoir aux membres qui partent.",
+    "disabled": "❌ *MESSAGE D'ADIEU DÉSACTIVÉ*",
+    "setSuccess": "✅ *MESSAGE D'ADIEU DÉFINI*\n\nNouveau message enregistré avec succès.",
+    "default": "Au revoir @user ! Tu vas nous manquer."
+  },
+  "antipromote": {
     "enabled": "ANTIPROMOTE ACTIVE\n\nLa promotion d'admin est interdite.",
     "disabled": "ANTIPROMOTE DESACTIVE",
     "alert": "🛡️ *ANTI-PROMOTE*\n\n@user ne peut pas être admin.\n> Promotion annulée."
@@ -273,85 +91,18 @@
     "disabled": "ANTIDEMOTE DESACTIVE",
     "alert": "🛡️ *ANTI-DEMOTE*\n\n@user ne peut pas être rétrogradé.\n> Rétrogradation annulée."
   },
-  "ai": {
-    "noQuery": "> Veuillez poser une question",
-    "response": "*SEN_AI*\n> *Model* : {model}\n\n{result}"
+  "update": {
+    "checking": "> Recherche de mises à jour...",
+    "uptodate": "> Le bot est déjà à jour.",
+    "updating": "> Mise à jour disponible ! Téléchargement...",
+    "success": "> Mise à jour réussie. Redémarrage...",
+    "failed": "> Échec de la mise à jour."
   },
-  "flux": {
-    "noPrompt": "> Veuillez décrire l'image à générer",
-    "success": "> *FLUX GEN*\n> *Prompt :* {prompt}"
-  },
-  "apk": {
-    "noQuery": "> Nom de l'application requis\nEx: .apk WhatsApp",
-    "notFound": "> Application introuvable",
-    "info": "*APK DOWNLOADER*\n\n> *Nom :* {name}\n> *ID :* {package}\n> *MàJ :* {updated}",
-    "footer": "SEN DOWNLOADER",
-    "downloadButton": "📥 DOWNLOAD APK"
-  },
-  "setname": {
-    "usage": "> Veuillez entrer un nom\nExemple: .setname SuperBot",
-    "success": "*NOM DU BOT CHANGE*\n\n> Nouveau nom: {name}"
-  },
-  "setprefix": {
-    "usage": "> Veuillez entrer un préfixe\nExemple: .setprefix !",
-    "success": "*PREFIXE CHANGE*\n\n> Nouveau préfixe: {prefix}"
-  },
-  "setmenu": {
-    "usage": "> Veuillez répondre à une image avec la commande",
-    "uploading": "> *TELECHARGEMENT EN COURS*",
-    "success": "*IMAGE DU MENU CHANGEE*"
-  },
-  "setaudio": {
-    "usage": "> Veuillez répondre à un audio avec la commande",
-    "uploading": "> *TELECHARGEMENT EN COURS*",
-    "success": "*AUDIO DU MENU CHANGE*"
-  },
-  "setstyle": {
-    "usage": "> Style invalide. Choisissez entre 1, 2 ou 3\nExemple: .setstyle 2",
-    "success": "*STYLE DU MENU CHANGE*\n\n> Style: {style}"
-  },
-  "audio": {
-    "usage": "> Usage: .audio on ou .audio off",
-    "success": "*AUDIO DU MENU*\n\n> Status: {status}",
-    "enabled": "ACTIVE",
-    "disabled": "DESACTIVE"
-  },
-  "glink": {
-    "success": "*LIEN DU GROUPE*\n\n{link}"
-  },
-  "sticker": {
-    "noMedia": "> Répondez à une image, vidéo ou sticker"
-  },
-  "store": {
-    "usage": "> Répondez à un audio ou une vidéo",
-    "noName": "> Usage: .store <nom>\nExemple: .store mysong",
-    "success": "*MEDIA ENREGISTRE*\n\n> Nom: {name}\n> Type: {type}"
-  },
-  "ad": {
-    "usage": "> Usage: .ad <nom>\nExemple: .ad mysong",
-    "notFound": "> Audio introuvable: {name}"
-  },
-  "vd": {
-    "usage": "> Usage: .vd <nom> [-c]\nExemple: .vd myvideo",
-    "notFound": "> Vidéo introuvable: {name}"
-  },
-  "listMedia": {
-    "empty": "> Aucun média enregistré",
-    "header": "*MES MEDIAS ENREGISTRES*"
-  },
-  "deleteMedia": {
-    "usage": "> Usage: .delmedia <nom>",
-    "success": "> Média supprimé: {name}",
-    "notFound": "> Média introuvable: {name}"
-  },
-  "getpp": {
-    "success": "> *PHOTO DE PROFIL*",
-    "notFound": "> Aucune photo de profil trouvée ou compte privé"
-  },
-  "save": {
-    "usage": "> Répondez à un statut (image ou vidéo)",
-    "unsupported": "> Type de média non supporté",
-    "success": "*STATUT ENREGISTRE*"
+  "antidelete": {
+    "usage": "> Usage: .antidelete on ou .antidelete off",
+    "enabled": "> Anti-delete activé (Message privé)",
+    "disabled": "> Anti-delete désactivé",
+    "deletedMessage": "🗑️ *MESSAGE SUPPRIMÉ DÉTECTÉ*\n\n> *Auteur :* @{sender}\n> *Date :* {time}\n\n*Contenu :*\n{content}"
   },
   "quiz": {
     "ui": {
@@ -372,106 +123,8 @@
         "desc": "Testez vos connaissances générales",
         "img": "https://i.ibb.co/wznvnZf/cult-g.jpg",
         "questions": [
-          {
-            "q": "Quelle est la capitale de la France ?",
-            "options": [
-              "Lyon",
-              "Marseille",
-              "Paris",
-              "Bordeaux"
-            ],
-            "answer": 2
-          },
-          {
-            "q": "Qui a peint la Joconde ?",
-            "options": [
-              "Picasso",
-              "Da Vinci",
-              "Van Gogh",
-              "Monet"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Combien y a-t-il de continents sur Terre ?",
-            "options": [
-              "5",
-              "6",
-              "7",
-              "8"
-            ],
-            "answer": 2
-          },
-          {
-            "q": "Quel est le plus grand océan du monde ?",
-            "options": [
-              "Atlantique",
-              "Indien",
-              "Arctique",
-              "Pacifique"
-            ],
-            "answer": 3
-          },
-          {
-            "q": "En quelle année a eu lieu la Révolution française ?",
-            "options": [
-              "1789",
-              "1799",
-              "1815",
-              "1848"
-            ],
-            "answer": 0
-          },
-          {
-            "q": "Quelle est la monnaie du Japon ?",
-            "options": [
-              "Yuan",
-              "Won",
-              "Yen",
-              "Baht"
-            ],
-            "answer": 2
-          },
-          {
-            "q": "Qui a écrit 'Les Misérables' ?",
-            "options": [
-              "Balzac",
-              "Hugo",
-              "Zola",
-              "Flaubert"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Quel pays a la plus grande population mondiale ?",
-            "options": [
-              "Inde",
-              "Chine",
-              "USA",
-              "Indonésie"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Combien de joueurs y a-t-il dans une équipe de football ?",
-            "options": [
-              "9",
-              "10",
-              "11",
-              "12"
-            ],
-            "answer": 2
-          },
-          {
-            "q": "Quelle est la planète la plus proche du Soleil ?",
-            "options": [
-              "Vénus",
-              "Mercure",
-              "Mars",
-              "Terre"
-            ],
-            "answer": 1
-          }
+          { "q": "Quelle est la capitale de la France ?", "options": ["Lyon", "Marseille", "Paris", "Bordeaux"], "answer": 2 },
+          { "q": "Qui a peint la Joconde ?", "options": ["Picasso", "Da Vinci", "Van Gogh", "Monet"], "answer": 1 }
         ]
       },
       "anime": {
@@ -479,536 +132,239 @@
         "desc": "Pour les vrais Otakus",
         "img": "https://i.ibb.co/hxN8MHvJ/2badb1295ed7642d072e6e73fd11c7be.jpg",
         "questions": [
-          {
-            "q": "Qui est le héros de One Piece ?",
-            "options": [
-              "Zoro",
-              "Luffy",
-              "Naruto",
-              "Goku"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Quel est le nom du village de Naruto ?",
-            "options": [
-              "Suna",
-              "Konoha",
-              "Kiri",
-              "Kumo"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Qui est l'auteur de Death Note ?",
-            "options": [
-              "Oda",
-              "Kishimoto",
-              "Ohba",
-              "Toriyama"
-            ],
-            "answer": 2
-          },
-          {
-            "q": "Quel est le nom du Titan Colossal dans Attack on Titan ?",
-            "options": [
-              "Eren",
-              "Armin",
-              "Bertolt",
-              "Reiner"
-            ],
-            "answer": 2
-          },
-          {
-            "q": "Dans Dragon Ball, combien de Dragon Balls existe-t-il ?",
-            "options": [
-              "5",
-              "6",
-              "7",
-              "8"
-            ],
-            "answer": 2
-          },
-          {
-            "q": "Quel anime met en scène des alchimistes ?",
-            "options": [
-              "Naruto",
-              "FMA",
-              "Bleach",
-              "HxH"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Qui est le mentor de Rock Lee dans Naruto ?",
-            "options": [
-              "Kakashi",
-              "Jiraiya",
-              "Guy",
-              "Asuma"
-            ],
-            "answer": 2
-          },
-          {
-            "q": "Dans My Hero Academia, quel est le quirk de Deku ?",
-            "options": [
-              "One For All",
-              "All Might",
-              "Explosion",
-              "Half-Cold"
-            ],
-            "answer": 0
-          },
-          {
-            "q": "Quel est le fruit du démon de Luffy ?",
-            "options": [
-              "Gomu Gomu",
-              "Mera Mera",
-              "Hie Hie",
-              "Gura Gura"
-            ],
-            "answer": 0
-          },
-          {
-            "q": "Qui est l'antagoniste principal de Demon Slayer ?",
-            "options": [
-              "Akaza",
-              "Doma",
-              "Muzan",
-              "Kokushibo"
-            ],
-            "answer": 2
-          }
-        ]
-      },
-      "science": {
-        "name": "Sciences",
-        "desc": "Physique, chimie, biologie...",
-        "img": "https://i.ibb.co/zHBj1dPX/15ac2ae45cf855999d1363ff0b982ce3.jpg",
-        "questions": [
-          {
-            "q": "Quelle est la formule chimique de l'eau ?",
-            "options": [
-              "H2O",
-              "O2",
-              "CO2",
-              "H2O2"
-            ],
-            "answer": 0
-          },
-          {
-            "q": "Quelle est la vitesse de la lumière ?",
-            "options": [
-              "300 000 km/s",
-              "150 000 km/s",
-              "450 000 km/s",
-              "600 000 km/s"
-            ],
-            "answer": 0
-          },
-          {
-            "q": "Combien d'os a le corps humain adulte ?",
-            "options": [
-              "198",
-              "206",
-              "214",
-              "220"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Quel gaz est essentiel à la respiration ?",
-            "options": [
-              "Azote",
-              "Oxygène",
-              "CO2",
-              "Hydrogène"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Qui a découvert la pénicilline ?",
-            "options": [
-              "Pasteur",
-              "Fleming",
-              "Curie",
-              "Darwin"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Quelle planète est surnommée la planète rouge ?",
-            "options": [
-              "Vénus",
-              "Jupiter",
-              "Mars",
-              "Saturne"
-            ],
-            "answer": 2
-          },
-          {
-            "q": "Quel est l'élément chimique de symbole Fe ?",
-            "options": [
-              "Fluor",
-              "Fer",
-              "Francium",
-              "Fermium"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Combien de chromosomes a l'être humain ?",
-            "options": [
-              "23",
-              "44",
-              "46",
-              "48"
-            ],
-            "answer": 2
-          },
-          {
-            "q": "Quelle est l'unité de mesure de la force ?",
-            "options": [
-              "Joule",
-              "Watt",
-              "Newton",
-              "Pascal"
-            ],
-            "answer": 2
-          },
-          {
-            "q": "Quel scientifique a développé la théorie de la relativité ?",
-            "options": [
-              "Newton",
-              "Einstein",
-              "Hawking",
-              "Bohr"
-            ],
-            "answer": 1
-          }
-        ]
-      },
-      "histoire": {
-        "name": "Histoire",
-        "desc": "Voyage dans le temps",
-        "img": "https://i.ibb.co/Jw2br6NR/b7d8bf7ec324a3a802b5ba4b4e53c213.jpg",
-        "questions": [
-          {
-            "q": "En quelle année a débuté la Première Guerre mondiale ?",
-            "options": [
-              "1912",
-              "1914",
-              "1916",
-              "1918"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Qui était le premier empereur romain ?",
-            "options": [
-              "César",
-              "Auguste",
-              "Néron",
-              "Caligula"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Quelle civilisation a construit les pyramides de Gizeh ?",
-            "options": [
-              "Romains",
-              "Grecs",
-              "Égyptiens",
-              "Mayas"
-            ],
-            "answer": 2
-          },
-          {
-            "q": "En quelle année Christophe Colomb a-t-il découvert l'Amérique ?",
-            "options": [
-              "1492",
-              "1500",
-              "1520",
-              "1550"
-            ],
-            "answer": 0
-          },
-          {
-            "q": "Qui a été le dernier roi de France ?",
-            "options": [
-              "Louis XIV",
-              "Louis XV",
-              "Louis XVI",
-              "Louis XVIII"
-            ],
-            "answer": 2
-          },
-          {
-            "q": "Quelle guerre a opposé le Nord et le Sud des États-Unis ?",
-            "options": [
-              "Indépendance",
-              "Sécession",
-              "Vietnam",
-              "Irak"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Qui a peint la chapelle Sixtine ?",
-            "options": [
-              "Da Vinci",
-              "Raphaël",
-              "Michel-Ange",
-              "Donatello"
-            ],
-            "answer": 2
-          },
-          {
-            "q": "En quelle année le mur de Berlin est-il tombé ?",
-            "options": [
-              "1987",
-              "1989",
-              "1991",
-              "1993"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Quel empereur français a été exilé à Sainte-Hélène ?",
-            "options": [
-              "Louis XIV",
-              "Napoléon",
-              "Charlemagne",
-              "Louis XVI"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Quelle bataille a marqué la défaite de Napoléon en 1815 ?",
-            "options": [
-              "Austerlitz",
-              "Waterloo",
-              "Iéna",
-              "Wagram"
-            ],
-            "answer": 1
-          }
-        ]
-      },
-      "geographie": {
-        "name": "Géographie",
-        "desc": "Explorez le monde",
-        "img": "https://i.ibb.co/B5HC9xdt/943e7d0cc0398147e996603890e920ad.jpg",
-        "questions": [
-          {
-            "q": "Quelle est la capitale de l'Australie ?",
-            "options": [
-              "Sydney",
-              "Melbourne",
-              "Canberra",
-              "Brisbane"
-            ],
-            "answer": 2
-          },
-          {
-            "q": "Quel est le plus long fleuve du monde ?",
-            "options": [
-              "Amazone",
-              "Nil",
-              "Yangtsé",
-              "Mississippi"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Dans quel pays se trouve le Taj Mahal ?",
-            "options": [
-              "Pakistan",
-              "Inde",
-              "Bangladesh",
-              "Népal"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Quelle est la plus grande île du monde ?",
-            "options": [
-              "Madagascar",
-              "Bornéo",
-              "Groenland",
-              "Nouvelle-Guinée"
-            ],
-            "answer": 2
-          },
-          {
-            "q": "Combien d'États compte les États-Unis ?",
-            "options": [
-              "48",
-              "50",
-              "52",
-              "54"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Quelle chaîne de montagnes sépare l'Europe de l'Asie ?",
-            "options": [
-              "Alpes",
-              "Himalaya",
-              "Oural",
-              "Andes"
-            ],
-            "answer": 2
-          },
-          {
-            "q": "Quelle est la capitale du Canada ?",
-            "options": [
-              "Toronto",
-              "Ottawa",
-              "Montréal",
-              "Vancouver"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Dans quel pays se trouve la ville de Tombouctou ?",
-            "options": [
-              "Niger",
-              "Mali",
-              "Tchad",
-              "Burkina Faso"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Quel désert est le plus grand du monde ?",
-            "options": [
-              "Sahara",
-              "Gobi",
-              "Kalahari",
-              "Antarctique"
-            ],
-            "answer": 3
-          },
-          {
-            "q": "Quelle mer sépare l'Afrique de l'Europe ?",
-            "options": [
-              "Mer Rouge",
-              "Méditerranée",
-              "Mer Noire",
-              "Mer Adriatique"
-            ],
-            "answer": 1
-          }
-        ]
-      },
-      "sport": {
-        "name": "Sport",
-        "desc": "Champions et records",
-        "img": "https://i.ibb.co/RpVPzjnZ/404ccf2b5e9568aa1c31267b9d68e373.jpg",
-        "questions": [
-          {
-            "q": "Combien de joueurs composent une équipe de basketball ?",
-            "options": [
-              "4",
-              "5",
-              "6",
-              "7"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Quel pays a remporté le plus de Coupes du Monde de football ?",
-            "options": [
-              "Argentine",
-              "Allemagne",
-              "Brésil",
-              "Italie"
-            ],
-            "answer": 2
-          },
-          {
-            "q": "Tous les combien d'années ont lieu les Jeux Olympiques ?",
-            "options": [
-              "2 ans",
-              "3 ans",
-              "4 ans",
-              "5 ans"
-            ],
-            "answer": 2
-          },
-          {
-            "q": "Quel sport pratique Usain Bolt ?",
-            "options": [
-              "Natation",
-              "Athlétisme",
-              "Cyclisme",
-              "Boxe"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Combien de sets faut-il gagner pour remporter un match de tennis masculin en Grand Chelem ?",
-            "options": [
-              "2",
-              "3",
-              "4",
-              "5"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Quel footballeur a remporté le plus de Ballons d'Or ?",
-            "options": [
-              "Ronaldo",
-              "Messi",
-              "Pelé",
-              "Maradona"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Dans quel sport utilise-t-on un putter ?",
-            "options": [
-              "Tennis",
-              "Golf",
-              "Cricket",
-              "Hockey"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Quelle est la durée d'un match de rugby à XV ?",
-            "options": [
-              "60 min",
-              "70 min",
-              "80 min",
-              "90 min"
-            ],
-            "answer": 2
-          },
-          {
-            "q": "Quel pays a accueilli les JO de 2016 ?",
-            "options": [
-              "Chine",
-              "Brésil",
-              "Angleterre",
-              "Japon"
-            ],
-            "answer": 1
-          },
-          {
-            "q": "Combien de Grand Chelem existe-t-il en tennis ?",
-            "options": [
-              "3",
-              "4",
-              "5",
-              "6"
-            ],
-            "answer": 1
-          }
+          { "q": "Qui est le héros de One Piece ?", "options": ["Zoro", "Luffy", "Naruto", "Goku"], "answer": 1 }
         ]
       }
+    }
+  },
+  "commands": {
+    "ping": {
+      "description": "Vérifier le statut du bot",
+      "response": "Pong! Le bot est en ligne"
+    },
+    "help": {
+      "title": "Menu des commandes",
+      "basic": "Commandes de base",
+      "owner": "Commandes propriétaire",
+      "protection": "Commandes de protection",
+      "info": "Informations du bot"
+    },
+    "ai": {
+      "noQuery": "> Veuillez poser une question",
+      "response": "*SEN_AI*\n> *Model* : {model}\n\n{result}"
+    },
+    "flux": {
+      "noPrompt": "> Veuillez décrire l'image à générer",
+      "success": "> *FLUX GEN*\n> *Prompt :* {prompt}"
+    },
+    "apk": {
+      "noQuery": "> Nom de l'application requis\nEx: .apk WhatsApp",
+      "notFound": "> Application introuvable",
+      "info": "*APK DOWNLOADER*\n\n> *Nom :* {name}\n> *Développeur :* {developer}\n> *MàJ :* {updated}",
+      "footer": "SEN DOWNLOADER",
+      "downloadButton": "📥 DOWNLOAD APK"
+    },
+    "setname": {
+      "usage": "> Veuillez entrer un nom\nExemple: .setname SuperBot",
+      "success": "*NOM DU BOT CHANGE*\n\n> Nouveau nom: {name}"
+    },
+    "setprefix": {
+      "usage": "> Veuillez entrer un préfixe\nExemple: .setprefix !",
+      "success": "*PREFIXE CHANGE*\n\n> Nouveau préfixe: {prefix}"
+    },
+    "setmenu": {
+      "usage": "> Veuillez répondre à une image avec la commande",
+      "uploading": "> *TELECHARGEMENT EN COURS*",
+      "success": "*IMAGE DU MENU CHANGEE*"
+    },
+    "setaudio": {
+      "usage": "> Veuillez répondre à un audio avec la commande",
+      "uploading": "> *TELECHARGEMENT EN COURS*",
+      "success": "*AUDIO DU MENU CHANGE*"
+    },
+    "setstyle": {
+      "usage": "> Style invalide. Choisissez entre 1, 2 ou 3\nExemple: .setstyle 2",
+      "success": "*STYLE DU MENU CHANGE*\n\n> Style: {style}"
+    },
+    "audio": {
+      "usage": "> Usage: .audio on ou .audio off",
+      "success": "*AUDIO DU MENU*\n\n> Status: {status}",
+      "enabled": "ACTIVE",
+      "disabled": "DESACTIVE"
+    },
+    "google": {
+      "addgapi": {
+        "usage": "*AJOUTER CLE API GOOGLE*\n\nUsage: .addgapi YOUR_API_KEY",
+        "success": "*CLE API GOOGLE AJOUTEE*",
+        "invalid": "> Clé API invalide"
+      },
+      "removegapi": { "success": "> Clé API Google supprimée" },
+      "noApiKey": "> Aucune clé API Google configurée",
+      "gemini": {
+        "usage": "> Usage: .gemini <question>",
+        "response": "*GEMINI AI*\n\n{result}"
+      },
+      "vision": {
+        "usage": "> Répondez à une image avec .vision <question>",
+        "defaultQuery": "Décris cette image en détail",
+        "response": "*GEMINI VISION*\n\n{result}"
+      },
+      "nanogen": {
+        "usage": "> Usage: .nanogen <description>",
+        "generating": "> Génération de l'image...",
+        "success": "*NANO BANANA*\n\nPrompt: {prompt}",
+        "noImage": "> Aucune image générée"
+      },
+      "status": {
+        "display": "*STATUT GOOGLE AI*\n\nClé API: {configured}",
+        "yes": "Configurée",
+        "no": "Non définie"
+      },
+      "quotaExceeded": "> Quota dépassé",
+      "rateLimit": "> Limite de taux (15 RPM)",
+      "invalidKey": "> Clé API invalide"
+    },
+    "glink": {
+      "success": "*LIEN DU GROUPE*\n\n{link}"
+    },
+    "image": {
+      "noImage": "> Veuillez répondre à une image",
+      "removebg": "> *REMOVE BG*",
+      "upscale": "> *UPSCALE HD*",
+      "sketch": "> *SKETCH ART*"
+    },
+    "locate": {
+      "request": "*DEMANDE DE LOCALISATION*\n\nVeuillez partager votre position actuelle pour continuer",
+      "footer": "SEN BOT SYSTEM",
+      "header": "LOCALISATION",
+      "button": "PARTAGER MA POSITION"
+    },
+    "sticker": { "noMedia": "> Répondez à une image, vidéo ou sticker" },
+    "toimg": {
+      "noSticker": "> Veuillez répondre à un sticker non-animé.",
+      "animated": "> Utilisez .tovideo pour les stickers animés.",
+      "success": "> *TOIMG DONE*",
+      "error": "> Erreur lors de la conversion"
+    },
+    "tovideo": {
+      "noSticker": "> Veuillez répondre à un sticker animé.",
+      "success": "> *TOVIDEO DONE*",
+      "error": "> Erreur lors de la conversion"
+    },
+    "store": {
+      "usage": "> Répondez à un audio ou une vidéo",
+      "noName": "> Usage: .store <nom>\nExemple: .store mysong",
+      "success": "*MEDIA ENREGISTRE*\n\n> Nom: {name}\n> Type: {type}"
+    },
+    "ad": {
+      "usage": "> Usage: .ad <nom>\nExemple: .ad mysong",
+      "notFound": "> Audio introuvable: {name}"
+    },
+    "vd": {
+      "usage": "> Usage: .vd <nom> [-c]\nExemple: .vd myvideo",
+      "notFound": "> Vidéo introuvable: {name}"
+    },
+    "listMedia": {
+      "empty": "> Aucun média enregistré",
+      "header": "*MES MEDIAS ENREGISTRES*"
+    },
+    "deleteMedia": {
+      "usage": "> Usage: .delmedia <nom>",
+      "success": "> Média supprimé: {name}",
+      "notFound": "> Média introuvable: {name}"
+    },
+    "respond": {
+      "status": "*AUTO RESPOND*\n\nStatut: {status}",
+      "on": "ACTIVE",
+      "off": "DESACTIVE",
+      "invalidOption": "> Option invalide",
+      "updated": "> Auto respond {status}",
+      "enabled": "ACTIVE",
+      "disabled": "DESACTIVE"
+    },
+    "setrespond": {
+      "usage": "> Répondez à un message pour définir l'auto-réponse",
+      "unsupported": "> Type de message non supporté",
+      "success": "*AUTO RESPOND DEFINI*\n\nType: {type}"
+    },
+    "clearrespond": { "success": "> Message auto respond supprimé" },
+    "serie": {
+      "usage": "> Nom de la série requis",
+      "notFound": "> Série introuvable",
+      "rating": "Note",
+      "date": "Date",
+      "subs": "Sous-titres",
+      "desc": "Desc",
+      "header": "INFOS SERIE",
+      "downloadButton": "Télécharger S01 E01"
+    },
+    "dlserie": {
+      "usage": "> Format requis: .dlserie Nom | Saison | Episode",
+      "notFound": "> Série introuvable",
+      "noEpisode": "> Episode introuvable",
+      "downloadButton": "Télécharger {quality}",
+      "info": "*TELECHARGER SERIE*\n\n> *Titre:* {title}",
+      "footer": "SEN DOWNLOADER",
+      "noSubs": "Non spécifié"
+    },
+    "tourl": {
+      "description": "> Convertir en lien direct",
+      "noMedia": "> Veuillez répondre à un média",
+      "uploading": "> Téléversement...",
+      "success": "> *MÉDIA EN LIGNE*\n\n> *URL :* {url}\n> *Type :* {type}",
+      "error": "> ❌ Échec"
+    },
+    "getpp": {
+      "success": "> *PHOTO DE PROFIL*",
+      "notFound": "> Aucune photo trouvée"
+    },
+    "save": {
+      "usage": "> Répondez à un statut",
+      "unsupported": "> Type non supporté",
+      "success": "*STATUT ENREGISTRE*"
+    },
+    "youtube": {
+      "noQuery": "> Veuillez entrer une recherche",
+      "noResults": "> Aucun résultat",
+      "info": "*SEN DOWNLOADER*\n\n> *Titre* : {title}",
+      "footer": "BY SEN STUDIO",
+      "audioButton": "AUDIO",
+      "videoButton": "VIDEO",
+      "searchHeader": "RECHERCHE YOUTUBE",
+      "audioCaption": "SEN MUSIC",
+      "videoCaption": "*{title}*\n> SEN VIDEO"
+    },
+    "autowrite": {
+      "usage": "> Usage: .autowrite on ou .autowrite off",
+      "status": "*AUTO WRITE*\n\nStatut: {status}",
+      "on": "ACTIVÉ",
+      "off": "DÉSACTIVÉ",
+      "enabled": "> Simulation d'écriture activée",
+      "disabled": "> Simulation d'écriture désactivée",
+      "invalidOption": "> Option invalide",
+      "updated": "> Auto write {status}"
+    },
+    "autorecord": {
+      "usage": "> Usage: .autorecord on ou .autorecord off",
+      "status": "*AUTO RECORD*\n\nStatut: {status}",
+      "on": "ACTIVÉ",
+      "off": "DÉSACTIVÉ",
+      "enabled": "> Simulation d'enregistrement activée",
+      "disabled": "> Simulation d'enregistrement désactivée",
+      "invalidOption": "> Option invalide",
+      "updated": "> Auto record {status}"
+    },
+    "autostatus": {
+      "usage": "> Usage: .autostatus on, .autostatus off, ou .autostatus react [emoji]",
+      "status": "*AUTO STATUS*\n\nStatut: {status}",
+      "on": "ACTIVÉ",
+      "off": "DÉSACTIVÉ",
+      "enabled": "> Lecture auto des statuts activée",
+      "disabled": "> Lecture auto des statuts désactivée",
+      "invalidOption": "> Option invalide",
+      "updated": "> Auto status {status}",
+      "reactEnabled": "> Réaction auto: {emoji}",
+      "reactDisabled": "> Réaction auto désactivée"
     }
   }
 }

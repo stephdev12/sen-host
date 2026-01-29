@@ -73,6 +73,7 @@ export async function helpCommand(sock, chatId, message, args) {
                 "serieinfo", 
                 "msearch", 
                 "play", 
+                "tiktok",
                 "pinterest",
                 "video",
                 "ytmp3", 
@@ -84,14 +85,14 @@ export async function helpCommand(sock, chatId, message, args) {
                 "iyoutube", 
             ],
             "Anime": [ 
-                "waifu", "neko", "konachan", "loli",
-                "hug", "kiss", "happy",
-                "akiyama", "boruto", "deidara",
-                "fanart", "sasuke", "bluearchive",
-                "nsfw"
+                "waifu", 
+                "neko", 
+                "konachan", 
+                "loli"
             ],
             "Adulte 18+": [
                 "xvideo", "xnxx",
+                "naija", "celeb",
                 "ass", "hwaifu", "hneko", "milf"
             ],
 

@@ -28,6 +28,16 @@ export async function POST(request: Request) {
       );
     }
 
+    /* 
+    // Verification check moved to Dashboard UI to allow Resend
+    if (!user.emailVerified) {
+        return NextResponse.json(
+            { error: 'Veuillez vérifier votre email avant de vous connecter.' },
+            { status: 403 }
+        );
+    } 
+    */
+
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {

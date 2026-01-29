@@ -1,35 +1,17 @@
 /**
  * 𝗦𝗘𝗡 Bot - Anime Commands (Buffer Version)
- * Fix: "Media doesn't exist" -> On télécharge le fichier avant l'envoi.
+ * Keep only PrinceTech APIs as requested.
  */
 
 import axios from 'axios';
 
-const BASE_URL = 'https://okatsu-rolezapiiz.vercel.app';
-
 // Configuration des endpoints
 const ENDPOINTS = {
-    // GIFs
-    hug: { path: '/anime/hug', type: 'gif' },
-    happy: { path: '/anime/happy', type: 'gif' },
-    kiss: { path: '/anime/kiss', type: 'gif' },
-    
-    // Images Anime (Old API)
-    akiyama: { path: '/anime/akiyama', type: 'image' },
-    boruto: { path: '/anime/boruto', type: 'image' },
-    deidara: { path: '/anime/deidara', type: 'image' },
-    fanart: { path: '/anime/fanart', type: 'image' },
-    sasuke: { path: '/anime/sasuke', type: 'image' },
-    bluearchive: { path: '/random/ba', type: 'image' },
-
     // Images Anime (New API - PrinceTech)
     waifu: { url: 'https://api.princetechn.com/api/anime/waifu?apikey=prince', type: 'image' },
     neko: { url: 'https://api.princetechn.com/api/anime/neko?apikey=prince', type: 'image' },
     konachan: { url: 'https://api.princetechn.com/api/anime/konachan?apikey=prince', type: 'image' },
     loli: { url: 'https://api.princetechn.com/api/anime/loli?apikey=prince', type: 'image' },
-    
-    // NSFW (Removed specific ones moved to Adulte category)
-    nsfw: { path: '/random/nsfw', type: 'image' }
 };
 
 // Fonction pour télécharger un fichier en Buffer
@@ -59,7 +41,7 @@ async function sendAnime(sock, chatId, message, cmdName) {
         await sock.sendMessage(chatId, { react: { text: '⏳', key: message.key } });
 
         // Déterminer l'URL finale
-        const requestUrl = config.url ? config.url : `${BASE_URL}${config.path}`;
+        const requestUrl = config.url;
 
         // 1. Récupération de la réponse API (JSON ou Image brute)
         const { data } = await axios.get(requestUrl, { 
@@ -93,14 +75,14 @@ async function sendAnime(sock, chatId, message, cmdName) {
         if (config.type === 'gif') {
             // Envoi Vidéo (GIF)
             await sock.sendMessage(chatId, { 
-                video: mediaBuffer, // On envoie le buffer, pas l'url
+                video: mediaBuffer, 
                 caption: caption,
                 gifPlayback: true
             }, { quoted: message });
         } else {
             // Envoi Image
             await sock.sendMessage(chatId, { 
-                image: mediaBuffer, // On envoie le buffer
+                image: mediaBuffer, 
                 caption: caption
             }, { quoted: message });
         }
@@ -116,28 +98,11 @@ async function sendAnime(sock, chatId, message, cmdName) {
 
 // --- Exports ---
 
-export async function hugCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'hug'); }
-export async function happyCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'happy'); }
-export async function kissCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'kiss'); }
-
-export async function akiyamaCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'akiyama'); }
-export async function borutoCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'boruto'); }
-export async function deidaraCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'deidara'); }
-export async function fanartCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'fanart'); }
-export async function sasukeCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'sasuke'); }
 export async function waifuCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'waifu'); }
 export async function nekoCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'neko'); }
 export async function konachanCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'konachan'); }
-
-export async function bluearchiveCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'bluearchive'); }
 export async function loliCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'loli'); }
 
-export async function nsfwCommand(sock, chatId, message, args) { await sendAnime(sock, chatId, message, 'nsfw'); }
-
 export default { 
-    hugCommand, happyCommand, kissCommand,
-    akiyamaCommand, borutoCommand, deidaraCommand, fanartCommand, sasukeCommand, waifuCommand,
-    nekoCommand, konachanCommand,
-    bluearchiveCommand, loliCommand,
-    nsfwCommand
+    waifuCommand, nekoCommand, konachanCommand, loliCommand
 };

@@ -1,0 +1,124 @@
+‎Maintenant on va créé de nouvelles commandes avec les api's suivantes :
+‎
+‎xvideo (catégorie adulte à créé) : 
+‎-Api: https://api.princetechn.com/api/download/xvideosdl?apikey=prince&url=https%3A%2F%2Fwww.xvideos.com%2Fvideo.uphdukv604c%2Fnovinha_gulosa_pediu_pra_colocar_tudo_dentro_da_bucetinha_e_recebeu_enorme_gozada
+‎
+‎Response : {
+‎  "status": 200,
+‎  "success": true,
+‎  "creator": "PrinceTech",
+‎  "result": {
+‎    "title": "novinha gulosa pediu pra colocar tudo dentro da bucetinha e recebeu enorme gozada",
+‎    "views": "16,373,280 views",
+‎    "votes": "53,812 votes",
+‎    "likes": "33.4k",
+‎    "dislikes": "20.4k",
+‎    "size": "16.54 MB",
+‎    "sizeReadable": 16540,
+‎    "thumbnail": "https://gcore-pic.xvideos-cdn.com/videos/thumbs169ll/04/84/d8/0484d868509a0731684592444e50ba2b/0484d868509a0731684592444e50ba2b.30.jpg",
+‎    "download_url": "https://mp4-cdn77.xvideos-cdn.com/02463e0b-3f8b-49aa-9f17-7cd4c7b65077/0/video_360p.mp4?secure=YxYW8GMoSC9ygDnai1TxOg==,1768425330"
+‎  }
+‎}
+‎
+‎Xnxx : 
+‎Api : https://api.princetechn.com/api/download/xnxxdl?apikey=prince&url=https%3A%2F%2Fwww.xnxx.health%2Fvideo-1256sd47%2Fstepbrother_and_stepsister_learn_about_sex_-_step_mother_family_sex_female_anatomy_accidental_creampie
+‎
+‎Respons : {
+‎  "status": 200,
+‎  "success": true,
+‎  "creator": "PrinceTech",
+‎  "result": {
+‎    "title": "StepBrother and StepSister Learn About Sex - Step Mother, Family Sex, Female Anatomy, Accidental Creampie",
+‎    "URL": "https://www.xnxx.health/video-1256sd47/stepbrother_and_stepsister_learn_about_sex_-_step_mother_family_sex_female_anatomy_accidental_creampie",
+‎    "duration": "659",
+‎    "image": "https://gcore-pic.xnxx-cdn.com/videos/thumbs169xnxxll/10/d7/95/10d79572b5c4d5ceb4c0aa2032c1b937/10d79572b5c4d5ceb4c0aa2032c1b937.1.jpg",
+‎    "info": "FifiFoxxFantasies Studio\n11min\n -  \n1080p",
+‎    "files": {
+‎      "low": "https://cdn77-vid-mp4.xnxx-cdn.com/-fXll0YBVVRJ1xDlfebBDg==,1768425268/videos/3gp/1/0/d/xvideos.com_10d79572b5c4d5ceb4c0aa2032c1b937.mp4?ui=MTE3LjI0Ny4xNjAuOTQtLS92aWRlby0xMjU2c2Q0Ny9zdGVwYnJvdGhlcl9hbg==",
+‎      "high": "https://cdn77-vid-mp4.xnxx-cdn.com/F-szvyHdCr-7iDbbs9HOow==,1768425268/videos/mp4/1/0/d/xvideos.com_10d79572b5c4d5ceb4c0aa2032c1b937.mp4?ui=MTE3LjI0Ny4xNjAuOTQtLS92aWRlby0xMjU2c2Q0Ny9zdGVwYnJvdGhlcl9hbg==",
+‎      "HLS": "https://cdn77-vid.xnxx-cdn.com/W0-zVvQSYImr7eoF-3J_iA==,1768425268/videos/hls/10/d7/95/10d79572b5c4d5ceb4c0aa2032c1b937/hls.m3u8",
+‎      "thumb": "https://cdn77-pic.xnxx-cdn.com/videos/thumbslll/10/d7/95/10d79572b5c4d5ceb4c0aa2032c1b937/10d79572b5c4d5ceb4c0aa2032c1b937.1.jpg",
+‎      "thumb69": "https://cdn77-pic.xnxx-cdn.com/videos/thumbs169xnxxposter/10/d7/95/10d79572b5c4d5ceb4c0aa2032c1b937/10d79572b5c4d5ceb4c0aa2032c1b937.1.jpg",
+‎      "thumbSlide": "https://cdn77-pic.xnxx-cdn.com/videos/thumbs169/10/d7/95/10d79572b5c4d5ceb4c0aa2032c1b937/mozaique.jpg",
+‎      "thumbSlideBig": "https://cdn77-pic.xnxx-cdn.com/videos/thumbnails/45/1d/85/64067485/mozaique_full.jpg"
+‎    }
+‎  }
+‎}
+‎
+‎Neko :
+‎ api : https://api.princetechn.com/api/anime/neko?apikey=prince
+‎
+‎Respons :{
+‎  "status": 200,
+‎  "success": true,
+‎  "creator": "PrinceTech",
+‎  "result": "https://i.waifu.pics/zDQcZjo.jpg"
+‎}
+‎
+‎
+‎Waifu : 
+‎Api : https://api.princetechn.com/api/anime/waifu?apikey=prince
+‎
+‎Response :
+‎{
+‎  "status": 200,
+‎  "success": true,
+‎  "creator": "PrinceTech",
+‎  "result": "https://i.waifu.pics/8EEfLuB.jpeg"
+‎}
+‎
+‎Konachan : https://api.princetechn.com/api/anime/konachan?apikey=prince
+‎Respons : {
+‎  "status": 200,
+‎  "success": true,
+‎  "creator": "PrinceTech",
+‎  "result": "https://konachan.net/image/11f050c2d3d3981ebc3f643f52b802eb/Konachan.com%20-%2083007%20animal%20animal_ears%20blonde_hair%20blue_eyes%20cat%20chikotam%20game_cg%20long_hair%20panties%20ryshell_burns%20school_uniform%20thighhighs%20underwear%20white_hair.jpg"
+‎}
+‎
+‎
+‎Loly : https://api.princetechn.com/api/anime/loli?apikey=prince
+‎Respons : 
+‎ {
+‎  "status": 200,
+‎  "success": true,
+‎  "creator": "PrinceTech",
+‎  "result": "https://i.pixiv.re/img-original/img/2020/10/29/20/42/49/85313639_p0.jpg"
+‎}
+‎
+‎Milf :https://api.princetechn.com/api/anime/milf?apikey=prince
+‎
+‎Respons : {
+‎  "status": 200,
+‎  "success": true,
+‎  "creator": "PrinceTech",
+‎  "result": "https://i.waifu.pics/8DSLwjr.png"
+‎}
+‎
+‎hwaifu :
+‎https://api.princetechn.com/api/anime/hwaifu?apikey=prince
+‎Respons : {
+‎  "status": 200,
+‎  "success": true,
+‎  "creator": "PrinceTech",
+‎  "result": "https://i.waifu.pics/CmAsGKo.jpg"
+‎}
+‎
+‎hneko : https://api.princetechn.com/api/anime/hneko?apikey=prince
+‎
+‎Respons : {
+‎  "status": 200,
+‎  "success": true,
+‎  "creator": "PrinceTech",
+‎  "result": "https://i.waifu.pics/zlXktxX.png"
+‎}
+‎
+‎ass : https://api.princetechn.com/api/anime/ass?apikey=prince
+‎
+‎Respons : {
+‎  "status": 200,
+‎  "success": true,
+‎  "creator": "PrinceTech",
+‎  "result": "https://cdn.waifu.im/8382.jpg"
+‎}
+
+

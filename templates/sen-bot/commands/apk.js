@@ -36,8 +36,8 @@ export async function apkCommand(sock, chatId, message, args) {
 
         const caption = lang.t('commands.apk.info', {
             name: app.appname,
-            package: app.package || 'N/A',
-            updated: 'N/A' // API doesn't provide update date anymore
+            developer: app.developer || 'N/A',
+            updated: 'N/A'
         });
 
         await ui.urlButtons(chatId, {

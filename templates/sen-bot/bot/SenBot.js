@@ -127,6 +127,8 @@ export class SenBot {
             { name: 'antitag', aliases: [], file: '../commands/protection.js', func: 'antitagCommand' },
             { name: 'antimedia', aliases: [], file: '../commands/protection.js', func: 'antimediaCommand' },
             { name: 'antispam', aliases: [], file: '../commands/protection.js', func: 'antispamCommand' },
+            { name: 'antitransfert', aliases: [], file: '../commands/protection.js', func: 'antitransfertCommand' },
+            { name: 'antimention', aliases: [], file: '../commands/protection.js', func: 'antimentionCommand' },
             { name: 'warnings', aliases: ['warn'], file: '../commands/protection.js', func: 'warningsCommand' },
             { name: 'resetwarnings', aliases: ['resetwarn'], file: '../commands/protection.js', func: 'resetwarningsCommand' },
             { name: 'groupstatus', aliases: ['gstatus', 'protection'], file: '../commands/protection.js', func: 'groupstatusCommand' }, 
@@ -167,25 +169,21 @@ export class SenBot {
             { name: 'dbinary', aliases: ['decodebin'], file: '../commands/tools.js', func: 'dbinaryCommand' },
             { name: 'fancy', aliases: ['style'], file: '../commands/tools.js', func: 'fancyCommand' },
 
-            // Anime - Gifs
-            { name: 'hug', aliases: ['calin'], file: '../commands/anime.js', func: 'hugCommand' },
-            { name: 'happy', aliases: ['heureux'], file: '../commands/anime.js', func: 'happyCommand' },
-            { name: 'kiss', aliases: ['bisous'], file: '../commands/anime.js', func: 'kissCommand' },
-
             // Anime - Images
-            { name: 'akiyama', aliases: [], file: '../commands/anime.js', func: 'akiyamaCommand' },
-            { name: 'boruto', aliases: [], file: '../commands/anime.js', func: 'borutoCommand' },
-            { name: 'deidara', aliases: [], file: '../commands/anime.js', func: 'deidaraCommand' },
-            { name: 'fanart', aliases: [], file: '../commands/anime.js', func: 'fanartCommand' },
-            { name: 'sasuke', aliases: [], file: '../commands/anime.js', func: 'sasukeCommand' },
             { name: 'waifu', aliases: [], file: '../commands/anime.js', func: 'waifuCommand' },
-            { name: 'bluearchive', aliases: ['ba'], file: '../commands/anime.js', func: 'bluearchiveCommand' },
+            { name: 'neko', aliases: [], file: '../commands/anime.js', func: 'nekoCommand' },
+            { name: 'konachan', aliases: [], file: '../commands/anime.js', func: 'konachanCommand' },
             { name: 'loli', aliases: [], file: '../commands/anime.js', func: 'loliCommand' },
 
-            // Anime - NSFW
-            { name: 'nsfw', aliases: [], file: '../commands/anime.js', func: 'nsfwCommand' },
-            { name: 'hneko', aliases: [], file: '../commands/anime.js', func: 'hnekoCommand' },
-            { name: 'hwaifu', aliases: [], file: '../commands/anime.js', func: 'hwaifuCommand' },
+            // Adulte 18+
+            { name: 'xvideo', aliases: ['xvid'], file: '../commands/adulte.js', func: 'xvideoCommand' },
+            { name: 'xnxx', aliases: [], file: '../commands/adulte.js', func: 'xnxxCommand' },
+            { name: 'naija', aliases: [], file: '../commands/naija.js', func: 'naijaCommand' },
+            { name: 'celeb', aliases: ['leaked', 'naija2'], file: '../commands/celeb.js', func: 'celebCommand' },
+            { name: 'ass', aliases: [], file: '../commands/adulte.js', func: 'assCommand' },
+            { name: 'milf', aliases: [], file: '../commands/adulte.js', func: 'milfCommand' },
+            { name: 'hwaifu', aliases: [], file: '../commands/adulte.js', func: 'hwaifuCommand' },
+            { name: 'hneko', aliases: [], file: '../commands/adulte.js', func: 'hnekoCommand' },
             { name: 'locate', aliases: ['location', 'gps', 'position'], file: '../commands/locate.js', func: 'locateCommand' },
 
 
@@ -216,6 +214,7 @@ export class SenBot {
             { name: 'youtube', aliases: ['yt', 'video'], file: '../commands/youtube.js', func: 'ytSearchCommand' },
             { name: 'ytmp3', aliases: ['ytaudio'], file: '../commands/youtube.js', func: 'ytAudioCommand' },
             { name: 'ytmp4', aliases: ['ytvideo'], file: '../commands/youtube.js', func: 'ytVideoCommand' },
+            { name: 'tiktok', aliases: ['tt', 'tik'], file: '../commands/tiktok.js', func: 'tiktokCommand' },
             { name: 'nanobanana', aliases: ['nano', 'banana', 'ai-edit'], file: '../commands/nanobanana.js', func: 'nanobananaCommand' },
             { name: 'sora', aliases: ['text2video', 'soragen'], file: '../commands/sora.js', func: 'soraCommand' },
 
@@ -610,6 +609,24 @@ const autoRespondManager = (await import('../lib/autoRespondManager.js')).defaul
                 ''
             );
 
+            // ========================================
+            // 🔒 VÉRIFICATION GLOBALE DU MODE (Boutons + Commandes)
+            // ========================================
+            
+            const owner = await isOwner(this.socket, sen, configs);
+            
+            // Si pas owner, on vérifie le mode PUBLIC et les SUDO
+            if (!owner) {
+                const isPublicMode = modeManager.isPublic();
+                const userPhone = await getPhoneNumber(this.socket, senderId);
+                const sudo = isSudoUser(userPhone, senderId);
+
+                // Si Mode Privé ET pas Sudo -> On arrête TOUT (Boutons inclus)
+                if (!isPublicMode && !sudo) {
+                    return; 
+                }
+            }
+
             const bodyQuizz = messageText; // Pour le quiz
             const userMessage = messageText.toLowerCase(); // Pour les commandes
 
@@ -816,23 +833,11 @@ if (!userMessage.startsWith(currentPrefix)) return;
                 const commandName = args.shift().toLowerCase();
 
                 // ========================================
-                // 🔒 VÉRIFICATION DU MODE
+                // 🔒 VÉRIFICATION DU MODE (DÉJÀ FAIT PLUS HAUT)
                 // ========================================
                 
-                // Note: isOwner est maintenant sécurisé dans authHelper
-                const owner = await isOwner(this.socket, sen, configs);
-                
-                // Optimisation: On ne vérifie le mode et sudo que si ce n'est pas le proprio
-                if (!owner) {
-                    const isPublicMode = modeManager.isPublic();
-                    const userPhone = await getPhoneNumber(this.socket, senderId);
-                    const sudo = isSudoUser(userPhone, senderId);
-
-                    if (!isPublicMode && !sudo) {
-                        // Mode privé : on ignore silencieusement ou on répond
-                        return; 
-                    }
-                }
+                // Le check a été déplacé avant les boutons pour tout sécuriser.
+                // On garde juste le log.
 
                 console.log(chalk.cyan(`📝 Command: .${commandName} from ${senderId.split('@')[0]}`));
 

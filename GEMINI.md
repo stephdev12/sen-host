@@ -96,3 +96,6 @@ The project is a Monorepo-like structure containing the Platform (Next.js) and t
 - **Email Auth:** Currently simple password-based. verification email logic is *planned*.
 - **Deployment:** Currently runs on localhost. VPS deployment requires Process Manager (PM2) and Reverse Proxy (Nginx).
 - **Payment:** MoneyFusion integration uses `pay.moneyfusion.net` (no www). Webhook verifies `personal_Info`.
+
+## Recent Fixes & Changes
+- **Bot Startup Logic:** Modified `src/app/api/bots/[id]/action/route.ts` to conditionally preload `patch_port.js` only if the file exists in the instance directory. This fixes a bug where the `ANITA-V5` specific patch was interfering with other bot templates (like `SENKU-XMD` or `sen-bot`).

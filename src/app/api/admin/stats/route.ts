@@ -9,7 +9,8 @@ export async function GET(request: Request) {
 
   try {
       const usersCount = await prisma.user.count();
-      const botsCount = await prisma.bot.count({ where: { status: 'running' } });
+      const totalBotsCount = await prisma.bot.count();
+      const activeBotsCount = await prisma.bot.count({ where: { status: 'running' } });
       const users = await prisma.user.findMany({
           include: { bots: true },
           orderBy: { createdAt: 'desc' },
@@ -22,7 +23,8 @@ export async function GET(request: Request) {
 
       return NextResponse.json({
           usersCount,
-          botsCount,
+          totalBotsCount,
+          activeBotsCount,
           totalCoins: totalCoinsAgg._sum.coins || 0,
           users
       });

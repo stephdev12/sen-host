@@ -1,0 +1,27 @@
+root@srv1246216:/var/www/sen-host/templates/raganork-bot# npm install
+npm error code ERESOLVE
+npm error ERESOLVE could not resolve
+npm error
+npm error While resolving: baileys@7.0.0-rc.8
+npm error Found: jimp@0.16.0
+npm error node_modules/jimp
+npm error   jimp@"0.16.0" from the root project
+npm error
+npm error Could not resolve dependency:
+npm error peerOptional jimp@"^1.6.0" from baileys@7.0.0-rc.8
+npm error node_modules/baileys
+npm error   baileys@"7.0.0-rc.8" from the root project
+npm error
+npm error Conflicting peer dependency: jimp@1.6.0
+npm error node_modules/jimp
+npm error   peerOptional jimp@"^1.6.0" from baileys@7.0.0-rc.8
+npm error   node_modules/baileys
+npm error     baileys@"7.0.0-rc.8" from the root project
+npm error
+npm error Fix the upstream dependency conflict, or retry
+npm error this command with --force or --legacy-peer-deps
+npm error to accept an incorrect (and potentially broken) dependency resolution.npm error
+npm error
+npm error For a full report see:
+npm error /root/.npm/_logs/2026-01-25T09_33_43_856Z-eresolve-report.txt
+npm error A complete log of this run can be found in: /root/.npm/_logs/2026-01-25T09_33_43_856Z-debug-0.log

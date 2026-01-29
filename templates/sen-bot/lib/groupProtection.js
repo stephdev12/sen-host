@@ -62,24 +62,58 @@ class GroupProtectionManager {
         try {
             if (!groupId.endsWith('@g.us')) return;
 
-            // On vérifie d'abord tes anciennes protections
+            // 1. GLOBAL ADMIN IMMUNITY (CORRECTION CRITIQUE)
             const userIsAdmin = await isAdmin(sock, groupId, senderId);
+            if (userIsAdmin) return; // Les admins ne sont JAMAIS punis
 
+            const config = this.getGroupConfig(groupId);
+
+            // 2. ANTITRANSFERT (NOUVEAU)
+            if (config.antitransfert?.enabled) {
+                const msg = message.message;
+                const isForwarded = msg?.extendedTextMessage?.contextInfo?.isForwarded || 
+                                    msg?.imageMessage?.contextInfo?.isForwarded || 
+                                    msg?.videoMessage?.contextInfo?.isForwarded ||
+                                    msg?.conversation?.contextInfo?.isForwarded; // Cas rares
+
+                if (isForwarded) {
+                    return this.handleViolation(sock, groupId, senderId, { 
+                        action: 'delete', 
+                        message: '🚫 Les messages transférés sont interdits ici.' 
+                    }, message);
+                }
+            }
+
+            // 3. ANTIMENTION (NOUVEAU - Detecte > 3 mentions ou mention de groupe)
+            if (config.antimention?.enabled) {
+                const contextInfo = message.message?.extendedTextMessage?.contextInfo;
+                const mentions = contextInfo?.mentionedJid || [];
+                const groupMentions = contextInfo?.groupMentions || [];
+
+                if (mentions.length > 3 || groupMentions.length > 0) {
+                     return this.handleViolation(sock, groupId, senderId, { 
+                        action: 'delete', 
+                        message: '🚫 Les mentions de masse ou de groupe sont interdites.' 
+                    }, message);
+                }
+            }
+
+            // On vérifie d'abord tes anciennes protections
             if (antispam?.isEnabled(groupId)) {
                 const res = await antispam.handleMessage(sock, message, groupId, senderId, userIsAdmin);
-                if (res?.action !== 'none') return this.handleViolation(sock, groupId, senderId, res);
+                if (res?.action !== 'none') return this.handleViolation(sock, groupId, senderId, res, message);
             }
             if (antilink?.isEnabled(groupId)) {
                 const res = await antilink.handleMessage(sock, message, groupId, senderId, userIsAdmin);
-                if (res?.action !== 'none') return this.handleViolation(sock, groupId, senderId, res);
+                if (res?.action !== 'none') return this.handleViolation(sock, groupId, senderId, res, message);
             }
-            if (antitag?.isEnabled(groupId)) {
+            if (antitag?.isEnabled(groupId)) { // Antitag = Hidden tags
                 const res = await antitag.handleMessage(sock, message, groupId, senderId, userIsAdmin);
-                if (res?.action !== 'none') return this.handleViolation(sock, groupId, senderId, res);
+                if (res?.action !== 'none') return this.handleViolation(sock, groupId, senderId, res, message);
             }
             if (antimedia?.isEnabled(groupId)) {
                 const res = await antimedia.handleMessage(sock, message, groupId, senderId, userIsAdmin);
-                if (res?.action !== 'none') return this.handleViolation(sock, groupId, senderId, res);
+                if (res?.action !== 'none') return this.handleViolation(sock, groupId, senderId, res, message);
             }
 
         } catch (error) {
@@ -87,8 +121,14 @@ class GroupProtectionManager {
         }
     }
 
-    async handleViolation(sock, groupId, senderId, result) {
-        if (result.message) await sock.sendMessage(groupId, { text: result.message, mentions: [senderId] });
+    async handleViolation(sock, groupId, senderId, result, message) {
+        if (result.message) await sock.sendMessage(groupId, { text: result.message, mentions: [senderId] }, { quoted: message });
+        
+        // Suppression du message (Si delete est demandé)
+        if (result.action === 'delete' || result.action === 'kick') {
+             try { await sock.sendMessage(groupId, { delete: message.key }); } catch {}
+        }
+
         if (result.action === 'kick') {
             try { await sock.groupParticipantsUpdate(groupId, [senderId], 'remove'); } catch {}
         }
@@ -97,7 +137,7 @@ class GroupProtectionManager {
     // --- TOGGLE (ON/OFF) ---
     async toggleProtection(type, groupId, enabled) {
         switch(type) {
-            // Anciens systèmes
+            // Anciens systèmes (Compatibilité)
             case 'antilink': return antilink.toggle(groupId, enabled);
             case 'antitag': return antitag.toggle(groupId, enabled);
             case 'antimedia': return antimedia.toggle(groupId, enabled);
@@ -106,6 +146,8 @@ class GroupProtectionManager {
             // Nouveaux systèmes (JSON)
             case 'antipromote':
             case 'antidemote':
+            case 'antitransfert': // Nouveau
+            case 'antimention': // Nouveau
             case 'welcome':
             case 'goodbye':
                 this.updateGroupConfig(groupId, type, { enabled: enabled });
@@ -125,6 +167,8 @@ class GroupProtectionManager {
             antispam: antispam?.isEnabled(groupId) || false,
             antipromote: config.antipromote?.enabled || false,
             antidemote: config.antidemote?.enabled || false,
+            antitransfert: config.antitransfert?.enabled || false, // Nouveau
+            antimention: config.antimention?.enabled || false, // Nouveau
             welcome: config.welcome?.enabled || false,
             goodbye: config.goodbye?.enabled || false
         };

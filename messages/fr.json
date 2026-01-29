@@ -1,0 +1,214 @@
+{
+  "HomePage": {
+    "title": "Déployez vos bots WhatsApp en quelques secondes.",
+    "description": "Une plateforme ultra-rapide, sécurisée et élégante pour héberger vos instances. Gérez tout depuis un tableau de bord intuitif.",
+    "version": "v1.0 Disponible",
+    "cta_login": "Se connecter",
+    "cta_start": "Commencer",
+    "hero_btn_start": "Lancer mon Bot",
+    "hero_btn_more": "En savoir plus",
+    "system_status": "System Status",
+    "system_online": "ONLINE",
+    "system_msg": "All Systems Operational",
+    "features": {
+      "perf_title": "Performance Extrême",
+      "perf_desc": "Des serveurs optimisés pour exécuter vos bots sans latence.",
+      "sec_title": "Sécurité Totale",
+      "sec_desc": "Vos données et sessions sont isolées et chiffrées.",
+      "deploy_title": "Déploiement Instantané",
+      "deploy_desc": "Passez du code à la production en moins de 30 secondes."
+    }
+  },
+  "LoginPage": {
+    "title": "Bon retour",
+    "subtitle": "Connectez-vous pour gérer vos bots",
+    "email_label": "Email",
+    "password_label": "Mot de passe",
+    "email_placeholder": "votre@email.com",
+    "password_placeholder": "••••••••",
+    "login_button": "Se connecter",
+    "no_account": "Pas encore de compte ?",
+    "register_link": "S'inscrire",
+    "error_default": "Erreur de connexion"
+  },
+  "RegisterPage": {
+    "title": "Créer un compte",
+    "subtitle": "Rejoignez SenStudioHost aujourd'hui",
+    "username_label": "Pseudo",
+    "email_label": "Email",
+    "password_label": "Mot de passe",
+    "username_placeholder": "SenMaster",
+    "email_placeholder": "votre@email.com",
+    "password_placeholder": "••••••••",
+    "register_button": "S'inscrire",
+    "have_account": "Déjà un compte ?",
+    "login_link": "Se connecter",
+    "error_default": "Erreur d'inscription"
+  },
+  "Dashboard": {
+    "nav": {
+      "overview": "Vue d'ensemble",
+      "billing": "Facturation",
+      "community": "Communauté",
+      "help": "Aide",
+      "recharge": "Recharger",
+      "theme": "Changer de thème",
+      "logout": "Déconnexion"
+    },
+    "header": {
+      "greeting": "Bonjour, {name}",
+      "subtitle": "Gérez vos instances de bots WhatsApp.",
+      "new_bot": "Nouveau Bot"
+    },
+    "stats": {
+      "active_bots": "Bots Actifs",
+      "remaining_coins": "Coins Restants",
+      "uptime": "Disponibilité"
+    },
+    "bot_list": {
+      "title": "Vos Instances",
+      "empty_title": "Aucun bot actif",
+      "empty_desc": "Commencez par créer votre première instance.",
+      "create_btn": "Créer un Bot",
+      "start": "Démarrer",
+      "stop": "Stopper",
+      "upgrade": "Mettre à jour",
+      "restart": "Redémarrer",
+      "delete": "Supprimer",
+      "logs_link": "Voir les logs / Code de pairage",
+      "delete_confirm": "Voulez-vous vraiment supprimer ce bot ?",
+      "upgrade_confirm": "Voulez-vous mettre à jour les fichiers du bot ? (Cela ne supprimera pas vos données)"
+    },
+    "modals": {
+      "create": {
+        "title": "Nouveau Bot",
+        "desc": "Entrez votre numéro pour générer un code de pairage. Coût: 10 coins / 24h.",
+        "name_label": "Nom du bot",
+        "name_placeholder": "Mon Super Bot",
+        "phone_label": "Numéro WhatsApp",
+        "phone_placeholder": "22997000000",
+        "template_label": "Modèle de Bot",
+        "cancel": "Annuler",
+        "create": "Créer",
+        "creating": "Création..."
+      },
+      "edit": {
+        "title": "Modifier le Bot",
+        "desc": "Modifiez les informations de votre bot. Si le bot est en cours d'exécution, vous devrez le redémarrer pour appliquer les changements.",
+        "save": "Sauvegarder",
+        "saving": "Mise à jour..."
+      },
+      "pairing": {
+        "title": "Console / Pairage",
+        "code_label": "Code de pairage",
+        "code_desc": "Allez dans WhatsApp > Appareils connectés > Connecter un appareil > Connecter avec un numéro",
+        "copy": "Copier le code",
+        "waiting": "En attente du code de pairage...",
+        "initializing": "Initialisation...",
+        "copied": "Code copié !"
+      }
+    },
+    "referral": {
+      "title": "Parrainage",
+      "desc": "Gagnez 2 coins pour chaque ami inscrit avec votre lien !",
+      "link_label": "Votre lien d'affiliation",
+      "copy": "Copier le lien",
+      "copied": "Lien copié !"
+    },
+    "transfer": {
+      "title": "Transférer des Coins",
+      "desc": "Envoyez des coins à un autre utilisateur.",
+      "email_label": "Email du destinataire",
+      "amount_label": "Montant (Min 20)",
+      "send": "Envoyer",
+      "sending": "Transfert...",
+      "success": "Transfert réussi !"
+    },
+    "verification": {
+      "title": "Vérifiez votre email",
+      "desc": "Votre compte n'est pas encore actif. Veuillez cliquer sur le lien envoyé à {email} pour accéder au tableau de bord.",
+      "resend": "Renvoyer l'email de vérification",
+      "sending": "Envoi en cours...",
+      "sent": "Email envoyé avec succès !",
+      "logout": "Se déconnecter"
+    },
+    "bot_limit_reached": "Vous avez atteint la limite de 2 bots maximum. Supprimez-en un pour en créer un nouveau."
+  },
+  "community": {
+    "back": "Retour au tableau de bord",
+    "title": "Communauté SenStudio",
+    "subtitle": "Entraide, partage et discussions.",
+    "empty": "Aucun message pour le moment. Soyez le premier !",
+    "placeholder": "Écrivez votre message..."
+  },
+  "help": {
+    "back": "Retour au tableau de bord",
+    "title": "Centre d'aide",
+    "subtitle": "Besoin d'aide ? Rejoignez nos communautés pour obtenir du support direct.",
+    "whatsapp_title": "Chaîne WhatsApp",
+    "whatsapp_desc": "Rejoignez notre canal officiel pour les mises à jour et les annonces.",
+    "telegram_title": "Chaîne Telegram",
+    "telegram_desc": "Rejoignez notre communauté sur Telegram pour discuter et obtenir de l'aide.",
+    "note_title": "Note Importante",
+    "note_desc": "Le support est assuré par la communauté et les administrateurs bénévoles. Soyez respectueux et précis dans vos demandes."
+  },
+  "Ads": {
+    "title": "Gagner des Coins",
+    "subtitle": "Regardez une pub pour gagner 1 Coin.",
+    "today": "Aujourd'hui",
+    "btn_start": "Regarder une Publicité",
+    "btn_limit": "Limite atteinte",
+    "btn_wait": "Patientez {timer}s...",
+    "btn_claim": "Réclamer la récompense",
+    "success": "+1 Coin ajouté !",
+    "error": "Erreur",
+    "interval": "Une publicité toutes les 15 secondes."
+  },
+  "Billing": {
+    "back": "Retour au tableau de bord",
+    "title": "Recharger vos Coins",
+    "subtitle": "Choisissez le pack qui correspond à vos besoins. Les coins sont débités automatiquement chaque 24h pour vos bots actifs.",
+    "packs": {
+      "popular": "Populaire",
+      "buy": "Payer via API",
+      "features": {
+        "instant": "Accès instantané (API)",
+        "priority": "Support prioritaire",
+        "lifetime": "Valable à vie"
+      }
+    },
+    "manual": {
+      "title": "Autres moyens de paiement",
+      "local": {
+        "title": "Paiement Local",
+        "instruction": "Envoyez une capture au {number}"
+      },
+      "minipay": {
+        "title": "MiniPay",
+        "desc": "La solution de paiement Celo ultra-rapide.",
+        "steps": [
+          "Téléchargez MiniPay ici",
+          "Connectez-vous et rechargez",
+          "Envoyez le montant au {number}"
+        ],
+        "manual_check": "Traitement manuel rapide"
+      },
+      "binance": {
+        "title": "Binance Pay",
+        "instruction": "Une fois effectué, envoyez la capture d'écran au"
+      }
+    },
+    "premium_banner": {
+      "limited_offer": "OFFRE LIMITÉE",
+      "title": "Devenez Premium",
+      "description": "Libérez tout le potentiel de SenStudio. Déployez sans limites et profitez d'une expérience exclusive.",
+      "features": {
+        "bots": "Nombre de bots illimité",
+        "coins": "Coins illimités (plus de déductions)",
+        "support": "Support Prioritaire 24/7"
+      },
+      "button": "S'abonner pour $15 / mois"
+    },
+    "top_up_title": "Ou rechargez vos coins"
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "HomePage": {
+    "title": "Deploy your WhatsApp Bots in seconds.",
+    "description": "A lightning-fast, secure, and elegant platform to host your instances. Manage everything from an intuitive dashboard.",
+    "version": "v1.0 Available",
+    "cta_login": "Login",
+    "cta_start": "Get Started",
+    "hero_btn_start": "Launch my Bot",
+    "hero_btn_more": "Learn More",
+    "system_status": "System Status",
+    "system_online": "ONLINE",
+    "system_msg": "All Systems Operational",
+    "features": {
+      "perf_title": "Extreme Performance",
+      "perf_desc": "Optimized servers to run your bots with zero latency.",
+      "sec_title": "Total Security",
+      "sec_desc": "Your data and sessions are isolated and encrypted.",
+      "deploy_title": "Instant Deployment",
+      "deploy_desc": "Go from code to production in less than 30 seconds."
+    }
+  },
+  "LoginPage": {
+    "title": "Welcome Back",
+    "subtitle": "Login to manage your bots",
+    "email_label": "Email",
+    "password_label": "Password",
+    "email_placeholder": "your@email.com",
+    "password_placeholder": "••••••••",
+    "login_button": "Login",
+    "no_account": "Don't have an account?",
+    "register_link": "Sign up",
+    "error_default": "Login failed"
+  },
+  "RegisterPage": {
+    "title": "Create an Account",
+    "subtitle": "Join SenStudioHost today",
+    "username_label": "Username",
+    "email_label": "Email",
+    "password_label": "Password",
+    "username_placeholder": "SenMaster",
+    "email_placeholder": "your@email.com",
+    "password_placeholder": "••••••••",
+    "register_button": "Sign up",
+    "have_account": "Already have an account?",
+    "login_link": "Login",
+    "error_default": "Registration failed"
+  },
+  "Dashboard": {
+    "nav": {
+      "overview": "Overview",
+      "billing": "Billing",
+      "community": "Community",
+      "help": "Help Center",
+      "recharge": "Recharge",
+      "theme": "Toggle Theme",
+      "logout": "Logout"
+    },
+    "header": {
+      "greeting": "Hello, {name}",
+      "subtitle": "Manage your WhatsApp bot instances.",
+      "new_bot": "New Bot"
+    },
+    "stats": {
+      "active_bots": "Active Bots",
+      "remaining_coins": "Remaining Coins",
+      "uptime": "Uptime"
+    },
+    "bot_list": {
+      "title": "Your Instances",
+      "empty_title": "No active bots",
+      "empty_desc": "Start by creating your first instance.",
+      "create_btn": "Create a Bot",
+      "start": "Start",
+      "stop": "Stop",
+      "upgrade": "Update",
+      "restart": "Restart",
+      "delete": "Delete",
+      "logs_link": "View logs / Pairing Code",
+      "delete_confirm": "Do you really want to delete this bot?",
+      "upgrade_confirm": "Do you want to update the bot files? (This will not delete your data)"
+    },
+    "modals": {
+      "create": {
+        "title": "New Bot",
+        "desc": "Enter your number to generate a pairing code. Cost: 10 coins / 24h.",
+        "name_label": "Bot Name",
+        "name_placeholder": "My Super Bot",
+        "phone_label": "WhatsApp Number",
+        "phone_placeholder": "237694530506",
+        "template_label": "Bot Model",
+        "cancel": "Cancel",
+        "create": "Create",
+        "creating": "Creating..."
+      },
+      "edit": {
+        "title": "Edit Bot",
+        "desc": "Modify your bot information. If the bot is running, you must restart it to apply changes.",
+        "save": "Save",
+        "saving": "Saving..."
+      },
+      "pairing": {
+        "title": "Console / Pairing",
+        "code_label": "Pairing Code",
+        "code_desc": "Go to WhatsApp > Linked Devices > Link a Device > Link with phone number",
+        "copy": "Copy Code",
+        "waiting": "Waiting for pairing code...",
+        "initializing": "Initializing...",
+        "copied": "Code copied!"
+      }
+    },
+    "referral": {
+      "title": "Referral",
+      "desc": "Earn 2 coins for each friend signed up with your link!",
+      "link_label": "Your Referral Link",
+      "copy": "Copy Link",
+      "copied": "Link copied!"
+    },
+    "transfer": {
+      "title": "Transfer Coins",
+      "desc": "Send coins to another user.",
+      "email_label": "Recipient Email",
+      "amount_label": "Amount (Min 20)",
+      "send": "Send",
+      "sending": "Transferring...",
+      "success": "Transfer successful!"
+    },
+    "verification": {
+      "title": "Verify your email",
+      "desc": "Your account is not active yet. Please click the link sent to {email} to access the dashboard.",
+      "resend": "Resend Verification Email",
+      "sending": "Sending...",
+      "sent": "Email sent successfully!",
+      "logout": "Logout"
+    },
+    "bot_limit_reached": "You have reached the limit of 2 bots maximum. Delete one to create a new one."
+  },
+  "community": {
+    "back": "Back to Dashboard",
+    "title": "SenStudio Community",
+    "subtitle": "Support, sharing and discussions.",
+    "empty": "No messages yet. Be the first!",
+    "placeholder": "Write your message..."
+  },
+  "help": {
+    "back": "Back to Dashboard",
+    "title": "Help Center",
+    "subtitle": "Need help? Join our communities for direct support.",
+    "whatsapp_title": "WhatsApp Channel",
+    "whatsapp_desc": "Join our official channel for updates and announcements.",
+    "telegram_title": "Telegram Channel",
+    "telegram_desc": "Join our Telegram community to chat and get help.",
+    "note_title": "Important Note",
+    "note_desc": "Support is provided by the community and volunteer administrators. Be respectful and precise in your requests."
+  },
+  "Ads": {
+    "title": "Earn Coins",
+    "subtitle": "Watch an ad to earn 1 Coin.",
+    "today": "Today",
+    "btn_start": "Watch an Ad",
+    "btn_limit": "Limit reached",
+    "btn_wait": "Wait {timer}s...",
+    "btn_claim": "Claim reward",
+    "success": "+1 Coin added!",
+    "error": "Error",
+    "interval": "One ad every 15 seconds."
+  },
+  "Billing": {
+    "back": "Back to Dashboard",
+    "title": "Recharge your Coins",
+    "subtitle": "Choose the pack that fits your needs. Coins are automatically deducted every 24h for your active bots.",
+    "packs": {
+      "popular": "Popular",
+      "buy": "Pay via API",
+      "features": {
+        "instant": "Instant access (API)",
+        "priority": "Priority support",
+        "lifetime": "Valid forever"
+      }
+    },
+    "manual": {
+      "title": "Other Payment Methods",
+      "local": {
+        "title": "Local Payment",
+        "instruction": "Send a screenshot to {number}"
+      },
+      "minipay": {
+        "title": "MiniPay",
+        "desc": "The ultra-fast Celo payment solution.",
+        "steps": [
+          "Download MiniPay here",
+          "Login and recharge",
+          "Send the amount to {number}"
+        ],
+        "manual_check": "Fast manual processing"
+      },
+      "binance": {
+        "title": "Binance Pay",
+        "instruction": "Once done, send the screenshot to"
+      }
+    },
+    "premium_banner": {
+      "limited_offer": "LIMITED OFFER",
+      "title": "Go Premium",
+      "description": "Unlock the full potential of SenStudio. Deploy without limits and enjoy an exclusive experience.",
+      "features": {
+        "bots": "Unlimited bots",
+        "coins": "Unlimited coins (no more deductions)",
+        "support": "Priority Support 24/7"
+      },
+      "button": "Subscribe for $15 / mo"
+    },
+    "top_up_title": "Or top up your coins"
+  }
+}

@@ -6,7 +6,8 @@ import fs from 'fs-extra';
 import path from 'path';
 import { spawn } from 'child_process';
 import treeKill from 'tree-kill';
-import { getDirectorySize, MAX_DISK_USAGE, MAX_RAM_MB } from '@/lib/fileUtils';
+import { getDirectorySize, MAX_DISK_USAGE, MAX_RAM_MB, getInstancePath } from '@/lib/fileUtils';
+import { callNodeApi } from '@/lib/nodeUtils';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'super-secret-key-change-this';
 
@@ -26,18 +27,62 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     const user = await prisma.user.findUnique({ where: { id: decoded.userId } });
     
     // 2. Bot Check
-    const bot = await prisma.bot.findUnique({ where: { id } });
+    // Include Node relation
+    const bot = await prisma.bot.findUnique({ 
+        where: { id },
+        include: { node: true }
+    });
+
     if (!bot) return NextResponse.json({ error: 'Bot introuvable' }, { status: 404 });
     if (bot.ownerId !== user?.id && user?.role !== 'admin') {
       return NextResponse.json({ error: 'Non autorisé' }, { status: 403 });
     }
 
-    const instancePath = path.join(process.cwd(), 'instances', bot.id);
+    // Check Premium for Custom Bots when starting
+    if ((action === 'start' || action === 'restart') && bot.type === 'CUSTOM') {
+        const isPremium = user?.isPremium && user?.premiumExpiresAt && new Date(user.premiumExpiresAt) > new Date();
+        if (!isPremium) {
+            return NextResponse.json({ error: 'Accès Premium requis pour démarrer un bot personnalisé.' }, { status: 403 });
+        }
+    }
+
+    // --- REMOTE ACTION ---
+    if (bot.nodeId && bot.node) {
+        if (action === 'delete') {
+            // Special handling for delete: call remote then delete local DB record
+            await callNodeApi(bot.node, '/action', 'POST', { botId: bot.id, action: 'delete' });
+            await prisma.bot.delete({ where: { id: bot.id } });
+            return NextResponse.json({ success: true, message: 'Bot supprimé (Remote)' });
+        }
+
+        // Other actions: start, stop, restart
+        const res = await callNodeApi(bot.node, '/action', 'POST', { botId: bot.id, action });
+        
+        // Update DB status if start/stop
+        if (action === 'start' || action === 'restart') {
+            // Note: we can't get the PID easily unless we trust the remote PID, 
+            // but for remote management we might just store "running" status or the remote PID
+            await prisma.bot.update({ 
+                where: { id: bot.id }, 
+                data: { status: 'running', processId: res.pid || 9999 } 
+            });
+        } else if (action === 'stop') {
+             await prisma.bot.update({ 
+                where: { id: bot.id }, 
+                data: { status: 'stopped', processId: null } 
+            });
+        }
+        
+        return NextResponse.json({ success: true, message: `Bot ${action} (Remote)` });
+    }
+
+    // --- LOCAL ACTION (Fallback) ---
+    const instancePath = getInstancePath(bot.id);
     const logPath = path.join(instancePath, 'logs.txt');
 
     // 3. Handle Actions
     switch (action) {
-            case 'start':
+            case 'start': {
               if (bot.status === 'running') return NextResponse.json({ message: 'Déjà démarré' });
               
               // Check Disk Usage
@@ -51,17 +96,58 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
               // Vider les logs avant de démarrer pour effacer l'ancien code de pairage
               await fs.writeFile(logPath, '');
       
+              // 3. Define Start Command
+              let command = process.execPath;
+              let args = ['--max-old-space-size=' + MAX_RAM_MB, 'index.js'];
+              let useShell = false;
+
+              if (bot.startCommand) {
+                  const parts = bot.startCommand.split(' ');
+                  if (parts[0] === 'node') {
+                      command = process.execPath;
+                      args = ['--max-old-space-size=' + MAX_RAM_MB, ...parts.slice(1)];
+                  } else {
+                      command = bot.startCommand;
+                      args = [];
+                      useShell = true;
+                  }
+              }
+
               // Start Process
-              // Mode 'a' pour append (ou 'w' pour overwrite mais openSync gère mal w si on veut stream en temps réel parfois)
-              // Ici on a vidé le fichier avant, donc 'a' est ok.
               const logFd = await fs.open(logPath, 'a');
               
-              const ramArg = `--max-old-space-size=${MAX_RAM_MB}`;
-              const child = spawn('node', [ramArg, 'index.js'], {
+              // Read PORT from env to override inherited PORT (which might be 3007 from platform)
+              let botEnv = { ...process.env };
+              // Critical: Always delete inherited PORT first so we don't accidentally use platform's port
+              delete botEnv.PORT;
+              delete botEnv.DATABASE_URL;
+              delete botEnv.NODE_OPTIONS; // Ensure clean state
+              
+              try {
+                  const envFilename = bot.envFileName || '.env';
+                  const envFilePath = `${instancePath}/${envFilename}`;
+                  const envContent = await fs.readFile(envFilePath, 'utf8');
+                  const portMatch = envContent.match(/^PORT=(\d+)/m);
+                  if (portMatch) {
+                      botEnv.PORT = portMatch[1];
+                  }
+              } catch (e) {
+                  console.error('Error reading env for PORT override:', e);
+              }
+
+              // Only apply patch_port.js if it exists (Generic solution for all templates)
+              if (await fs.pathExists(path.join(instancePath, 'patch_port.js'))) {
+                  botEnv.NODE_OPTIONS = (botEnv.NODE_OPTIONS || '') + ' -r ./patch_port.js';
+              } else if (await fs.pathExists(path.join(instancePath, 'patch_port.cjs'))) {
+                  botEnv.NODE_OPTIONS = (botEnv.NODE_OPTIONS || '') + ' -r ./patch_port.cjs';
+              }
+
+              const child = spawn(command, args, {
                 cwd: instancePath,
-                shell: false,
+                shell: useShell,
                 detached: true,
-                stdio: ['ignore', logFd, logFd]
+                stdio: ['ignore', logFd, logFd],
+                env: botEnv
               });
               
               child.unref();
@@ -73,8 +159,9 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
               });
       
               return NextResponse.json({ success: true, message: 'Bot démarré' });
+            }
       
-            case 'restart':
+            case 'restart': {
               // 1. Stop
               if (bot.status === 'running' && bot.processId) {
                   try {
@@ -99,11 +186,53 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
               await fs.writeFile(logPath, '');
               const restartLogFd = await fs.open(logPath, 'a');
       
-              const restartChild = spawn('node', [`--max-old-space-size=${MAX_RAM_MB}`, 'index.js'], {
+              // Read PORT from env
+              let restartBotEnv = { ...process.env };
+              delete restartBotEnv.PORT;
+              delete restartBotEnv.DATABASE_URL;
+              delete restartBotEnv.NODE_OPTIONS;
+
+              try {
+                  const envFilename = bot.envFileName || '.env';
+                  const envFilePath = `${instancePath}/${envFilename}`;
+                  const envContent = await fs.readFile(envFilePath, 'utf8');
+                  const portMatch = envContent.match(/^PORT=(\d+)/m);
+                  if (portMatch) {
+                      restartBotEnv.PORT = portMatch[1];
+                  }
+              } catch (e) {
+                  console.error('Error reading env for restart PORT:', e);
+              }
+
+              // Only apply patch_port.js if it exists (Generic solution for all templates)
+              if (await fs.pathExists(path.join(instancePath, 'patch_port.js'))) {
+                  restartBotEnv.NODE_OPTIONS = (restartBotEnv.NODE_OPTIONS || '') + ' -r ./patch_port.js';
+              } else if (await fs.pathExists(path.join(instancePath, 'patch_port.cjs'))) {
+                  restartBotEnv.NODE_OPTIONS = (restartBotEnv.NODE_OPTIONS || '') + ' -r ./patch_port.cjs';
+              }
+
+              let restartCommand = process.execPath;
+              let restartArgs = ['--max-old-space-size=' + MAX_RAM_MB, 'index.js'];
+              let restartUseShell = false;
+
+              if (bot.startCommand) {
+                  const parts = bot.startCommand.split(' ');
+                  if (parts[0] === 'node') {
+                      restartCommand = process.execPath;
+                      restartArgs = ['--max-old-space-size=' + MAX_RAM_MB, ...parts.slice(1)];
+                  } else {
+                      restartCommand = bot.startCommand;
+                      restartArgs = [];
+                      restartUseShell = true;
+                  }
+              }
+
+              const restartChild = spawn(restartCommand, restartArgs, {
                 cwd: instancePath,
-                shell: false,
+                shell: restartUseShell,
                 detached: true,
-                stdio: ['ignore', restartLogFd, restartLogFd]
+                stdio: ['ignore', restartLogFd, restartLogFd],
+                env: restartBotEnv
               });
               
               restartChild.unref();
@@ -115,6 +244,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
               });
       
               return NextResponse.json({ success: true, message: 'Bot redémarré' });
+            }
       
             case 'stop':        if (bot.status === 'stopped') return NextResponse.json({ message: 'Déjà arrêté' });
         

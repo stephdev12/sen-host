@@ -29,15 +29,32 @@ export async function POST(request: Request) {
       // Si tu as configuré MoneyFusion pour renvoyer le userId dans un champ personnalisé
       const userId = data.personal_Info?.[0]?.userId || data.reference; 
       const coinsAmount = data.personal_Info?.[0]?.coins || 0;
+      const packId = data.personal_Info?.[0]?.packId;
 
-      if (userId && coinsAmount) {
-        await prisma.user.update({
-          where: { id: userId },
-          data: {
-            coins: { increment: parseInt(coinsAmount) }
-          }
-        });
-        console.log(`Successfully added ${coinsAmount} coins to user ${userId}`);
+      if (userId) {
+        if (packId === 'premium' || packId === 'custom_bot_access') {
+             // Activate Premium for 30 days
+             const now = new Date();
+             const expiresAt = new Date(now.setDate(now.getDate() + 30));
+             
+             await prisma.user.update({
+                where: { id: userId },
+                data: {
+                    isPremium: true,
+                    premiumExpiresAt: expiresAt
+                }
+             });
+             console.log(`Successfully activated PREMIUM for user ${userId}`);
+        } else if (coinsAmount) {
+             // Add Coins
+             await prisma.user.update({
+                where: { id: userId },
+                data: {
+                  coins: { increment: parseInt(coinsAmount) }
+                }
+             });
+             console.log(`Successfully added ${coinsAmount} coins to user ${userId}`);
+        }
       }
     }
 

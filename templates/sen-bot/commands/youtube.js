@@ -21,32 +21,33 @@ export async function iytSearchCommand(sock, chatId, message, args) {
     try {
         await sock.sendMessage(chatId, { react: { text: '🍎', key: message.key } });
 
-        const searchResult = await yts(query);
-        const videos = searchResult.videos.slice(0, 1);
+        // Use new API directly
+        const apiUrl = `https://apis.davidcyril.name.ng/song?query=${encodeURIComponent(query)}`;
+        const { data } = await axios.get(apiUrl);
 
-        if (!videos.length) {
+        if (!data.status || !data.result) {
             return sock.sendMessage(chatId, { 
                 text: lang.t('commands.youtube.noResults') 
             }, { quoted: message });
         }
 
-        const video = videos[0];
+        const video = data.result;
 
         await ui.buttons(chatId, {
             text: lang.t('commands.youtube.info', {
                 title: video.title,
-                author: video.author.name,
-                duration: video.timestamp
+                author: video.creator || 'Unknown',
+                duration: video.duration
             }),
             footer: lang.t('commands.youtube.footer'),
             image: video.thumbnail,
             buttons: [
                 { 
-                    id: `ytmp3_${video.url}`, 
+                    id: `ytmp3_${video.video_url}`, 
                     text: lang.t('commands.youtube.audioButton')
                 },
                 { 
-                    id: `ytmp4_${video.url}`, 
+                    id: `ytmp4_${video.video_url}`, 
                     text: lang.t('commands.youtube.videoButton')
                 }
             ],
@@ -148,22 +149,21 @@ export async function ytAudioCommand(sock, chatId, message, args) {
     try {
         await sock.sendMessage(chatId, { react: { text: '⏳', key: message.key } });
         
-        const { data } = await axios.get(`https://apis.davidcyril.name.ng/youtube/mp3?url=${url}&apikey=`, {
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-            }
-        });
+        const apiUrl = `https://apis.davidcyril.name.ng/song?query=${encodeURIComponent(url)}`;
+        const { data } = await axios.get(apiUrl);
         
-        if (!data.success) throw new Error('API Fail');
+        if (!data.status || !data.result) throw new Error('API Fail');
         
+        const song = data.result;
+
         await sock.sendMessage(chatId, {
-            audio: { url: data.result.download_url },
+            audio: { url: song.audio.download_url },
             mimetype: 'audio/mpeg',
             contextInfo: { 
                 externalAdReply: { 
-                    title: data.result.title, 
+                    title: song.title, 
                     body: lang.t('commands.youtube.audioCaption'), 
-                    thumbnailUrl: data.result.thumbnail, 
+                    thumbnailUrl: song.thumbnail, 
                     mediaType: 1, 
                     renderLargerThumbnail: true 
                 }
@@ -188,26 +188,18 @@ export async function ytVideoCommand(sock, chatId, message, args) {
     try {
         await sock.sendMessage(chatId, { react: { text: '⏳', key: message.key } });
         
-        const { data } = await axios.get(`https://apis.davidcyril.name.ng/download/ytmp4?url=${url}&apikey=`, {
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-            }
-        });
+        const apiUrl = `https://apis.davidcyril.name.ng/song?query=${encodeURIComponent(url)}`;
+        const { data } = await axios.get(apiUrl);
         
-        if (!data.success) throw new Error('API Failed');
+        if (!data.status || !data.result) throw new Error('API Failed');
         
-        const videoUrl = data.result.download_url;
-        const title = data.result.title;
-        
-        // Removed file size check for now as the new API doesn't provide content-length in headers reliably sometimes, 
-        // or we rely on the API to give us a valid link. 
-        // We will try to send as video directly.
+        const video = data.result;
         
         await sock.sendMessage(chatId, { 
-            video: { url: videoUrl }, 
+            video: { url: video.video.download_url }, 
             caption: lang.t('commands.youtube.videoCaption', { 
-                title, 
-                size: 'Unknown' 
+                title: video.title, 
+                size: video.video.quality || 'Unknown' 
             }), 
             gifPlayback: false 
         }, { quoted: message });

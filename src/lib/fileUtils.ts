@@ -25,3 +25,14 @@ export async function getDirectorySize(dirPath: string): Promise<number> {
 
 export const MAX_DISK_USAGE = 1024 * 1024 * 1024; // 1GB in bytes
 export const MAX_RAM_MB = 512;
+
+const INSTANCES_DIR_NAME = 'instances';
+const TEMPLATES_DIR_NAME = 'templates';
+
+export function getInstancePath(botId: string): string {
+    return `${process.cwd()}/${INSTANCES_DIR_NAME}/${botId}`;
+}
+
+export function getTemplatePath(templateName: string): string {
+    return `${process.cwd()}/${TEMPLATES_DIR_NAME}/${templateName}`;
+}

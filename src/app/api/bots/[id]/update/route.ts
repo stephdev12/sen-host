@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import { parse } from 'cookie';
 import fs from 'fs-extra';
 import path from 'path';
+import { getInstancePath } from '@/lib/fileUtils';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'super-secret-key-change-this';
 
@@ -38,9 +39,10 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
             }
         });
 
-        // 4. Update .env
-        const instancePath = path.join(process.cwd(), 'instances', bot.id);
-        const envPath = path.join(instancePath, '.env');
+        // 4. Update env
+        const instancePath = getInstancePath(bot.id);
+        const envFilename = bot.template === 'keith-md' ? 'set.env' : '.env';
+        const envPath = path.join(instancePath, envFilename);
         
         if (await fs.pathExists(envPath)) {
             let envContent = await fs.readFile(envPath, 'utf8');
