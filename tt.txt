@@ -1,0 +1,19 @@
+Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.user.findUnique()` invocation:
+The table `main.User` does not exist in the current database.
+at async b (.next/server/chunks/[root-of-the-server]__168a3777._.js:1:1920)
+at async u (.next/server/chunks/[root-of-the-server]__168a3777._.js:1:5572)
+at async l (.next/server/chunks/[root-of-the-server]__168a3777._.js:1:6613) {
+code: 'P2021',
+meta: [Object],
+clientVersion: '6.19.1'
+}
+Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.user.findUnique()` invocation:
+The table `main.User` does not exist in the current database.
+at async b (.next/server/chunks/[root-of-the-server]__168a3777._.js:1:1920)
+at async u (.next/server/chunks/[root-of-the-server]__168a3777._.js:1:5572)
+at async l (.next/server/chunks/[root-of-the-server]__168a3777._.js:1:6613) {
+code: 'P2021',
+meta: [Object],
+clientVersion: '6.19.1'
