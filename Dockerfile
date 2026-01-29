@@ -52,6 +52,12 @@ COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
 COPY --from=builder --chown=nextjs:nodejs /app/templates ./templates
 RUN mkdir -p /app/instances && chown nextjs:nodejs /app/instances
 
+# Create data directory for SQLite persistence
+RUN mkdir -p /app/data && chown nextjs:nodejs /app/data
+
+# Copy cron script
+COPY --from=builder --chown=nextjs:nodejs /app/cron.js ./cron.js
+
 # Copy entrypoint script
 COPY --chown=nextjs:nodejs entrypoint.sh ./
 RUN chmod +x entrypoint.sh
