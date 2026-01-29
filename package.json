@@ -8,6 +8,9 @@
     "start": "next start -p 3007",
     "lint": "eslint"
   },
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "dependencies": {
     "@capacitor/android": "^8.0.1",
     "@capacitor/cli": "^8.0.1",
@@ -49,6 +52,6 @@
     "eslint-config-next": "16.1.1",
     "prisma": "^6.19.1",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "5.9.3"
   }
 }

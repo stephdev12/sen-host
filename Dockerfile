@@ -1,4 +1,4 @@
-FROM node:18-alpine AS base
+FROM node:20-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -7,7 +7,7 @@ WORKDIR /app
 
 # Copy package files
 COPY package.json package-lock.json ./ 
-COPY templates/sen-bot/package.json ./templates/sen-bot/
+COPY templates/sen-bot/package.json templates/sen-bot/package-lock.json ./templates/sen-bot/
 
 # Install dependencies including the template dependencies
 RUN npm ci

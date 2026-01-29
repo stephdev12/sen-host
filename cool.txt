@@ -1,0 +1,903 @@
+2026-Jan-29 16:44:18.611558 Starting deployment of stephdev12/sen-host:main to localhost.
+2026-Jan-29 16:44:18.819798 Preparing container with helper image: ghcr.io/coollabsio/coolify-helper:1.0.12
+2026-Jan-29 16:44:18.923932 [DEBUG] [CMD]: docker stop -t 30 losgkcok8kosc000k0ook4cc
+2026-Jan-29 16:44:18.923932 [DEBUG] Error response from daemon: No such container: losgkcok8kosc000k0ook4cc
+2026-Jan-29 16:44:19.160512 [DEBUG] [CMD]: docker run -d --network coolify --name losgkcok8kosc000k0ook4cc  --rm -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/coollabsio/coolify-helper:1.0.12
+2026-Jan-29 16:44:19.160512 [DEBUG] 9266d778dc07a0182e523931e6e26a6a18d4e447d501a758a8e0f44996ca8c0c
+2026-Jan-29 16:44:20.169861 [DEBUG] [CMD]: docker exec losgkcok8kosc000k0ook4cc bash -c 'GIT_SSH_COMMAND="ssh -o ConnectTimeout=30 -p 22 -o Port=22 -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git ls-remote https://github.com/stephdev12/sen-host refs/heads/main'
+2026-Jan-29 16:44:20.169861 [DEBUG] 597fee172350e8db3d9bcfff5fcd835cfa234b4f	refs/heads/main
+2026-Jan-29 16:44:20.299195 Image not found (kw8oo4k4kckgogocs4swkggw:597fee172350e8db3d9bcfff5fcd835cfa234b4f). Building new image.
+2026-Jan-29 16:44:20.304844 ----------------------------------------
+2026-Jan-29 16:44:20.308446 Importing stephdev12/sen-host:main (commit sha 597fee172350e8db3d9bcfff5fcd835cfa234b4f) to /artifacts/losgkcok8kosc000k0ook4cc.
+2026-Jan-29 16:44:20.485916 [DEBUG] [CMD]: docker exec losgkcok8kosc000k0ook4cc bash -c 'git clone --depth=1 --recurse-submodules --shallow-submodules -b 'main' 'https://github.com/stephdev12/sen-host' '/artifacts/losgkcok8kosc000k0ook4cc' && cd '/artifacts/losgkcok8kosc000k0ook4cc' && if [ -f .gitmodules ]; then sed -i "s#git@\(.*\):#https://\1/#g" '/artifacts/losgkcok8kosc000k0ook4cc'/.gitmodules || true && git submodule sync && GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git submodule update --init --recursive --depth=1; fi && cd '/artifacts/losgkcok8kosc000k0ook4cc' && GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git lfs pull'
+2026-Jan-29 16:44:20.485916 [DEBUG] Cloning into '/artifacts/losgkcok8kosc000k0ook4cc'...
+2026-Jan-29 16:44:21.696853 [DEBUG] [CMD]: docker exec losgkcok8kosc000k0ook4cc bash -c 'cd /artifacts/losgkcok8kosc000k0ook4cc && git log -1 597fee172350e8db3d9bcfff5fcd835cfa234b4f --pretty=%B'
+2026-Jan-29 16:44:21.696853 [DEBUG] chore: prepare for coolify deployment
+2026-Jan-29 16:44:21.702936 [DEBUG] 
+2026-Jan-29 16:44:21.870411 Generating nixpacks configuration with: nixpacks plan -f json --env COOLIFY_URL=http://kw8oo4k4kckgogocs4swkggw.72.62.212.124.sslip.io --env COOLIFY_FQDN=kw8oo4k4kckgogocs4swkggw.72.62.212.124.sslip.io --env COOLIFY_BRANCH=main --env COOLIFY_RESOURCE_UUID=kw8oo4k4kckgogocs4swkggw /artifacts/losgkcok8kosc000k0ook4cc
+2026-Jan-29 16:44:22.080066 [DEBUG] [CMD]: docker exec losgkcok8kosc000k0ook4cc bash -c 'nixpacks plan -f json --env COOLIFY_URL=http://kw8oo4k4kckgogocs4swkggw.72.62.212.124.sslip.io --env COOLIFY_FQDN=kw8oo4k4kckgogocs4swkggw.72.62.212.124.sslip.io --env COOLIFY_BRANCH=main --env COOLIFY_RESOURCE_UUID=kw8oo4k4kckgogocs4swkggw /artifacts/losgkcok8kosc000k0ook4cc'
+2026-Jan-29 16:44:22.080066 [DEBUG] {
+2026-Jan-29 16:44:22.080066 [DEBUG] "providers": [],
+2026-Jan-29 16:44:22.080066 [DEBUG] "buildImage": "ghcr.io/railwayapp/nixpacks:ubuntu-1745885067",
+2026-Jan-29 16:44:22.080066 [DEBUG] "variables": {
+2026-Jan-29 16:44:22.080066 [DEBUG] "CI": "true",
+2026-Jan-29 16:44:22.080066 [DEBUG] "COOLIFY_BRANCH": "main",
+2026-Jan-29 16:44:22.080066 [DEBUG] "COOLIFY_FQDN": "kw8oo4k4kckgogocs4swkggw.72.62.212.124.sslip.io",
+2026-Jan-29 16:44:22.080066 [DEBUG] "COOLIFY_RESOURCE_UUID": "kw8oo4k4kckgogocs4swkggw",
+2026-Jan-29 16:44:22.080066 [DEBUG] "COOLIFY_URL": "http://kw8oo4k4kckgogocs4swkggw.72.62.212.124.sslip.io",
+2026-Jan-29 16:44:22.080066 [DEBUG] "NIXPACKS_METADATA": "node",
+2026-Jan-29 16:44:22.080066 [DEBUG] "NODE_ENV": "production",
+2026-Jan-29 16:44:22.080066 [DEBUG] "NPM_CONFIG_PRODUCTION": "false"
+2026-Jan-29 16:44:22.080066 [DEBUG] },
+2026-Jan-29 16:44:22.080066 [DEBUG] "phases": {
+2026-Jan-29 16:44:22.080066 [DEBUG] "build": {
+2026-Jan-29 16:44:22.080066 [DEBUG] "dependsOn": [
+2026-Jan-29 16:44:22.080066 [DEBUG] "install"
+2026-Jan-29 16:44:22.080066 [DEBUG] ],
+2026-Jan-29 16:44:22.080066 [DEBUG] "cmds": [
+2026-Jan-29 16:44:22.080066 [DEBUG] "npm run build"
+2026-Jan-29 16:44:22.080066 [DEBUG] ],
+2026-Jan-29 16:44:22.080066 [DEBUG] "cacheDirectories": [
+2026-Jan-29 16:44:22.080066 [DEBUG] ".next/cache",
+2026-Jan-29 16:44:22.080066 [DEBUG] "node_modules/.cache"
+2026-Jan-29 16:44:22.080066 [DEBUG] ]
+2026-Jan-29 16:44:22.080066 [DEBUG] },
+2026-Jan-29 16:44:22.080066 [DEBUG] "install": {
+2026-Jan-29 16:44:22.080066 [DEBUG] "dependsOn": [
+2026-Jan-29 16:44:22.080066 [DEBUG] "setup"
+2026-Jan-29 16:44:22.080066 [DEBUG] ],
+2026-Jan-29 16:44:22.080066 [DEBUG] "cmds": [
+2026-Jan-29 16:44:22.080066 [DEBUG] "npm ci"
+2026-Jan-29 16:44:22.080066 [DEBUG] ],
+2026-Jan-29 16:44:22.080066 [DEBUG] "cacheDirectories": [
+2026-Jan-29 16:44:22.080066 [DEBUG] "/root/.npm"
+2026-Jan-29 16:44:22.080066 [DEBUG] ],
+2026-Jan-29 16:44:22.080066 [DEBUG] "paths": [
+2026-Jan-29 16:44:22.080066 [DEBUG] "/app/node_modules/.bin"
+2026-Jan-29 16:44:22.080066 [DEBUG] ]
+2026-Jan-29 16:44:22.080066 [DEBUG] },
+2026-Jan-29 16:44:22.080066 [DEBUG] "setup": {
+2026-Jan-29 16:44:22.080066 [DEBUG] "nixPkgs": [
+2026-Jan-29 16:44:22.080066 [DEBUG] "nodejs_18",
+2026-Jan-29 16:44:22.080066 [DEBUG] "npm-9_x",
+2026-Jan-29 16:44:22.080066 [DEBUG] "openssl"
+2026-Jan-29 16:44:22.080066 [DEBUG] ],
+2026-Jan-29 16:44:22.080066 [DEBUG] "nixLibs": [
+2026-Jan-29 16:44:22.080066 [DEBUG] "gcc-unwrapped"
+2026-Jan-29 16:44:22.080066 [DEBUG] ],
+2026-Jan-29 16:44:22.080066 [DEBUG] "nixOverlays": [
+2026-Jan-29 16:44:22.080066 [DEBUG] "https://github.com/railwayapp/nix-npm-overlay/archive/main.tar.gz"
+2026-Jan-29 16:44:22.080066 [DEBUG] ],
+2026-Jan-29 16:44:22.080066 [DEBUG] "nixpkgsArchive": "ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7"
+2026-Jan-29 16:44:22.080066 [DEBUG] }
+2026-Jan-29 16:44:22.080066 [DEBUG] },
+2026-Jan-29 16:44:22.080066 [DEBUG] "start": {
+2026-Jan-29 16:44:22.080066 [DEBUG] "cmd": "npm run start"
+2026-Jan-29 16:44:22.080066 [DEBUG] }
+2026-Jan-29 16:44:22.080066 [DEBUG] }
+2026-Jan-29 16:44:22.269035 [DEBUG] [CMD]: docker exec losgkcok8kosc000k0ook4cc bash -c 'nixpacks detect /artifacts/losgkcok8kosc000k0ook4cc'
+2026-Jan-29 16:44:22.269035 [DEBUG] node
+2026-Jan-29 16:44:22.278729 Found application type: node.
+2026-Jan-29 16:44:22.283077 If you need further customization, please check the documentation of Nixpacks: https://nixpacks.com/docs/providers/node
+2026-Jan-29 16:44:22.292875 ----------------------------------------
+2026-Jan-29 16:44:22.296777 âš ï¸ NIXPACKS_NODE_VERSION not set. Nixpacks will use Node.js 18 by default, which is EOL.
+2026-Jan-29 16:44:22.300401 You can override this by setting NIXPACKS_NODE_VERSION=22 in your environment variables.
+2026-Jan-29 16:44:22.304478 [DEBUG] Final Nixpacks plan: {
+2026-Jan-29 16:44:22.304478 [DEBUG] "providers": [],
+2026-Jan-29 16:44:22.304478 [DEBUG] "buildImage": "ghcr.io\/railwayapp\/nixpacks:ubuntu-1745885067",
+2026-Jan-29 16:44:22.304478 [DEBUG] "phases": {
+2026-Jan-29 16:44:22.304478 [DEBUG] "build": {
+2026-Jan-29 16:44:22.304478 [DEBUG] "dependsOn": [
+2026-Jan-29 16:44:22.304478 [DEBUG] "install"
+2026-Jan-29 16:44:22.304478 [DEBUG] ],
+2026-Jan-29 16:44:22.304478 [DEBUG] "cmds": [
+2026-Jan-29 16:44:22.304478 [DEBUG] "npm run build"
+2026-Jan-29 16:44:22.304478 [DEBUG] ],
+2026-Jan-29 16:44:22.304478 [DEBUG] "cacheDirectories": [
+2026-Jan-29 16:44:22.304478 [DEBUG] ".next\/cache",
+2026-Jan-29 16:44:22.304478 [DEBUG] "node_modules\/.cache"
+2026-Jan-29 16:44:22.304478 [DEBUG] ]
+2026-Jan-29 16:44:22.304478 [DEBUG] },
+2026-Jan-29 16:44:22.304478 [DEBUG] "install": {
+2026-Jan-29 16:44:22.304478 [DEBUG] "dependsOn": [
+2026-Jan-29 16:44:22.304478 [DEBUG] "setup"
+2026-Jan-29 16:44:22.304478 [DEBUG] ],
+2026-Jan-29 16:44:22.304478 [DEBUG] "cmds": [
+2026-Jan-29 16:44:22.304478 [DEBUG] "npm ci"
+2026-Jan-29 16:44:22.304478 [DEBUG] ],
+2026-Jan-29 16:44:22.304478 [DEBUG] "cacheDirectories": [
+2026-Jan-29 16:44:22.304478 [DEBUG] "\/root\/.npm"
+2026-Jan-29 16:44:22.304478 [DEBUG] ],
+2026-Jan-29 16:44:22.304478 [DEBUG] "paths": [
+2026-Jan-29 16:44:22.304478 [DEBUG] "\/app\/node_modules\/.bin"
+2026-Jan-29 16:44:22.304478 [DEBUG] ]
+2026-Jan-29 16:44:22.304478 [DEBUG] },
+2026-Jan-29 16:44:22.304478 [DEBUG] "setup": {
+2026-Jan-29 16:44:22.304478 [DEBUG] "nixPkgs": [
+2026-Jan-29 16:44:22.304478 [DEBUG] "nodejs_18",
+2026-Jan-29 16:44:22.304478 [DEBUG] "npm-9_x",
+2026-Jan-29 16:44:22.304478 [DEBUG] "openssl"
+2026-Jan-29 16:44:22.304478 [DEBUG] ],
+2026-Jan-29 16:44:22.304478 [DEBUG] "nixLibs": [
+2026-Jan-29 16:44:22.304478 [DEBUG] "gcc-unwrapped"
+2026-Jan-29 16:44:22.304478 [DEBUG] ],
+2026-Jan-29 16:44:22.304478 [DEBUG] "nixOverlays": [
+2026-Jan-29 16:44:22.304478 [DEBUG] "https:\/\/github.com\/railwayapp\/nix-npm-overlay\/archive\/main.tar.gz"
+2026-Jan-29 16:44:22.304478 [DEBUG] ],
+2026-Jan-29 16:44:22.304478 [DEBUG] "nixpkgsArchive": "ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7",
+2026-Jan-29 16:44:22.304478 [DEBUG] "aptPkgs": [
+2026-Jan-29 16:44:22.304478 [DEBUG] "curl",
+2026-Jan-29 16:44:22.304478 [DEBUG] "wget"
+2026-Jan-29 16:44:22.304478 [DEBUG] ]
+2026-Jan-29 16:44:22.304478 [DEBUG] }
+2026-Jan-29 16:44:22.304478 [DEBUG] },
+2026-Jan-29 16:44:22.304478 [DEBUG] "start": {
+2026-Jan-29 16:44:22.304478 [DEBUG] "cmd": "npm run start"
+2026-Jan-29 16:44:22.304478 [DEBUG] }
+2026-Jan-29 16:44:22.304478 [DEBUG] }
+2026-Jan-29 16:44:22.749805 [DEBUG] Creating build-time .env file in /artifacts (outside Docker context).
+2026-Jan-29 16:44:22.919653 ----------------------------------------
+2026-Jan-29 16:44:22.925163 âš ï¸ Build-time environment variable warning: NODE_ENV=production
+2026-Jan-29 16:44:22.929954 Affects: Node.js/npm/yarn/bun/pnpm
+2026-Jan-29 16:44:22.935035 Issue: Skips devDependencies installation which are often required for building (webpack, typescript, etc.)
+2026-Jan-29 16:44:22.939767 Recommendation: Uncheck "Available at Buildtime" or use "development" during build
+2026-Jan-29 16:44:22.944670 
+2026-Jan-29 16:44:22.949826 ðŸ’¡ Tips to resolve build issues:
+2026-Jan-29 16:44:22.954387 1. Set these variables as "Runtime only" in the environment variables settings
+2026-Jan-29 16:44:22.958028 2. Use different values for build-time (e.g., NODE_ENV=development for build)
+2026-Jan-29 16:44:22.961822 3. Consider using multi-stage Docker builds to separate build and runtime environments
+2026-Jan-29 16:44:22.966560 ----------------------------------------
+2026-Jan-29 16:44:22.970540 Building docker image started.
+2026-Jan-29 16:44:22.974486 To check the current progress, click on Show Debug Logs.
+2026-Jan-29 16:44:23.370755 [DEBUG] [CMD]: docker exec losgkcok8kosc000k0ook4cc bash -c 'nixpacks build -c /artifacts/thegameplan.json --cache-key 'kw8oo4k4kckgogocs4swkggw' --no-error-without-start -n kw8oo4k4kckgogocs4swkggw:597fee172350e8db3d9bcfff5fcd835cfa234b4f /artifacts/losgkcok8kosc000k0ook4cc -o /artifacts/losgkcok8kosc000k0ook4cc'
+2026-Jan-29 16:44:23.370755 [DEBUG] 
+2026-Jan-29 16:44:23.370755 [DEBUG] â•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• Nixpacks v1.41.0 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—
+2026-Jan-29 16:44:23.370755 [DEBUG] â•‘ setup      â”‚ nodejs_18, npm-9_x, openssl, curl, wget â•‘
+2026-Jan-29 16:44:23.370755 [DEBUG] â•‘â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â•‘
+2026-Jan-29 16:44:23.370755 [DEBUG] â•‘ install    â”‚ npm ci                                  â•‘
+2026-Jan-29 16:44:23.370755 [DEBUG] â•‘â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â•‘
+2026-Jan-29 16:44:23.370755 [DEBUG] â•‘ build      â”‚ npm run build                           â•‘
+2026-Jan-29 16:44:23.370755 [DEBUG] â•‘â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â•‘
+2026-Jan-29 16:44:23.370755 [DEBUG] â•‘ start      â”‚ npm run start                           â•‘
+2026-Jan-29 16:44:23.370755 [DEBUG] â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+2026-Jan-29 16:44:23.373915 [DEBUG] Saved output to:
+2026-Jan-29 16:44:23.373915 [DEBUG] /artifacts/losgkcok8kosc000k0ook4cc
+2026-Jan-29 16:44:23.527872 [DEBUG] [CMD]: docker exec losgkcok8kosc000k0ook4cc bash -c 'cat /artifacts/losgkcok8kosc000k0ook4cc/.nixpacks/Dockerfile'
+2026-Jan-29 16:44:23.527872 [DEBUG] FROM ghcr.io/railwayapp/nixpacks:ubuntu-1745885067
+2026-Jan-29 16:44:23.527872 [DEBUG] 
+2026-Jan-29 16:44:23.527872 [DEBUG] ENTRYPOINT ["/bin/bash", "-l", "-c"]
+2026-Jan-29 16:44:23.527872 [DEBUG] WORKDIR /app/
+2026-Jan-29 16:44:23.527872 [DEBUG] 
+2026-Jan-29 16:44:23.527872 [DEBUG] 
+2026-Jan-29 16:44:23.527872 [DEBUG] COPY .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix
+2026-Jan-29 16:44:23.527872 [DEBUG] RUN nix-env -if .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix && nix-collect-garbage -d
+2026-Jan-29 16:44:23.527872 [DEBUG] RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends curl wget
+2026-Jan-29 16:44:23.527872 [DEBUG] 
+2026-Jan-29 16:44:23.527872 [DEBUG] ARG CI COOLIFY_BRANCH COOLIFY_FQDN COOLIFY_RESOURCE_UUID COOLIFY_URL DATABASE_URL NEXT_PUBLIC_APP_URL NIXPACKS_METADATA NODE_ENV NPM_CONFIG_PRODUCTION
+2026-Jan-29 16:44:23.527872 [DEBUG] ENV CI=$CI COOLIFY_BRANCH=$COOLIFY_BRANCH COOLIFY_FQDN=$COOLIFY_FQDN COOLIFY_RESOURCE_UUID=$COOLIFY_RESOURCE_UUID COOLIFY_URL=$COOLIFY_URL DATABASE_URL=$DATABASE_URL NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL NIXPACKS_METADATA=$NIXPACKS_METADATA NODE_ENV=$NODE_ENV NPM_CONFIG_PRODUCTION=$NPM_CONFIG_PRODUCTION
+2026-Jan-29 16:44:23.527872 [DEBUG] 
+2026-Jan-29 16:44:23.527872 [DEBUG] # setup phase
+2026-Jan-29 16:44:23.527872 [DEBUG] # noop
+2026-Jan-29 16:44:23.527872 [DEBUG] 
+2026-Jan-29 16:44:23.527872 [DEBUG] # install phase
+2026-Jan-29 16:44:23.527872 [DEBUG] ENV NIXPACKS_PATH=/app/node_modules/.bin:$NIXPACKS_PATH
+2026-Jan-29 16:44:23.527872 [DEBUG] COPY . /app/.
+2026-Jan-29 16:44:23.527872 [DEBUG] RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-/root/npm,target=/root/.npm npm ci
+2026-Jan-29 16:44:23.527872 [DEBUG] 
+2026-Jan-29 16:44:23.527872 [DEBUG] # build phase
+2026-Jan-29 16:44:23.527872 [DEBUG] COPY . /app/.
+2026-Jan-29 16:44:23.527872 [DEBUG] RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-next/cache,target=/app/.next/cache --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-node_modules/cache,target=/app/node_modules/.cache npm run build
+2026-Jan-29 16:44:23.527872 [DEBUG] 
+2026-Jan-29 16:44:23.527872 [DEBUG] 
+2026-Jan-29 16:44:23.527872 [DEBUG] RUN printf '\nPATH=/app/node_modules/.bin:$PATH' >> /root/.profile
+2026-Jan-29 16:44:23.527872 [DEBUG] 
+2026-Jan-29 16:44:23.527872 [DEBUG] 
+2026-Jan-29 16:44:23.527872 [DEBUG] # start
+2026-Jan-29 16:44:23.527872 [DEBUG] COPY . /app
+2026-Jan-29 16:44:23.527872 [DEBUG] 
+2026-Jan-29 16:44:23.527872 [DEBUG] CMD ["npm run start"]
+2026-Jan-29 16:44:23.961191 [DEBUG] [CMD]: docker exec losgkcok8kosc000k0ook4cc bash -c 'cat /artifacts/build.sh'
+2026-Jan-29 16:44:23.961191 [DEBUG] cd /artifacts/losgkcok8kosc000k0ook4cc && set -a && source /artifacts/build-time.env && set +a && docker build --add-host coolify:10.0.1.5 --add-host coolify-db:10.0.1.4 --add-host coolify-realtime:10.0.1.3 --add-host coolify-redis:10.0.1.2 --network host -f /artifacts/losgkcok8kosc000k0ook4cc/.nixpacks/Dockerfile --progress plain -t kw8oo4k4kckgogocs4swkggw:597fee172350e8db3d9bcfff5fcd835cfa234b4f --build-arg CI --build-arg COOLIFY_BRANCH --build-arg COOLIFY_FQDN --build-arg COOLIFY_RESOURCE_UUID --build-arg COOLIFY_URL --build-arg NIXPACKS_METADATA --build-arg NODE_ENV --build-arg NPM_CONFIG_PRODUCTION --build-arg DATABASE_URL --build-arg NEXT_PUBLIC_APP_URL --build-arg COOLIFY_BUILD_SECRETS_HASH=12edf721ed8e1cbafb51b32ff1639320adcc4c57df460af86ad3935cfed7fcef --build-arg 'COOLIFY_URL' --build-arg 'COOLIFY_FQDN' --build-arg 'COOLIFY_BRANCH' --build-arg 'COOLIFY_RESOURCE_UUID' /artifacts/losgkcok8kosc000k0ook4cc
+2026-Jan-29 16:44:24.469534 [DEBUG] [CMD]: docker exec losgkcok8kosc000k0ook4cc bash -c 'bash /artifacts/build.sh'
+2026-Jan-29 16:44:24.469534 [DEBUG] #0 building with "default" instance using docker driver
+2026-Jan-29 16:44:24.473838 [DEBUG] #1 [internal] load build definition from Dockerfile
+2026-Jan-29 16:44:24.473838 [DEBUG] #1 transferring dockerfile: 1.46kB done
+2026-Jan-29 16:44:24.473838 [DEBUG] #1 DONE 0.0s
+2026-Jan-29 16:44:24.473838 [DEBUG] 
+2026-Jan-29 16:44:24.473838 [DEBUG] #2 [internal] load metadata for ghcr.io/railwayapp/nixpacks:ubuntu-1745885067
+2026-Jan-29 16:44:24.638886 [DEBUG] #2 DONE 0.3s
+2026-Jan-29 16:44:24.748910 [DEBUG] 
+2026-Jan-29 16:44:24.754728 [DEBUG] #3 [internal] load .dockerignore
+2026-Jan-29 16:44:24.754728 [DEBUG] #3 transferring context: 2B done
+2026-Jan-29 16:44:24.754728 [DEBUG] #3 DONE 0.0s
+2026-Jan-29 16:44:24.754728 [DEBUG] 
+2026-Jan-29 16:44:24.754728 [DEBUG] #4 [stage-0  1/11] FROM ghcr.io/railwayapp/nixpacks:ubuntu-1745885067@sha256:d45c89d80e13d7ad0fd555b5130f22a866d9dd10e861f589932303ef2314c7de
+2026-Jan-29 16:44:24.754728 [DEBUG] #4 resolve ghcr.io/railwayapp/nixpacks:ubuntu-1745885067@sha256:d45c89d80e13d7ad0fd555b5130f22a866d9dd10e861f589932303ef2314c7de 0.1s done
+2026-Jan-29 16:44:24.754728 [DEBUG] #4 DONE 0.1s
+2026-Jan-29 16:44:24.754728 [DEBUG] 
+2026-Jan-29 16:44:24.754728 [DEBUG] #5 [internal] load build context
+2026-Jan-29 16:44:24.894015 [DEBUG] #5 transferring context: 8.43MB 0.2s done
+2026-Jan-29 16:44:25.042565 [DEBUG] #5 DONE 0.2s
+2026-Jan-29 16:44:25.042565 [DEBUG] 
+2026-Jan-29 16:44:25.042565 [DEBUG] #6 [stage-0  2/11] WORKDIR /app/
+2026-Jan-29 16:44:25.042565 [DEBUG] #6 CACHED
+2026-Jan-29 16:44:25.042565 [DEBUG] 
+2026-Jan-29 16:44:25.042565 [DEBUG] #7 [stage-0  3/11] COPY .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix
+2026-Jan-29 16:44:25.042565 [DEBUG] #7 CACHED
+2026-Jan-29 16:44:25.042565 [DEBUG] 
+2026-Jan-29 16:44:25.042565 [DEBUG] #8 [stage-0  4/11] RUN nix-env -if .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix && nix-collect-garbage -d
+2026-Jan-29 16:44:25.042565 [DEBUG] #8 CACHED
+2026-Jan-29 16:44:25.042565 [DEBUG] 
+2026-Jan-29 16:44:25.042565 [DEBUG] #9 [stage-0  5/11] RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends curl wget
+2026-Jan-29 16:44:25.042565 [DEBUG] #9 CACHED
+2026-Jan-29 16:44:25.042565 [DEBUG] 
+2026-Jan-29 16:44:25.042565 [DEBUG] #10 [stage-0  6/11] COPY . /app/.
+2026-Jan-29 16:44:25.042565 [DEBUG] #10 DONE 0.1s
+2026-Jan-29 16:44:25.195721 [DEBUG] #11 [stage-0  7/11] RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-/root/npm,target=/root/.npm npm ci
+2026-Jan-29 16:44:25.223210 [DEBUG] #11 0.181 npm warn config production Use `--omit=dev` instead.
+2026-Jan-29 16:44:26.541188 [DEBUG] #11 1.499 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.546801 [DEBUG] #11 1.499 npm warn EBADENGINE   package: '@aws-sdk/client-sesv2@3.970.0',
+2026-Jan-29 16:44:26.546801 [DEBUG] #11 1.499 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.546801 [DEBUG] #11 1.499 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.546801 [DEBUG] #11 1.499 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.656050 [DEBUG] #11 1.502 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.502 npm warn EBADENGINE   package: '@aws-sdk/client-sso@3.970.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.502 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.502 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.502 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.502 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.502 npm warn EBADENGINE   package: '@aws-sdk/core@3.970.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.502 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.502 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.502 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.503 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.503 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-env@3.970.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.503 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.503 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.503 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-http@3.970.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-ini@3.970.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-login@3.970.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-node@3.970.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.507 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.507 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-process@3.970.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.507 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.507 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.507 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.507 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.507 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-sso@3.970.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.507 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.507 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.507 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-web-identity@3.970.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/middleware-host-header@3.969.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/middleware-logger@3.969.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/middleware-recursion-detection@3.969.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/middleware-sdk-s3@3.970.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/middleware-user-agent@3.970.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/nested-clients@3.970.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/region-config-resolver@3.969.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/signature-v4-multi-region@3.970.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/token-providers@3.970.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/types@3.969.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/util-arn-parser@3.968.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/util-endpoints@3.970.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.510 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.510 npm warn EBADENGINE   package: '@aws-sdk/util-locate-window@3.965.2',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.510 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.510 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.510 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.510 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.510 npm warn EBADENGINE   package: '@aws-sdk/util-user-agent-node@3.970.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.510 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.510 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.510 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.511 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.511 npm warn EBADENGINE   package: '@aws-sdk/xml-builder@3.969.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.511 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.511 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.511 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.511 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.511 npm warn EBADENGINE   package: '@capacitor/cli@8.0.1',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.511 npm warn EBADENGINE   required: { node: '>=22.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.511 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.511 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.512 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.512 npm warn EBADENGINE   package: 'glob@13.0.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.512 npm warn EBADENGINE   required: { node: '20 || >=22' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.512 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.512 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.512 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.512 npm warn EBADENGINE   package: 'minimatch@10.1.1',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.512 npm warn EBADENGINE   required: { node: '20 || >=22' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.512 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.512 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   package: 'rimraf@6.1.2',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   required: { node: '20 || >=22' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   package: '@firebase/component@0.7.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   package: '@firebase/database@1.1.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   package: '@firebase/database-compat@2.1.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   package: '@firebase/logger@0.5.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   package: '@firebase/util@1.13.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   package: '@google/gemini-cli-core@0.24.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   required: { node: '>=20' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   package: '@google/genai@1.30.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   package: '@isaacs/balanced-match@4.0.1',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   required: { node: '20 || >=22' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   package: '@isaacs/brace-expansion@5.0.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   required: { node: '20 || >=22' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.520 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.520 npm warn EBADENGINE   package: 'byte-counter@0.1.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.520 npm warn EBADENGINE   required: { node: '>=20' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.520 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.520 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.522 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.522 npm warn EBADENGINE   package: 'decompress-response@10.0.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.522 npm warn EBADENGINE   required: { node: '>=20' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.522 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.522 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.524 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.524 npm warn EBADENGINE   package: 'glob@12.0.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.524 npm warn EBADENGINE   required: { node: '20 || >=22' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.524 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.524 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.526 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.526 npm warn EBADENGINE   package: 'minimatch@10.1.1',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.526 npm warn EBADENGINE   required: { node: '20 || >=22' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.526 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.526 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.526 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.526 npm warn EBADENGINE   package: 'got@14.6.6',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.526 npm warn EBADENGINE   required: { node: '>=20' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.526 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.526 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.527 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.527 npm warn EBADENGINE   package: 'jackspeak@4.1.1',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.527 npm warn EBADENGINE   required: { node: '20 || >=22' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.527 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.527 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.531 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.531 npm warn EBADENGINE   package: 'next@16.1.1',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.531 npm warn EBADENGINE   required: { node: '>=20.9.0' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.531 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.531 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.534 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.534 npm warn EBADENGINE   package: 'path-scurry@2.0.1',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.534 npm warn EBADENGINE   required: { node: '20 || >=22' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.534 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.534 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.536 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.536 npm warn EBADENGINE   package: 'lru-cache@11.2.4',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.536 npm warn EBADENGINE   required: { node: '20 || >=22' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.536 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.536 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.537 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.537 npm warn EBADENGINE   package: 'resend@6.7.0',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.537 npm warn EBADENGINE   required: { node: '>=20' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.537 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.537 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.539 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.539 npm warn EBADENGINE   package: 'responselike@4.0.2',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.539 npm warn EBADENGINE   required: { node: '>=20' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.539 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.539 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.543 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.543 npm warn EBADENGINE   package: 'undici@7.18.2',
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.543 npm warn EBADENGINE   required: { node: '>=20.18.1' },
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.543 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.543 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error code EUSAGE
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error Missing: @swc/helpers@0.5.18 from lock file
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error Clean install a project
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error Usage:
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error npm ci
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error Options:
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error [--no-bin-links] [--no-fund] [--dry-run]
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error [-ws|--workspaces] [--include-workspace-root] [--install-links]
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error aliases: clean-install, ic, install-clean, isntall-clean
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error Run "npm help ci" for more info
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.555 npm error A complete log of this run can be found in: /root/.npm/_logs/2026-01-29T16_44_25_188Z-debug-0.log
+2026-Jan-29 16:44:26.667783 [DEBUG] #11 ERROR: process "/bin/bash -ol pipefail -c npm ci" did not complete successfully: exit code: 1
+2026-Jan-29 16:44:26.667783 [DEBUG] ------
+2026-Jan-29 16:44:26.667783 [DEBUG] > [stage-0  7/11] RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-/root/npm,target=/root/.npm npm ci:
+2026-Jan-29 16:44:26.667783 [DEBUG] 1.553 npm error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]
+2026-Jan-29 16:44:26.667783 [DEBUG] 1.553 npm error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]
+2026-Jan-29 16:44:26.667783 [DEBUG] 1.553 npm error [--no-bin-links] [--no-fund] [--dry-run]
+2026-Jan-29 16:44:26.667783 [DEBUG] 1.553 npm error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
+2026-Jan-29 16:44:26.667783 [DEBUG] 1.553 npm error [-ws|--workspaces] [--include-workspace-root] [--install-links]
+2026-Jan-29 16:44:26.667783 [DEBUG] 1.553 npm error
+2026-Jan-29 16:44:26.667783 [DEBUG] 1.553 npm error aliases: clean-install, ic, install-clean, isntall-clean
+2026-Jan-29 16:44:26.667783 [DEBUG] 1.553 npm error
+2026-Jan-29 16:44:26.667783 [DEBUG] 1.553 npm error Run "npm help ci" for more info
+2026-Jan-29 16:44:26.667783 [DEBUG] 1.555 npm error A complete log of this run can be found in: /root/.npm/_logs/2026-01-29T16_44_25_188Z-debug-0.log
+2026-Jan-29 16:44:26.667783 [DEBUG] ------
+2026-Jan-29 16:44:26.667783 [DEBUG] 
+2026-Jan-29 16:44:26.667783 [DEBUG] 1 warning found (use docker --debug to expand):
+2026-Jan-29 16:44:26.667783 [DEBUG] - UndefinedVar: Usage of undefined variable '$NIXPACKS_PATH' (line 18)
+2026-Jan-29 16:44:26.674565 [DEBUG] Dockerfile:20
+2026-Jan-29 16:44:26.674565 [DEBUG] --------------------
+2026-Jan-29 16:44:26.674565 [DEBUG] 18 |     ENV NIXPACKS_PATH=/app/node_modules/.bin:$NIXPACKS_PATH
+2026-Jan-29 16:44:26.674565 [DEBUG] 19 |     COPY . /app/.
+2026-Jan-29 16:44:26.674565 [DEBUG] 20 | >>> RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-/root/npm,target=/root/.npm npm ci
+2026-Jan-29 16:44:26.674565 [DEBUG] 21 |
+2026-Jan-29 16:44:26.674565 [DEBUG] 22 |     # build phase
+2026-Jan-29 16:44:26.674565 [DEBUG] --------------------
+2026-Jan-29 16:44:26.674565 [DEBUG] ERROR: failed to build: failed to solve: process "/bin/bash -ol pipefail -c npm ci" did not complete successfully: exit code: 1
+2026-Jan-29 16:44:26.680396 [DEBUG] exit status 1
+2026-Jan-29 16:44:26.723922 ========================================
+2026-Jan-29 16:44:26.729664 Deployment failed: Command execution failed (exit code 1): docker exec losgkcok8kosc000k0ook4cc bash -c 'bash /artifacts/build.sh'
+2026-Jan-29 16:44:26.729664 Error: #0 building with "default" instance using docker driver
+2026-Jan-29 16:44:26.729664 
+2026-Jan-29 16:44:26.729664 #1 [internal] load build definition from Dockerfile
+2026-Jan-29 16:44:26.729664 #1 transferring dockerfile: 1.46kB done
+2026-Jan-29 16:44:26.729664 #1 DONE 0.0s
+2026-Jan-29 16:44:26.729664 
+2026-Jan-29 16:44:26.729664 #2 [internal] load metadata for ghcr.io/railwayapp/nixpacks:ubuntu-1745885067
+2026-Jan-29 16:44:26.729664 #2 DONE 0.3s
+2026-Jan-29 16:44:26.729664 
+2026-Jan-29 16:44:26.729664 #3 [internal] load .dockerignore
+2026-Jan-29 16:44:26.729664 #3 transferring context: 2B done
+2026-Jan-29 16:44:26.729664 #3 DONE 0.0s
+2026-Jan-29 16:44:26.729664 
+2026-Jan-29 16:44:26.729664 #4 [stage-0  1/11] FROM ghcr.io/railwayapp/nixpacks:ubuntu-1745885067@sha256:d45c89d80e13d7ad0fd555b5130f22a866d9dd10e861f589932303ef2314c7de
+2026-Jan-29 16:44:26.729664 #4 resolve ghcr.io/railwayapp/nixpacks:ubuntu-1745885067@sha256:d45c89d80e13d7ad0fd555b5130f22a866d9dd10e861f589932303ef2314c7de 0.1s done
+2026-Jan-29 16:44:26.729664 #4 DONE 0.1s
+2026-Jan-29 16:44:26.729664 
+2026-Jan-29 16:44:26.729664 #5 [internal] load build context
+2026-Jan-29 16:44:26.729664 #5 transferring context: 8.43MB 0.2s done
+2026-Jan-29 16:44:26.729664 #5 DONE 0.2s
+2026-Jan-29 16:44:26.729664 
+2026-Jan-29 16:44:26.729664 #6 [stage-0  2/11] WORKDIR /app/
+2026-Jan-29 16:44:26.729664 #6 CACHED
+2026-Jan-29 16:44:26.729664 
+2026-Jan-29 16:44:26.729664 #7 [stage-0  3/11] COPY .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix
+2026-Jan-29 16:44:26.729664 #7 CACHED
+2026-Jan-29 16:44:26.729664 
+2026-Jan-29 16:44:26.729664 #8 [stage-0  4/11] RUN nix-env -if .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix && nix-collect-garbage -d
+2026-Jan-29 16:44:26.729664 #8 CACHED
+2026-Jan-29 16:44:26.729664 
+2026-Jan-29 16:44:26.729664 #9 [stage-0  5/11] RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends curl wget
+2026-Jan-29 16:44:26.729664 #9 CACHED
+2026-Jan-29 16:44:26.729664 
+2026-Jan-29 16:44:26.729664 #10 [stage-0  6/11] COPY . /app/.
+2026-Jan-29 16:44:26.729664 #10 DONE 0.1s
+2026-Jan-29 16:44:26.729664 
+2026-Jan-29 16:44:26.729664 #11 [stage-0  7/11] RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-/root/npm,target=/root/.npm npm ci
+2026-Jan-29 16:44:26.729664 #11 0.181 npm warn config production Use `--omit=dev` instead.
+2026-Jan-29 16:44:26.729664 #11 1.499 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.499 npm warn EBADENGINE   package: '@aws-sdk/client-sesv2@3.970.0',
+2026-Jan-29 16:44:26.729664 #11 1.499 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.499 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.499 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.502 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.502 npm warn EBADENGINE   package: '@aws-sdk/client-sso@3.970.0',
+2026-Jan-29 16:44:26.729664 #11 1.502 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.502 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.502 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.502 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.502 npm warn EBADENGINE   package: '@aws-sdk/core@3.970.0',
+2026-Jan-29 16:44:26.729664 #11 1.502 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.502 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.502 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.503 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.503 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-env@3.970.0',
+2026-Jan-29 16:44:26.729664 #11 1.503 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.503 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.503 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-http@3.970.0',
+2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-ini@3.970.0',
+2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-login@3.970.0',
+2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-node@3.970.0',
+2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.507 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.507 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-process@3.970.0',
+2026-Jan-29 16:44:26.729664 #11 1.507 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.507 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.507 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.507 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.507 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-sso@3.970.0',
+2026-Jan-29 16:44:26.729664 #11 1.507 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.507 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.507 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-web-identity@3.970.0',
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/middleware-host-header@3.969.0',
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/middleware-logger@3.969.0',
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/middleware-recursion-detection@3.969.0',
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/middleware-sdk-s3@3.970.0',
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/middleware-user-agent@3.970.0',
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/nested-clients@3.970.0',
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/region-config-resolver@3.969.0',
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/signature-v4-multi-region@3.970.0',
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/token-providers@3.970.0',
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/types@3.969.0',
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/util-arn-parser@3.968.0',
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/util-endpoints@3.970.0',
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.510 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.510 npm warn EBADENGINE   package: '@aws-sdk/util-locate-window@3.965.2',
+2026-Jan-29 16:44:26.729664 #11 1.510 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.510 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.510 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.510 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.510 npm warn EBADENGINE   package: '@aws-sdk/util-user-agent-node@3.970.0',
+2026-Jan-29 16:44:26.729664 #11 1.510 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.510 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.510 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.511 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.511 npm warn EBADENGINE   package: '@aws-sdk/xml-builder@3.969.0',
+2026-Jan-29 16:44:26.729664 #11 1.511 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.511 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.511 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.511 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.511 npm warn EBADENGINE   package: '@capacitor/cli@8.0.1',
+2026-Jan-29 16:44:26.729664 #11 1.511 npm warn EBADENGINE   required: { node: '>=22.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.511 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.511 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.512 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.512 npm warn EBADENGINE   package: 'glob@13.0.0',
+2026-Jan-29 16:44:26.729664 #11 1.512 npm warn EBADENGINE   required: { node: '20 || >=22' },
+2026-Jan-29 16:44:26.729664 #11 1.512 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.512 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.512 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.512 npm warn EBADENGINE   package: 'minimatch@10.1.1',
+2026-Jan-29 16:44:26.729664 #11 1.512 npm warn EBADENGINE   required: { node: '20 || >=22' },
+2026-Jan-29 16:44:26.729664 #11 1.512 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.512 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   package: 'rimraf@6.1.2',
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   required: { node: '20 || >=22' },
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   package: '@firebase/component@0.7.0',
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   package: '@firebase/database@1.1.0',
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   package: '@firebase/database-compat@2.1.0',
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   package: '@firebase/logger@0.5.0',
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   package: '@firebase/util@1.13.0',
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   package: '@google/gemini-cli-core@0.24.0',
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   required: { node: '>=20' },
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   package: '@google/genai@1.30.0',
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   required: { node: '>=20.0.0' },
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   package: '@isaacs/balanced-match@4.0.1',
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   required: { node: '20 || >=22' },
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   package: '@isaacs/brace-expansion@5.0.0',
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   required: { node: '20 || >=22' },
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.520 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.520 npm warn EBADENGINE   package: 'byte-counter@0.1.0',
+2026-Jan-29 16:44:26.729664 #11 1.520 npm warn EBADENGINE   required: { node: '>=20' },
+2026-Jan-29 16:44:26.729664 #11 1.520 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.520 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.522 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.522 npm warn EBADENGINE   package: 'decompress-response@10.0.0',
+2026-Jan-29 16:44:26.729664 #11 1.522 npm warn EBADENGINE   required: { node: '>=20' },
+2026-Jan-29 16:44:26.729664 #11 1.522 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.522 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.524 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.524 npm warn EBADENGINE   package: 'glob@12.0.0',
+2026-Jan-29 16:44:26.729664 #11 1.524 npm warn EBADENGINE   required: { node: '20 || >=22' },
+2026-Jan-29 16:44:26.729664 #11 1.524 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.524 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.526 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.526 npm warn EBADENGINE   package: 'minimatch@10.1.1',
+2026-Jan-29 16:44:26.729664 #11 1.526 npm warn EBADENGINE   required: { node: '20 || >=22' },
+2026-Jan-29 16:44:26.729664 #11 1.526 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.526 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.526 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.526 npm warn EBADENGINE   package: 'got@14.6.6',
+2026-Jan-29 16:44:26.729664 #11 1.526 npm warn EBADENGINE   required: { node: '>=20' },
+2026-Jan-29 16:44:26.729664 #11 1.526 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.526 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.527 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.527 npm warn EBADENGINE   package: 'jackspeak@4.1.1',
+2026-Jan-29 16:44:26.729664 #11 1.527 npm warn EBADENGINE   required: { node: '20 || >=22' },
+2026-Jan-29 16:44:26.729664 #11 1.527 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.527 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.531 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.531 npm warn EBADENGINE   package: 'next@16.1.1',
+2026-Jan-29 16:44:26.729664 #11 1.531 npm warn EBADENGINE   required: { node: '>=20.9.0' },
+2026-Jan-29 16:44:26.729664 #11 1.531 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.531 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.534 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.534 npm warn EBADENGINE   package: 'path-scurry@2.0.1',
+2026-Jan-29 16:44:26.729664 #11 1.534 npm warn EBADENGINE   required: { node: '20 || >=22' },
+2026-Jan-29 16:44:26.729664 #11 1.534 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.534 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.536 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.536 npm warn EBADENGINE   package: 'lru-cache@11.2.4',
+2026-Jan-29 16:44:26.729664 #11 1.536 npm warn EBADENGINE   required: { node: '20 || >=22' },
+2026-Jan-29 16:44:26.729664 #11 1.536 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.536 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.537 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.537 npm warn EBADENGINE   package: 'resend@6.7.0',
+2026-Jan-29 16:44:26.729664 #11 1.537 npm warn EBADENGINE   required: { node: '>=20' },
+2026-Jan-29 16:44:26.729664 #11 1.537 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.537 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.539 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.539 npm warn EBADENGINE   package: 'responselike@4.0.2',
+2026-Jan-29 16:44:26.729664 #11 1.539 npm warn EBADENGINE   required: { node: '>=20' },
+2026-Jan-29 16:44:26.729664 #11 1.539 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.539 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.543 npm warn EBADENGINE Unsupported engine {
+2026-Jan-29 16:44:26.729664 #11 1.543 npm warn EBADENGINE   package: 'undici@7.18.2',
+2026-Jan-29 16:44:26.729664 #11 1.543 npm warn EBADENGINE   required: { node: '>=20.18.1' },
+2026-Jan-29 16:44:26.729664 #11 1.543 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
+2026-Jan-29 16:44:26.729664 #11 1.543 npm warn EBADENGINE }
+2026-Jan-29 16:44:26.729664 #11 1.553 npm error code EUSAGE
+2026-Jan-29 16:44:26.729664 #11 1.553 npm error
+2026-Jan-29 16:44:26.729664 #11 1.553 npm error `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.
+2026-Jan-29 16:44:26.729664 #11 1.553 npm error
+2026-Jan-29 16:44:26.729664 #11 1.553 npm error Missing: @swc/helpers@0.5.18 from lock file
+2026-Jan-29 16:44:26.729664 #11 1.553 npm error
+2026-Jan-29 16:44:26.729664 #11 1.553 npm error Clean install a project
+2026-Jan-29 16:44:26.729664 #11 1.553 npm error
+2026-Jan-29 16:44:26.729664 #11 1.553 npm error Usage:
+2026-Jan-29 16:44:26.729664 #11 1.553 npm error npm ci
+2026-Jan-29 16:44:26.729664 #11 1.553 npm error
+2026-Jan-29 16:44:26.729664 #11 1.553 npm error Options:
+2026-Jan-29 16:44:26.729664 #11 1.553 npm error [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]
+2026-Jan-29 16:44:26.729664 #11 1.553 npm error [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]
+2026-Jan-29 16:44:26.729664 #11 1.553 npm error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]
+2026-Jan-29 16:44:26.729664 #11 1.553 npm error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]
+2026-Jan-29 16:44:26.729664 #11 1.553 npm error [--no-bin-links] [--no-fund] [--dry-run]
+2026-Jan-29 16:44:26.729664 #11 1.553 npm error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
+2026-Jan-29 16:44:26.729664 #11 1.553 npm error [-ws|--workspaces] [--include-workspace-root] [--install-links]
+2026-Jan-29 16:44:26.729664 #11 1.553 npm error
+2026-Jan-29 16:44:26.729664 #11 1.553 npm error aliases: clean-install, ic, install-clean, isntall-clean
+2026-Jan-29 16:44:26.729664 #11 1.553 npm error
+2026-Jan-29 16:44:26.729664 #11 1.553 npm error Run "npm help ci" for more info
+2026-Jan-29 16:44:26.729664 #11 1.555 npm error A complete log of this run can be found in: /root/.npm/_logs/2026-01-29T16_44_25_188Z-debug-0.log
+2026-Jan-29 16:44:26.729664 #11 ERROR: process "/bin/bash -ol pipefail -c npm ci" did not complete successfully: exit code: 1
+2026-Jan-29 16:44:26.729664 ------
+2026-Jan-29 16:44:26.729664 > [stage-0  7/11] RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-/root/npm,target=/root/.npm npm ci:
+2026-Jan-29 16:44:26.729664 1.553 npm error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]
+2026-Jan-29 16:44:26.729664 1.553 npm error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]
+2026-Jan-29 16:44:26.729664 1.553 npm error [--no-bin-links] [--no-fund] [--dry-run]
+2026-Jan-29 16:44:26.729664 1.553 npm error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
+2026-Jan-29 16:44:26.729664 1.553 npm error [-ws|--workspaces] [--include-workspace-root] [--install-links]
+2026-Jan-29 16:44:26.729664 1.553 npm error
+2026-Jan-29 16:44:26.729664 1.553 npm error aliases: clean-install, ic, install-clean, isntall-clean
+2026-Jan-29 16:44:26.729664 1.553 npm error
+2026-Jan-29 16:44:26.729664 1.553 npm error Run "npm help ci" for more info
+2026-Jan-29 16:44:26.729664 1.555 npm error A complete log of this run can be found in: /root/.npm/_logs/2026-01-29T16_44_25_188Z-debug-0.log
+2026-Jan-29 16:44:26.729664 ------
+2026-Jan-29 16:44:26.729664 
+2026-Jan-29 16:44:26.729664 1 warning found (use docker --debug to expand):
+2026-Jan-29 16:44:26.729664 - UndefinedVar: Usage of undefined variable '$NIXPACKS_PATH' (line 18)
+2026-Jan-29 16:44:26.729664 Dockerfile:20
+2026-Jan-29 16:44:26.729664 --------------------
+2026-Jan-29 16:44:26.729664 18 |     ENV NIXPACKS_PATH=/app/node_modules/.bin:$NIXPACKS_PATH
+2026-Jan-29 16:44:26.729664 19 |     COPY . /app/.
+2026-Jan-29 16:44:26.729664 20 | >>> RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-/root/npm,target=/root/.npm npm ci
+2026-Jan-29 16:44:26.729664 21 |
+2026-Jan-29 16:44:26.729664 22 |     # build phase
+2026-Jan-29 16:44:26.729664 --------------------
+2026-Jan-29 16:44:26.729664 ERROR: failed to build: failed to solve: process "/bin/bash -ol pipefail -c npm ci" did not complete successfully: exit code: 1
+2026-Jan-29 16:44:26.729664 exit status 1
+2026-Jan-29 16:44:26.735471 [DEBUG] Error type: RuntimeException
+2026-Jan-29 16:44:26.741388 [DEBUG] Error code: 0
+2026-Jan-29 16:44:26.746805 [DEBUG] Location: /var/www/html/app/Traits/ExecuteRemoteCommand.php:243
+2026-Jan-29 16:44:26.752433 [DEBUG] Stack trace (first 5 lines):
+2026-Jan-29 16:44:26.758228 [DEBUG] #0 /var/www/html/app/Traits/ExecuteRemoteCommand.php(104): App\Jobs\ApplicationDeploymentJob->executeCommandWithProcess()
+2026-Jan-29 16:44:26.763668 [DEBUG] #1 /var/www/html/vendor/laravel/framework/src/Illuminate/Collections/Traits/EnumeratesValues.php(271): App\Jobs\ApplicationDeploymentJob->{closure:App\Traits\ExecuteRemoteCommand::execute_remote_command():71}()
+2026-Jan-29 16:44:26.769434 [DEBUG] #2 /var/www/html/app/Traits/ExecuteRemoteCommand.php(71): Illuminate\Support\Collection->each()
+2026-Jan-29 16:44:26.774616 [DEBUG] #3 /var/www/html/app/Jobs/ApplicationDeploymentJob.php(3118): App\Jobs\ApplicationDeploymentJob->execute_remote_command()
+2026-Jan-29 16:44:26.779773 [DEBUG] #4 /var/www/html/app/Jobs/ApplicationDeploymentJob.php(888): App\Jobs\ApplicationDeploymentJob->build_image()
+2026-Jan-29 16:44:26.785510 ========================================
+2026-Jan-29 16:44:26.790769 Deployment failed. Removing the new version of your application.
+2026-Jan-29 16:44:27.182699 Gracefully shutting down build container: losgkcok8kosc000k0ook4cc
+2026-Jan-29 16:44:27.397208 [DEBUG] [CMD]: docker stop -t 30 losgkcok8kosc000k0ook4cc
+2026-Jan-29 16:44:27.397208 [DEBUG] losgkcok8kosc000k0ook4cc
