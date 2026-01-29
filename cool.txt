@@ -1,903 +1,1064 @@
-2026-Jan-29 16:44:18.611558 Starting deployment of stephdev12/sen-host:main to localhost.
-2026-Jan-29 16:44:18.819798 Preparing container with helper image: ghcr.io/coollabsio/coolify-helper:1.0.12
-2026-Jan-29 16:44:18.923932 [DEBUG] [CMD]: docker stop -t 30 losgkcok8kosc000k0ook4cc
-2026-Jan-29 16:44:18.923932 [DEBUG] Error response from daemon: No such container: losgkcok8kosc000k0ook4cc
-2026-Jan-29 16:44:19.160512 [DEBUG] [CMD]: docker run -d --network coolify --name losgkcok8kosc000k0ook4cc  --rm -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/coollabsio/coolify-helper:1.0.12
-2026-Jan-29 16:44:19.160512 [DEBUG] 9266d778dc07a0182e523931e6e26a6a18d4e447d501a758a8e0f44996ca8c0c
-2026-Jan-29 16:44:20.169861 [DEBUG] [CMD]: docker exec losgkcok8kosc000k0ook4cc bash -c 'GIT_SSH_COMMAND="ssh -o ConnectTimeout=30 -p 22 -o Port=22 -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git ls-remote https://github.com/stephdev12/sen-host refs/heads/main'
-2026-Jan-29 16:44:20.169861 [DEBUG] 597fee172350e8db3d9bcfff5fcd835cfa234b4f	refs/heads/main
-2026-Jan-29 16:44:20.299195 Image not found (kw8oo4k4kckgogocs4swkggw:597fee172350e8db3d9bcfff5fcd835cfa234b4f). Building new image.
-2026-Jan-29 16:44:20.304844 ----------------------------------------
-2026-Jan-29 16:44:20.308446 Importing stephdev12/sen-host:main (commit sha 597fee172350e8db3d9bcfff5fcd835cfa234b4f) to /artifacts/losgkcok8kosc000k0ook4cc.
-2026-Jan-29 16:44:20.485916 [DEBUG] [CMD]: docker exec losgkcok8kosc000k0ook4cc bash -c 'git clone --depth=1 --recurse-submodules --shallow-submodules -b 'main' 'https://github.com/stephdev12/sen-host' '/artifacts/losgkcok8kosc000k0ook4cc' && cd '/artifacts/losgkcok8kosc000k0ook4cc' && if [ -f .gitmodules ]; then sed -i "s#git@\(.*\):#https://\1/#g" '/artifacts/losgkcok8kosc000k0ook4cc'/.gitmodules || true && git submodule sync && GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git submodule update --init --recursive --depth=1; fi && cd '/artifacts/losgkcok8kosc000k0ook4cc' && GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git lfs pull'
-2026-Jan-29 16:44:20.485916 [DEBUG] Cloning into '/artifacts/losgkcok8kosc000k0ook4cc'...
-2026-Jan-29 16:44:21.696853 [DEBUG] [CMD]: docker exec losgkcok8kosc000k0ook4cc bash -c 'cd /artifacts/losgkcok8kosc000k0ook4cc && git log -1 597fee172350e8db3d9bcfff5fcd835cfa234b4f --pretty=%B'
-2026-Jan-29 16:44:21.696853 [DEBUG] chore: prepare for coolify deployment
-2026-Jan-29 16:44:21.702936 [DEBUG] 
-2026-Jan-29 16:44:21.870411 Generating nixpacks configuration with: nixpacks plan -f json --env COOLIFY_URL=http://kw8oo4k4kckgogocs4swkggw.72.62.212.124.sslip.io --env COOLIFY_FQDN=kw8oo4k4kckgogocs4swkggw.72.62.212.124.sslip.io --env COOLIFY_BRANCH=main --env COOLIFY_RESOURCE_UUID=kw8oo4k4kckgogocs4swkggw /artifacts/losgkcok8kosc000k0ook4cc
-2026-Jan-29 16:44:22.080066 [DEBUG] [CMD]: docker exec losgkcok8kosc000k0ook4cc bash -c 'nixpacks plan -f json --env COOLIFY_URL=http://kw8oo4k4kckgogocs4swkggw.72.62.212.124.sslip.io --env COOLIFY_FQDN=kw8oo4k4kckgogocs4swkggw.72.62.212.124.sslip.io --env COOLIFY_BRANCH=main --env COOLIFY_RESOURCE_UUID=kw8oo4k4kckgogocs4swkggw /artifacts/losgkcok8kosc000k0ook4cc'
-2026-Jan-29 16:44:22.080066 [DEBUG] {
-2026-Jan-29 16:44:22.080066 [DEBUG] "providers": [],
-2026-Jan-29 16:44:22.080066 [DEBUG] "buildImage": "ghcr.io/railwayapp/nixpacks:ubuntu-1745885067",
-2026-Jan-29 16:44:22.080066 [DEBUG] "variables": {
-2026-Jan-29 16:44:22.080066 [DEBUG] "CI": "true",
-2026-Jan-29 16:44:22.080066 [DEBUG] "COOLIFY_BRANCH": "main",
-2026-Jan-29 16:44:22.080066 [DEBUG] "COOLIFY_FQDN": "kw8oo4k4kckgogocs4swkggw.72.62.212.124.sslip.io",
-2026-Jan-29 16:44:22.080066 [DEBUG] "COOLIFY_RESOURCE_UUID": "kw8oo4k4kckgogocs4swkggw",
-2026-Jan-29 16:44:22.080066 [DEBUG] "COOLIFY_URL": "http://kw8oo4k4kckgogocs4swkggw.72.62.212.124.sslip.io",
-2026-Jan-29 16:44:22.080066 [DEBUG] "NIXPACKS_METADATA": "node",
-2026-Jan-29 16:44:22.080066 [DEBUG] "NODE_ENV": "production",
-2026-Jan-29 16:44:22.080066 [DEBUG] "NPM_CONFIG_PRODUCTION": "false"
-2026-Jan-29 16:44:22.080066 [DEBUG] },
-2026-Jan-29 16:44:22.080066 [DEBUG] "phases": {
-2026-Jan-29 16:44:22.080066 [DEBUG] "build": {
-2026-Jan-29 16:44:22.080066 [DEBUG] "dependsOn": [
-2026-Jan-29 16:44:22.080066 [DEBUG] "install"
-2026-Jan-29 16:44:22.080066 [DEBUG] ],
-2026-Jan-29 16:44:22.080066 [DEBUG] "cmds": [
-2026-Jan-29 16:44:22.080066 [DEBUG] "npm run build"
-2026-Jan-29 16:44:22.080066 [DEBUG] ],
-2026-Jan-29 16:44:22.080066 [DEBUG] "cacheDirectories": [
-2026-Jan-29 16:44:22.080066 [DEBUG] ".next/cache",
-2026-Jan-29 16:44:22.080066 [DEBUG] "node_modules/.cache"
-2026-Jan-29 16:44:22.080066 [DEBUG] ]
-2026-Jan-29 16:44:22.080066 [DEBUG] },
-2026-Jan-29 16:44:22.080066 [DEBUG] "install": {
-2026-Jan-29 16:44:22.080066 [DEBUG] "dependsOn": [
-2026-Jan-29 16:44:22.080066 [DEBUG] "setup"
-2026-Jan-29 16:44:22.080066 [DEBUG] ],
-2026-Jan-29 16:44:22.080066 [DEBUG] "cmds": [
-2026-Jan-29 16:44:22.080066 [DEBUG] "npm ci"
-2026-Jan-29 16:44:22.080066 [DEBUG] ],
-2026-Jan-29 16:44:22.080066 [DEBUG] "cacheDirectories": [
-2026-Jan-29 16:44:22.080066 [DEBUG] "/root/.npm"
-2026-Jan-29 16:44:22.080066 [DEBUG] ],
-2026-Jan-29 16:44:22.080066 [DEBUG] "paths": [
-2026-Jan-29 16:44:22.080066 [DEBUG] "/app/node_modules/.bin"
-2026-Jan-29 16:44:22.080066 [DEBUG] ]
-2026-Jan-29 16:44:22.080066 [DEBUG] },
-2026-Jan-29 16:44:22.080066 [DEBUG] "setup": {
-2026-Jan-29 16:44:22.080066 [DEBUG] "nixPkgs": [
-2026-Jan-29 16:44:22.080066 [DEBUG] "nodejs_18",
-2026-Jan-29 16:44:22.080066 [DEBUG] "npm-9_x",
-2026-Jan-29 16:44:22.080066 [DEBUG] "openssl"
-2026-Jan-29 16:44:22.080066 [DEBUG] ],
-2026-Jan-29 16:44:22.080066 [DEBUG] "nixLibs": [
-2026-Jan-29 16:44:22.080066 [DEBUG] "gcc-unwrapped"
-2026-Jan-29 16:44:22.080066 [DEBUG] ],
-2026-Jan-29 16:44:22.080066 [DEBUG] "nixOverlays": [
-2026-Jan-29 16:44:22.080066 [DEBUG] "https://github.com/railwayapp/nix-npm-overlay/archive/main.tar.gz"
-2026-Jan-29 16:44:22.080066 [DEBUG] ],
-2026-Jan-29 16:44:22.080066 [DEBUG] "nixpkgsArchive": "ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7"
-2026-Jan-29 16:44:22.080066 [DEBUG] }
-2026-Jan-29 16:44:22.080066 [DEBUG] },
-2026-Jan-29 16:44:22.080066 [DEBUG] "start": {
-2026-Jan-29 16:44:22.080066 [DEBUG] "cmd": "npm run start"
-2026-Jan-29 16:44:22.080066 [DEBUG] }
-2026-Jan-29 16:44:22.080066 [DEBUG] }
-2026-Jan-29 16:44:22.269035 [DEBUG] [CMD]: docker exec losgkcok8kosc000k0ook4cc bash -c 'nixpacks detect /artifacts/losgkcok8kosc000k0ook4cc'
-2026-Jan-29 16:44:22.269035 [DEBUG] node
-2026-Jan-29 16:44:22.278729 Found application type: node.
-2026-Jan-29 16:44:22.283077 If you need further customization, please check the documentation of Nixpacks: https://nixpacks.com/docs/providers/node
-2026-Jan-29 16:44:22.292875 ----------------------------------------
-2026-Jan-29 16:44:22.296777 âš ï¸ NIXPACKS_NODE_VERSION not set. Nixpacks will use Node.js 18 by default, which is EOL.
-2026-Jan-29 16:44:22.300401 You can override this by setting NIXPACKS_NODE_VERSION=22 in your environment variables.
-2026-Jan-29 16:44:22.304478 [DEBUG] Final Nixpacks plan: {
-2026-Jan-29 16:44:22.304478 [DEBUG] "providers": [],
-2026-Jan-29 16:44:22.304478 [DEBUG] "buildImage": "ghcr.io\/railwayapp\/nixpacks:ubuntu-1745885067",
-2026-Jan-29 16:44:22.304478 [DEBUG] "phases": {
-2026-Jan-29 16:44:22.304478 [DEBUG] "build": {
-2026-Jan-29 16:44:22.304478 [DEBUG] "dependsOn": [
-2026-Jan-29 16:44:22.304478 [DEBUG] "install"
-2026-Jan-29 16:44:22.304478 [DEBUG] ],
-2026-Jan-29 16:44:22.304478 [DEBUG] "cmds": [
-2026-Jan-29 16:44:22.304478 [DEBUG] "npm run build"
-2026-Jan-29 16:44:22.304478 [DEBUG] ],
-2026-Jan-29 16:44:22.304478 [DEBUG] "cacheDirectories": [
-2026-Jan-29 16:44:22.304478 [DEBUG] ".next\/cache",
-2026-Jan-29 16:44:22.304478 [DEBUG] "node_modules\/.cache"
-2026-Jan-29 16:44:22.304478 [DEBUG] ]
-2026-Jan-29 16:44:22.304478 [DEBUG] },
-2026-Jan-29 16:44:22.304478 [DEBUG] "install": {
-2026-Jan-29 16:44:22.304478 [DEBUG] "dependsOn": [
-2026-Jan-29 16:44:22.304478 [DEBUG] "setup"
-2026-Jan-29 16:44:22.304478 [DEBUG] ],
-2026-Jan-29 16:44:22.304478 [DEBUG] "cmds": [
-2026-Jan-29 16:44:22.304478 [DEBUG] "npm ci"
-2026-Jan-29 16:44:22.304478 [DEBUG] ],
-2026-Jan-29 16:44:22.304478 [DEBUG] "cacheDirectories": [
-2026-Jan-29 16:44:22.304478 [DEBUG] "\/root\/.npm"
-2026-Jan-29 16:44:22.304478 [DEBUG] ],
-2026-Jan-29 16:44:22.304478 [DEBUG] "paths": [
-2026-Jan-29 16:44:22.304478 [DEBUG] "\/app\/node_modules\/.bin"
-2026-Jan-29 16:44:22.304478 [DEBUG] ]
-2026-Jan-29 16:44:22.304478 [DEBUG] },
-2026-Jan-29 16:44:22.304478 [DEBUG] "setup": {
-2026-Jan-29 16:44:22.304478 [DEBUG] "nixPkgs": [
-2026-Jan-29 16:44:22.304478 [DEBUG] "nodejs_18",
-2026-Jan-29 16:44:22.304478 [DEBUG] "npm-9_x",
-2026-Jan-29 16:44:22.304478 [DEBUG] "openssl"
-2026-Jan-29 16:44:22.304478 [DEBUG] ],
-2026-Jan-29 16:44:22.304478 [DEBUG] "nixLibs": [
-2026-Jan-29 16:44:22.304478 [DEBUG] "gcc-unwrapped"
-2026-Jan-29 16:44:22.304478 [DEBUG] ],
-2026-Jan-29 16:44:22.304478 [DEBUG] "nixOverlays": [
-2026-Jan-29 16:44:22.304478 [DEBUG] "https:\/\/github.com\/railwayapp\/nix-npm-overlay\/archive\/main.tar.gz"
-2026-Jan-29 16:44:22.304478 [DEBUG] ],
-2026-Jan-29 16:44:22.304478 [DEBUG] "nixpkgsArchive": "ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7",
-2026-Jan-29 16:44:22.304478 [DEBUG] "aptPkgs": [
-2026-Jan-29 16:44:22.304478 [DEBUG] "curl",
-2026-Jan-29 16:44:22.304478 [DEBUG] "wget"
-2026-Jan-29 16:44:22.304478 [DEBUG] ]
-2026-Jan-29 16:44:22.304478 [DEBUG] }
-2026-Jan-29 16:44:22.304478 [DEBUG] },
-2026-Jan-29 16:44:22.304478 [DEBUG] "start": {
-2026-Jan-29 16:44:22.304478 [DEBUG] "cmd": "npm run start"
-2026-Jan-29 16:44:22.304478 [DEBUG] }
-2026-Jan-29 16:44:22.304478 [DEBUG] }
-2026-Jan-29 16:44:22.749805 [DEBUG] Creating build-time .env file in /artifacts (outside Docker context).
-2026-Jan-29 16:44:22.919653 ----------------------------------------
-2026-Jan-29 16:44:22.925163 âš ï¸ Build-time environment variable warning: NODE_ENV=production
-2026-Jan-29 16:44:22.929954 Affects: Node.js/npm/yarn/bun/pnpm
-2026-Jan-29 16:44:22.935035 Issue: Skips devDependencies installation which are often required for building (webpack, typescript, etc.)
-2026-Jan-29 16:44:22.939767 Recommendation: Uncheck "Available at Buildtime" or use "development" during build
-2026-Jan-29 16:44:22.944670 
-2026-Jan-29 16:44:22.949826 ðŸ’¡ Tips to resolve build issues:
-2026-Jan-29 16:44:22.954387 1. Set these variables as "Runtime only" in the environment variables settings
-2026-Jan-29 16:44:22.958028 2. Use different values for build-time (e.g., NODE_ENV=development for build)
-2026-Jan-29 16:44:22.961822 3. Consider using multi-stage Docker builds to separate build and runtime environments
-2026-Jan-29 16:44:22.966560 ----------------------------------------
-2026-Jan-29 16:44:22.970540 Building docker image started.
-2026-Jan-29 16:44:22.974486 To check the current progress, click on Show Debug Logs.
-2026-Jan-29 16:44:23.370755 [DEBUG] [CMD]: docker exec losgkcok8kosc000k0ook4cc bash -c 'nixpacks build -c /artifacts/thegameplan.json --cache-key 'kw8oo4k4kckgogocs4swkggw' --no-error-without-start -n kw8oo4k4kckgogocs4swkggw:597fee172350e8db3d9bcfff5fcd835cfa234b4f /artifacts/losgkcok8kosc000k0ook4cc -o /artifacts/losgkcok8kosc000k0ook4cc'
-2026-Jan-29 16:44:23.370755 [DEBUG] 
-2026-Jan-29 16:44:23.370755 [DEBUG] â•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• Nixpacks v1.41.0 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—
-2026-Jan-29 16:44:23.370755 [DEBUG] â•‘ setup      â”‚ nodejs_18, npm-9_x, openssl, curl, wget â•‘
-2026-Jan-29 16:44:23.370755 [DEBUG] â•‘â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â•‘
-2026-Jan-29 16:44:23.370755 [DEBUG] â•‘ install    â”‚ npm ci                                  â•‘
-2026-Jan-29 16:44:23.370755 [DEBUG] â•‘â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â•‘
-2026-Jan-29 16:44:23.370755 [DEBUG] â•‘ build      â”‚ npm run build                           â•‘
-2026-Jan-29 16:44:23.370755 [DEBUG] â•‘â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â•‘
-2026-Jan-29 16:44:23.370755 [DEBUG] â•‘ start      â”‚ npm run start                           â•‘
-2026-Jan-29 16:44:23.370755 [DEBUG] â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-2026-Jan-29 16:44:23.373915 [DEBUG] Saved output to:
-2026-Jan-29 16:44:23.373915 [DEBUG] /artifacts/losgkcok8kosc000k0ook4cc
-2026-Jan-29 16:44:23.527872 [DEBUG] [CMD]: docker exec losgkcok8kosc000k0ook4cc bash -c 'cat /artifacts/losgkcok8kosc000k0ook4cc/.nixpacks/Dockerfile'
-2026-Jan-29 16:44:23.527872 [DEBUG] FROM ghcr.io/railwayapp/nixpacks:ubuntu-1745885067
-2026-Jan-29 16:44:23.527872 [DEBUG] 
-2026-Jan-29 16:44:23.527872 [DEBUG] ENTRYPOINT ["/bin/bash", "-l", "-c"]
-2026-Jan-29 16:44:23.527872 [DEBUG] WORKDIR /app/
-2026-Jan-29 16:44:23.527872 [DEBUG] 
-2026-Jan-29 16:44:23.527872 [DEBUG] 
-2026-Jan-29 16:44:23.527872 [DEBUG] COPY .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix
-2026-Jan-29 16:44:23.527872 [DEBUG] RUN nix-env -if .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix && nix-collect-garbage -d
-2026-Jan-29 16:44:23.527872 [DEBUG] RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends curl wget
-2026-Jan-29 16:44:23.527872 [DEBUG] 
-2026-Jan-29 16:44:23.527872 [DEBUG] ARG CI COOLIFY_BRANCH COOLIFY_FQDN COOLIFY_RESOURCE_UUID COOLIFY_URL DATABASE_URL NEXT_PUBLIC_APP_URL NIXPACKS_METADATA NODE_ENV NPM_CONFIG_PRODUCTION
-2026-Jan-29 16:44:23.527872 [DEBUG] ENV CI=$CI COOLIFY_BRANCH=$COOLIFY_BRANCH COOLIFY_FQDN=$COOLIFY_FQDN COOLIFY_RESOURCE_UUID=$COOLIFY_RESOURCE_UUID COOLIFY_URL=$COOLIFY_URL DATABASE_URL=$DATABASE_URL NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL NIXPACKS_METADATA=$NIXPACKS_METADATA NODE_ENV=$NODE_ENV NPM_CONFIG_PRODUCTION=$NPM_CONFIG_PRODUCTION
-2026-Jan-29 16:44:23.527872 [DEBUG] 
-2026-Jan-29 16:44:23.527872 [DEBUG] # setup phase
-2026-Jan-29 16:44:23.527872 [DEBUG] # noop
-2026-Jan-29 16:44:23.527872 [DEBUG] 
-2026-Jan-29 16:44:23.527872 [DEBUG] # install phase
-2026-Jan-29 16:44:23.527872 [DEBUG] ENV NIXPACKS_PATH=/app/node_modules/.bin:$NIXPACKS_PATH
-2026-Jan-29 16:44:23.527872 [DEBUG] COPY . /app/.
-2026-Jan-29 16:44:23.527872 [DEBUG] RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-/root/npm,target=/root/.npm npm ci
-2026-Jan-29 16:44:23.527872 [DEBUG] 
-2026-Jan-29 16:44:23.527872 [DEBUG] # build phase
-2026-Jan-29 16:44:23.527872 [DEBUG] COPY . /app/.
-2026-Jan-29 16:44:23.527872 [DEBUG] RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-next/cache,target=/app/.next/cache --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-node_modules/cache,target=/app/node_modules/.cache npm run build
-2026-Jan-29 16:44:23.527872 [DEBUG] 
-2026-Jan-29 16:44:23.527872 [DEBUG] 
-2026-Jan-29 16:44:23.527872 [DEBUG] RUN printf '\nPATH=/app/node_modules/.bin:$PATH' >> /root/.profile
-2026-Jan-29 16:44:23.527872 [DEBUG] 
-2026-Jan-29 16:44:23.527872 [DEBUG] 
-2026-Jan-29 16:44:23.527872 [DEBUG] # start
-2026-Jan-29 16:44:23.527872 [DEBUG] COPY . /app
-2026-Jan-29 16:44:23.527872 [DEBUG] 
-2026-Jan-29 16:44:23.527872 [DEBUG] CMD ["npm run start"]
-2026-Jan-29 16:44:23.961191 [DEBUG] [CMD]: docker exec losgkcok8kosc000k0ook4cc bash -c 'cat /artifacts/build.sh'
-2026-Jan-29 16:44:23.961191 [DEBUG] cd /artifacts/losgkcok8kosc000k0ook4cc && set -a && source /artifacts/build-time.env && set +a && docker build --add-host coolify:10.0.1.5 --add-host coolify-db:10.0.1.4 --add-host coolify-realtime:10.0.1.3 --add-host coolify-redis:10.0.1.2 --network host -f /artifacts/losgkcok8kosc000k0ook4cc/.nixpacks/Dockerfile --progress plain -t kw8oo4k4kckgogocs4swkggw:597fee172350e8db3d9bcfff5fcd835cfa234b4f --build-arg CI --build-arg COOLIFY_BRANCH --build-arg COOLIFY_FQDN --build-arg COOLIFY_RESOURCE_UUID --build-arg COOLIFY_URL --build-arg NIXPACKS_METADATA --build-arg NODE_ENV --build-arg NPM_CONFIG_PRODUCTION --build-arg DATABASE_URL --build-arg NEXT_PUBLIC_APP_URL --build-arg COOLIFY_BUILD_SECRETS_HASH=12edf721ed8e1cbafb51b32ff1639320adcc4c57df460af86ad3935cfed7fcef --build-arg 'COOLIFY_URL' --build-arg 'COOLIFY_FQDN' --build-arg 'COOLIFY_BRANCH' --build-arg 'COOLIFY_RESOURCE_UUID' /artifacts/losgkcok8kosc000k0ook4cc
-2026-Jan-29 16:44:24.469534 [DEBUG] [CMD]: docker exec losgkcok8kosc000k0ook4cc bash -c 'bash /artifacts/build.sh'
-2026-Jan-29 16:44:24.469534 [DEBUG] #0 building with "default" instance using docker driver
-2026-Jan-29 16:44:24.473838 [DEBUG] #1 [internal] load build definition from Dockerfile
-2026-Jan-29 16:44:24.473838 [DEBUG] #1 transferring dockerfile: 1.46kB done
-2026-Jan-29 16:44:24.473838 [DEBUG] #1 DONE 0.0s
-2026-Jan-29 16:44:24.473838 [DEBUG] 
-2026-Jan-29 16:44:24.473838 [DEBUG] #2 [internal] load metadata for ghcr.io/railwayapp/nixpacks:ubuntu-1745885067
-2026-Jan-29 16:44:24.638886 [DEBUG] #2 DONE 0.3s
-2026-Jan-29 16:44:24.748910 [DEBUG] 
-2026-Jan-29 16:44:24.754728 [DEBUG] #3 [internal] load .dockerignore
-2026-Jan-29 16:44:24.754728 [DEBUG] #3 transferring context: 2B done
-2026-Jan-29 16:44:24.754728 [DEBUG] #3 DONE 0.0s
-2026-Jan-29 16:44:24.754728 [DEBUG] 
-2026-Jan-29 16:44:24.754728 [DEBUG] #4 [stage-0  1/11] FROM ghcr.io/railwayapp/nixpacks:ubuntu-1745885067@sha256:d45c89d80e13d7ad0fd555b5130f22a866d9dd10e861f589932303ef2314c7de
-2026-Jan-29 16:44:24.754728 [DEBUG] #4 resolve ghcr.io/railwayapp/nixpacks:ubuntu-1745885067@sha256:d45c89d80e13d7ad0fd555b5130f22a866d9dd10e861f589932303ef2314c7de 0.1s done
-2026-Jan-29 16:44:24.754728 [DEBUG] #4 DONE 0.1s
-2026-Jan-29 16:44:24.754728 [DEBUG] 
-2026-Jan-29 16:44:24.754728 [DEBUG] #5 [internal] load build context
-2026-Jan-29 16:44:24.894015 [DEBUG] #5 transferring context: 8.43MB 0.2s done
-2026-Jan-29 16:44:25.042565 [DEBUG] #5 DONE 0.2s
-2026-Jan-29 16:44:25.042565 [DEBUG] 
-2026-Jan-29 16:44:25.042565 [DEBUG] #6 [stage-0  2/11] WORKDIR /app/
-2026-Jan-29 16:44:25.042565 [DEBUG] #6 CACHED
-2026-Jan-29 16:44:25.042565 [DEBUG] 
-2026-Jan-29 16:44:25.042565 [DEBUG] #7 [stage-0  3/11] COPY .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix
-2026-Jan-29 16:44:25.042565 [DEBUG] #7 CACHED
-2026-Jan-29 16:44:25.042565 [DEBUG] 
-2026-Jan-29 16:44:25.042565 [DEBUG] #8 [stage-0  4/11] RUN nix-env -if .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix && nix-collect-garbage -d
-2026-Jan-29 16:44:25.042565 [DEBUG] #8 CACHED
-2026-Jan-29 16:44:25.042565 [DEBUG] 
-2026-Jan-29 16:44:25.042565 [DEBUG] #9 [stage-0  5/11] RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends curl wget
-2026-Jan-29 16:44:25.042565 [DEBUG] #9 CACHED
-2026-Jan-29 16:44:25.042565 [DEBUG] 
-2026-Jan-29 16:44:25.042565 [DEBUG] #10 [stage-0  6/11] COPY . /app/.
-2026-Jan-29 16:44:25.042565 [DEBUG] #10 DONE 0.1s
-2026-Jan-29 16:44:25.195721 [DEBUG] #11 [stage-0  7/11] RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-/root/npm,target=/root/.npm npm ci
-2026-Jan-29 16:44:25.223210 [DEBUG] #11 0.181 npm warn config production Use `--omit=dev` instead.
-2026-Jan-29 16:44:26.541188 [DEBUG] #11 1.499 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.546801 [DEBUG] #11 1.499 npm warn EBADENGINE   package: '@aws-sdk/client-sesv2@3.970.0',
-2026-Jan-29 16:44:26.546801 [DEBUG] #11 1.499 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.546801 [DEBUG] #11 1.499 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.546801 [DEBUG] #11 1.499 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.656050 [DEBUG] #11 1.502 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.502 npm warn EBADENGINE   package: '@aws-sdk/client-sso@3.970.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.502 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.502 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.502 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.502 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.502 npm warn EBADENGINE   package: '@aws-sdk/core@3.970.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.502 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.502 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.502 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.503 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.503 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-env@3.970.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.503 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.503 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.503 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-http@3.970.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-ini@3.970.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-login@3.970.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-node@3.970.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.505 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.507 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.507 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-process@3.970.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.507 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.507 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.507 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.507 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.507 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-sso@3.970.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.507 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.507 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.507 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-web-identity@3.970.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/middleware-host-header@3.969.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/middleware-logger@3.969.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/middleware-recursion-detection@3.969.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/middleware-sdk-s3@3.970.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/middleware-user-agent@3.970.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/nested-clients@3.970.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/region-config-resolver@3.969.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/signature-v4-multi-region@3.970.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/token-providers@3.970.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/types@3.969.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/util-arn-parser@3.968.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/util-endpoints@3.970.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.510 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.510 npm warn EBADENGINE   package: '@aws-sdk/util-locate-window@3.965.2',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.510 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.510 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.510 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.510 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.510 npm warn EBADENGINE   package: '@aws-sdk/util-user-agent-node@3.970.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.510 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.510 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.510 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.511 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.511 npm warn EBADENGINE   package: '@aws-sdk/xml-builder@3.969.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.511 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.511 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.511 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.511 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.511 npm warn EBADENGINE   package: '@capacitor/cli@8.0.1',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.511 npm warn EBADENGINE   required: { node: '>=22.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.511 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.511 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.512 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.512 npm warn EBADENGINE   package: 'glob@13.0.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.512 npm warn EBADENGINE   required: { node: '20 || >=22' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.512 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.512 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.512 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.512 npm warn EBADENGINE   package: 'minimatch@10.1.1',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.512 npm warn EBADENGINE   required: { node: '20 || >=22' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.512 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.512 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   package: 'rimraf@6.1.2',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   required: { node: '20 || >=22' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   package: '@firebase/component@0.7.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   package: '@firebase/database@1.1.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   package: '@firebase/database-compat@2.1.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   package: '@firebase/logger@0.5.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   package: '@firebase/util@1.13.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   package: '@google/gemini-cli-core@0.24.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   required: { node: '>=20' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   package: '@google/genai@1.30.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   package: '@isaacs/balanced-match@4.0.1',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   required: { node: '20 || >=22' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   package: '@isaacs/brace-expansion@5.0.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   required: { node: '20 || >=22' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.514 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.520 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.520 npm warn EBADENGINE   package: 'byte-counter@0.1.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.520 npm warn EBADENGINE   required: { node: '>=20' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.520 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.520 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.522 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.522 npm warn EBADENGINE   package: 'decompress-response@10.0.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.522 npm warn EBADENGINE   required: { node: '>=20' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.522 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.522 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.524 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.524 npm warn EBADENGINE   package: 'glob@12.0.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.524 npm warn EBADENGINE   required: { node: '20 || >=22' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.524 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.524 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.526 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.526 npm warn EBADENGINE   package: 'minimatch@10.1.1',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.526 npm warn EBADENGINE   required: { node: '20 || >=22' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.526 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.526 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.526 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.526 npm warn EBADENGINE   package: 'got@14.6.6',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.526 npm warn EBADENGINE   required: { node: '>=20' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.526 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.526 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.527 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.527 npm warn EBADENGINE   package: 'jackspeak@4.1.1',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.527 npm warn EBADENGINE   required: { node: '20 || >=22' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.527 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.527 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.531 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.531 npm warn EBADENGINE   package: 'next@16.1.1',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.531 npm warn EBADENGINE   required: { node: '>=20.9.0' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.531 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.531 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.534 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.534 npm warn EBADENGINE   package: 'path-scurry@2.0.1',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.534 npm warn EBADENGINE   required: { node: '20 || >=22' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.534 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.534 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.536 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.536 npm warn EBADENGINE   package: 'lru-cache@11.2.4',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.536 npm warn EBADENGINE   required: { node: '20 || >=22' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.536 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.536 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.537 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.537 npm warn EBADENGINE   package: 'resend@6.7.0',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.537 npm warn EBADENGINE   required: { node: '>=20' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.537 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.537 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.539 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.539 npm warn EBADENGINE   package: 'responselike@4.0.2',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.539 npm warn EBADENGINE   required: { node: '>=20' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.539 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.539 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.543 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.543 npm warn EBADENGINE   package: 'undici@7.18.2',
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.543 npm warn EBADENGINE   required: { node: '>=20.18.1' },
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.543 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.543 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error code EUSAGE
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error Missing: @swc/helpers@0.5.18 from lock file
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error Clean install a project
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error Usage:
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error npm ci
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error Options:
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error [--no-bin-links] [--no-fund] [--dry-run]
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error [-ws|--workspaces] [--include-workspace-root] [--install-links]
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error aliases: clean-install, ic, install-clean, isntall-clean
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.553 npm error Run "npm help ci" for more info
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 1.555 npm error A complete log of this run can be found in: /root/.npm/_logs/2026-01-29T16_44_25_188Z-debug-0.log
-2026-Jan-29 16:44:26.667783 [DEBUG] #11 ERROR: process "/bin/bash -ol pipefail -c npm ci" did not complete successfully: exit code: 1
-2026-Jan-29 16:44:26.667783 [DEBUG] ------
-2026-Jan-29 16:44:26.667783 [DEBUG] > [stage-0  7/11] RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-/root/npm,target=/root/.npm npm ci:
-2026-Jan-29 16:44:26.667783 [DEBUG] 1.553 npm error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]
-2026-Jan-29 16:44:26.667783 [DEBUG] 1.553 npm error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]
-2026-Jan-29 16:44:26.667783 [DEBUG] 1.553 npm error [--no-bin-links] [--no-fund] [--dry-run]
-2026-Jan-29 16:44:26.667783 [DEBUG] 1.553 npm error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
-2026-Jan-29 16:44:26.667783 [DEBUG] 1.553 npm error [-ws|--workspaces] [--include-workspace-root] [--install-links]
-2026-Jan-29 16:44:26.667783 [DEBUG] 1.553 npm error
-2026-Jan-29 16:44:26.667783 [DEBUG] 1.553 npm error aliases: clean-install, ic, install-clean, isntall-clean
-2026-Jan-29 16:44:26.667783 [DEBUG] 1.553 npm error
-2026-Jan-29 16:44:26.667783 [DEBUG] 1.553 npm error Run "npm help ci" for more info
-2026-Jan-29 16:44:26.667783 [DEBUG] 1.555 npm error A complete log of this run can be found in: /root/.npm/_logs/2026-01-29T16_44_25_188Z-debug-0.log
-2026-Jan-29 16:44:26.667783 [DEBUG] ------
-2026-Jan-29 16:44:26.667783 [DEBUG] 
-2026-Jan-29 16:44:26.667783 [DEBUG] 1 warning found (use docker --debug to expand):
-2026-Jan-29 16:44:26.667783 [DEBUG] - UndefinedVar: Usage of undefined variable '$NIXPACKS_PATH' (line 18)
-2026-Jan-29 16:44:26.674565 [DEBUG] Dockerfile:20
-2026-Jan-29 16:44:26.674565 [DEBUG] --------------------
-2026-Jan-29 16:44:26.674565 [DEBUG] 18 |     ENV NIXPACKS_PATH=/app/node_modules/.bin:$NIXPACKS_PATH
-2026-Jan-29 16:44:26.674565 [DEBUG] 19 |     COPY . /app/.
-2026-Jan-29 16:44:26.674565 [DEBUG] 20 | >>> RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-/root/npm,target=/root/.npm npm ci
-2026-Jan-29 16:44:26.674565 [DEBUG] 21 |
-2026-Jan-29 16:44:26.674565 [DEBUG] 22 |     # build phase
-2026-Jan-29 16:44:26.674565 [DEBUG] --------------------
-2026-Jan-29 16:44:26.674565 [DEBUG] ERROR: failed to build: failed to solve: process "/bin/bash -ol pipefail -c npm ci" did not complete successfully: exit code: 1
-2026-Jan-29 16:44:26.680396 [DEBUG] exit status 1
-2026-Jan-29 16:44:26.723922 ========================================
-2026-Jan-29 16:44:26.729664 Deployment failed: Command execution failed (exit code 1): docker exec losgkcok8kosc000k0ook4cc bash -c 'bash /artifacts/build.sh'
-2026-Jan-29 16:44:26.729664 Error: #0 building with "default" instance using docker driver
-2026-Jan-29 16:44:26.729664 
-2026-Jan-29 16:44:26.729664 #1 [internal] load build definition from Dockerfile
-2026-Jan-29 16:44:26.729664 #1 transferring dockerfile: 1.46kB done
-2026-Jan-29 16:44:26.729664 #1 DONE 0.0s
-2026-Jan-29 16:44:26.729664 
-2026-Jan-29 16:44:26.729664 #2 [internal] load metadata for ghcr.io/railwayapp/nixpacks:ubuntu-1745885067
-2026-Jan-29 16:44:26.729664 #2 DONE 0.3s
-2026-Jan-29 16:44:26.729664 
-2026-Jan-29 16:44:26.729664 #3 [internal] load .dockerignore
-2026-Jan-29 16:44:26.729664 #3 transferring context: 2B done
-2026-Jan-29 16:44:26.729664 #3 DONE 0.0s
-2026-Jan-29 16:44:26.729664 
-2026-Jan-29 16:44:26.729664 #4 [stage-0  1/11] FROM ghcr.io/railwayapp/nixpacks:ubuntu-1745885067@sha256:d45c89d80e13d7ad0fd555b5130f22a866d9dd10e861f589932303ef2314c7de
-2026-Jan-29 16:44:26.729664 #4 resolve ghcr.io/railwayapp/nixpacks:ubuntu-1745885067@sha256:d45c89d80e13d7ad0fd555b5130f22a866d9dd10e861f589932303ef2314c7de 0.1s done
-2026-Jan-29 16:44:26.729664 #4 DONE 0.1s
-2026-Jan-29 16:44:26.729664 
-2026-Jan-29 16:44:26.729664 #5 [internal] load build context
-2026-Jan-29 16:44:26.729664 #5 transferring context: 8.43MB 0.2s done
-2026-Jan-29 16:44:26.729664 #5 DONE 0.2s
-2026-Jan-29 16:44:26.729664 
-2026-Jan-29 16:44:26.729664 #6 [stage-0  2/11] WORKDIR /app/
-2026-Jan-29 16:44:26.729664 #6 CACHED
-2026-Jan-29 16:44:26.729664 
-2026-Jan-29 16:44:26.729664 #7 [stage-0  3/11] COPY .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix
-2026-Jan-29 16:44:26.729664 #7 CACHED
-2026-Jan-29 16:44:26.729664 
-2026-Jan-29 16:44:26.729664 #8 [stage-0  4/11] RUN nix-env -if .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix && nix-collect-garbage -d
-2026-Jan-29 16:44:26.729664 #8 CACHED
-2026-Jan-29 16:44:26.729664 
-2026-Jan-29 16:44:26.729664 #9 [stage-0  5/11] RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends curl wget
-2026-Jan-29 16:44:26.729664 #9 CACHED
-2026-Jan-29 16:44:26.729664 
-2026-Jan-29 16:44:26.729664 #10 [stage-0  6/11] COPY . /app/.
-2026-Jan-29 16:44:26.729664 #10 DONE 0.1s
-2026-Jan-29 16:44:26.729664 
-2026-Jan-29 16:44:26.729664 #11 [stage-0  7/11] RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-/root/npm,target=/root/.npm npm ci
-2026-Jan-29 16:44:26.729664 #11 0.181 npm warn config production Use `--omit=dev` instead.
-2026-Jan-29 16:44:26.729664 #11 1.499 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.499 npm warn EBADENGINE   package: '@aws-sdk/client-sesv2@3.970.0',
-2026-Jan-29 16:44:26.729664 #11 1.499 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.499 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.499 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.502 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.502 npm warn EBADENGINE   package: '@aws-sdk/client-sso@3.970.0',
-2026-Jan-29 16:44:26.729664 #11 1.502 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.502 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.502 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.502 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.502 npm warn EBADENGINE   package: '@aws-sdk/core@3.970.0',
-2026-Jan-29 16:44:26.729664 #11 1.502 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.502 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.502 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.503 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.503 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-env@3.970.0',
-2026-Jan-29 16:44:26.729664 #11 1.503 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.503 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.503 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-http@3.970.0',
-2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-ini@3.970.0',
-2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-login@3.970.0',
-2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-node@3.970.0',
-2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.505 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.507 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.507 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-process@3.970.0',
-2026-Jan-29 16:44:26.729664 #11 1.507 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.507 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.507 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.507 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.507 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-sso@3.970.0',
-2026-Jan-29 16:44:26.729664 #11 1.507 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.507 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.507 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/credential-provider-web-identity@3.970.0',
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/middleware-host-header@3.969.0',
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/middleware-logger@3.969.0',
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/middleware-recursion-detection@3.969.0',
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/middleware-sdk-s3@3.970.0',
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/middleware-user-agent@3.970.0',
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/nested-clients@3.970.0',
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/region-config-resolver@3.969.0',
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/signature-v4-multi-region@3.970.0',
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/token-providers@3.970.0',
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/types@3.969.0',
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/util-arn-parser@3.968.0',
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   package: '@aws-sdk/util-endpoints@3.970.0',
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.509 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.510 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.510 npm warn EBADENGINE   package: '@aws-sdk/util-locate-window@3.965.2',
-2026-Jan-29 16:44:26.729664 #11 1.510 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.510 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.510 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.510 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.510 npm warn EBADENGINE   package: '@aws-sdk/util-user-agent-node@3.970.0',
-2026-Jan-29 16:44:26.729664 #11 1.510 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.510 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.510 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.511 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.511 npm warn EBADENGINE   package: '@aws-sdk/xml-builder@3.969.0',
-2026-Jan-29 16:44:26.729664 #11 1.511 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.511 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.511 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.511 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.511 npm warn EBADENGINE   package: '@capacitor/cli@8.0.1',
-2026-Jan-29 16:44:26.729664 #11 1.511 npm warn EBADENGINE   required: { node: '>=22.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.511 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.511 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.512 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.512 npm warn EBADENGINE   package: 'glob@13.0.0',
-2026-Jan-29 16:44:26.729664 #11 1.512 npm warn EBADENGINE   required: { node: '20 || >=22' },
-2026-Jan-29 16:44:26.729664 #11 1.512 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.512 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.512 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.512 npm warn EBADENGINE   package: 'minimatch@10.1.1',
-2026-Jan-29 16:44:26.729664 #11 1.512 npm warn EBADENGINE   required: { node: '20 || >=22' },
-2026-Jan-29 16:44:26.729664 #11 1.512 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.512 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   package: 'rimraf@6.1.2',
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   required: { node: '20 || >=22' },
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   package: '@firebase/component@0.7.0',
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   package: '@firebase/database@1.1.0',
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   package: '@firebase/database-compat@2.1.0',
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   package: '@firebase/logger@0.5.0',
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   package: '@firebase/util@1.13.0',
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   package: '@google/gemini-cli-core@0.24.0',
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   required: { node: '>=20' },
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   package: '@google/genai@1.30.0',
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   required: { node: '>=20.0.0' },
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   package: '@isaacs/balanced-match@4.0.1',
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   required: { node: '20 || >=22' },
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   package: '@isaacs/brace-expansion@5.0.0',
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   required: { node: '20 || >=22' },
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.514 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.520 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.520 npm warn EBADENGINE   package: 'byte-counter@0.1.0',
-2026-Jan-29 16:44:26.729664 #11 1.520 npm warn EBADENGINE   required: { node: '>=20' },
-2026-Jan-29 16:44:26.729664 #11 1.520 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.520 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.522 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.522 npm warn EBADENGINE   package: 'decompress-response@10.0.0',
-2026-Jan-29 16:44:26.729664 #11 1.522 npm warn EBADENGINE   required: { node: '>=20' },
-2026-Jan-29 16:44:26.729664 #11 1.522 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.522 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.524 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.524 npm warn EBADENGINE   package: 'glob@12.0.0',
-2026-Jan-29 16:44:26.729664 #11 1.524 npm warn EBADENGINE   required: { node: '20 || >=22' },
-2026-Jan-29 16:44:26.729664 #11 1.524 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.524 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.526 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.526 npm warn EBADENGINE   package: 'minimatch@10.1.1',
-2026-Jan-29 16:44:26.729664 #11 1.526 npm warn EBADENGINE   required: { node: '20 || >=22' },
-2026-Jan-29 16:44:26.729664 #11 1.526 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.526 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.526 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.526 npm warn EBADENGINE   package: 'got@14.6.6',
-2026-Jan-29 16:44:26.729664 #11 1.526 npm warn EBADENGINE   required: { node: '>=20' },
-2026-Jan-29 16:44:26.729664 #11 1.526 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.526 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.527 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.527 npm warn EBADENGINE   package: 'jackspeak@4.1.1',
-2026-Jan-29 16:44:26.729664 #11 1.527 npm warn EBADENGINE   required: { node: '20 || >=22' },
-2026-Jan-29 16:44:26.729664 #11 1.527 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.527 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.531 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.531 npm warn EBADENGINE   package: 'next@16.1.1',
-2026-Jan-29 16:44:26.729664 #11 1.531 npm warn EBADENGINE   required: { node: '>=20.9.0' },
-2026-Jan-29 16:44:26.729664 #11 1.531 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.531 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.534 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.534 npm warn EBADENGINE   package: 'path-scurry@2.0.1',
-2026-Jan-29 16:44:26.729664 #11 1.534 npm warn EBADENGINE   required: { node: '20 || >=22' },
-2026-Jan-29 16:44:26.729664 #11 1.534 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.534 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.536 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.536 npm warn EBADENGINE   package: 'lru-cache@11.2.4',
-2026-Jan-29 16:44:26.729664 #11 1.536 npm warn EBADENGINE   required: { node: '20 || >=22' },
-2026-Jan-29 16:44:26.729664 #11 1.536 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.536 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.537 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.537 npm warn EBADENGINE   package: 'resend@6.7.0',
-2026-Jan-29 16:44:26.729664 #11 1.537 npm warn EBADENGINE   required: { node: '>=20' },
-2026-Jan-29 16:44:26.729664 #11 1.537 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.537 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.539 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.539 npm warn EBADENGINE   package: 'responselike@4.0.2',
-2026-Jan-29 16:44:26.729664 #11 1.539 npm warn EBADENGINE   required: { node: '>=20' },
-2026-Jan-29 16:44:26.729664 #11 1.539 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.539 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.543 npm warn EBADENGINE Unsupported engine {
-2026-Jan-29 16:44:26.729664 #11 1.543 npm warn EBADENGINE   package: 'undici@7.18.2',
-2026-Jan-29 16:44:26.729664 #11 1.543 npm warn EBADENGINE   required: { node: '>=20.18.1' },
-2026-Jan-29 16:44:26.729664 #11 1.543 npm warn EBADENGINE   current: { node: 'v18.20.5', npm: '10.8.2' }
-2026-Jan-29 16:44:26.729664 #11 1.543 npm warn EBADENGINE }
-2026-Jan-29 16:44:26.729664 #11 1.553 npm error code EUSAGE
-2026-Jan-29 16:44:26.729664 #11 1.553 npm error
-2026-Jan-29 16:44:26.729664 #11 1.553 npm error `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.
-2026-Jan-29 16:44:26.729664 #11 1.553 npm error
-2026-Jan-29 16:44:26.729664 #11 1.553 npm error Missing: @swc/helpers@0.5.18 from lock file
-2026-Jan-29 16:44:26.729664 #11 1.553 npm error
-2026-Jan-29 16:44:26.729664 #11 1.553 npm error Clean install a project
-2026-Jan-29 16:44:26.729664 #11 1.553 npm error
-2026-Jan-29 16:44:26.729664 #11 1.553 npm error Usage:
-2026-Jan-29 16:44:26.729664 #11 1.553 npm error npm ci
-2026-Jan-29 16:44:26.729664 #11 1.553 npm error
-2026-Jan-29 16:44:26.729664 #11 1.553 npm error Options:
-2026-Jan-29 16:44:26.729664 #11 1.553 npm error [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]
-2026-Jan-29 16:44:26.729664 #11 1.553 npm error [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]
-2026-Jan-29 16:44:26.729664 #11 1.553 npm error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]
-2026-Jan-29 16:44:26.729664 #11 1.553 npm error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]
-2026-Jan-29 16:44:26.729664 #11 1.553 npm error [--no-bin-links] [--no-fund] [--dry-run]
-2026-Jan-29 16:44:26.729664 #11 1.553 npm error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
-2026-Jan-29 16:44:26.729664 #11 1.553 npm error [-ws|--workspaces] [--include-workspace-root] [--install-links]
-2026-Jan-29 16:44:26.729664 #11 1.553 npm error
-2026-Jan-29 16:44:26.729664 #11 1.553 npm error aliases: clean-install, ic, install-clean, isntall-clean
-2026-Jan-29 16:44:26.729664 #11 1.553 npm error
-2026-Jan-29 16:44:26.729664 #11 1.553 npm error Run "npm help ci" for more info
-2026-Jan-29 16:44:26.729664 #11 1.555 npm error A complete log of this run can be found in: /root/.npm/_logs/2026-01-29T16_44_25_188Z-debug-0.log
-2026-Jan-29 16:44:26.729664 #11 ERROR: process "/bin/bash -ol pipefail -c npm ci" did not complete successfully: exit code: 1
-2026-Jan-29 16:44:26.729664 ------
-2026-Jan-29 16:44:26.729664 > [stage-0  7/11] RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-/root/npm,target=/root/.npm npm ci:
-2026-Jan-29 16:44:26.729664 1.553 npm error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]
-2026-Jan-29 16:44:26.729664 1.553 npm error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]
-2026-Jan-29 16:44:26.729664 1.553 npm error [--no-bin-links] [--no-fund] [--dry-run]
-2026-Jan-29 16:44:26.729664 1.553 npm error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
-2026-Jan-29 16:44:26.729664 1.553 npm error [-ws|--workspaces] [--include-workspace-root] [--install-links]
-2026-Jan-29 16:44:26.729664 1.553 npm error
-2026-Jan-29 16:44:26.729664 1.553 npm error aliases: clean-install, ic, install-clean, isntall-clean
-2026-Jan-29 16:44:26.729664 1.553 npm error
-2026-Jan-29 16:44:26.729664 1.553 npm error Run "npm help ci" for more info
-2026-Jan-29 16:44:26.729664 1.555 npm error A complete log of this run can be found in: /root/.npm/_logs/2026-01-29T16_44_25_188Z-debug-0.log
-2026-Jan-29 16:44:26.729664 ------
-2026-Jan-29 16:44:26.729664 
-2026-Jan-29 16:44:26.729664 1 warning found (use docker --debug to expand):
-2026-Jan-29 16:44:26.729664 - UndefinedVar: Usage of undefined variable '$NIXPACKS_PATH' (line 18)
-2026-Jan-29 16:44:26.729664 Dockerfile:20
-2026-Jan-29 16:44:26.729664 --------------------
-2026-Jan-29 16:44:26.729664 18 |     ENV NIXPACKS_PATH=/app/node_modules/.bin:$NIXPACKS_PATH
-2026-Jan-29 16:44:26.729664 19 |     COPY . /app/.
-2026-Jan-29 16:44:26.729664 20 | >>> RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-/root/npm,target=/root/.npm npm ci
-2026-Jan-29 16:44:26.729664 21 |
-2026-Jan-29 16:44:26.729664 22 |     # build phase
-2026-Jan-29 16:44:26.729664 --------------------
-2026-Jan-29 16:44:26.729664 ERROR: failed to build: failed to solve: process "/bin/bash -ol pipefail -c npm ci" did not complete successfully: exit code: 1
-2026-Jan-29 16:44:26.729664 exit status 1
-2026-Jan-29 16:44:26.735471 [DEBUG] Error type: RuntimeException
-2026-Jan-29 16:44:26.741388 [DEBUG] Error code: 0
-2026-Jan-29 16:44:26.746805 [DEBUG] Location: /var/www/html/app/Traits/ExecuteRemoteCommand.php:243
-2026-Jan-29 16:44:26.752433 [DEBUG] Stack trace (first 5 lines):
-2026-Jan-29 16:44:26.758228 [DEBUG] #0 /var/www/html/app/Traits/ExecuteRemoteCommand.php(104): App\Jobs\ApplicationDeploymentJob->executeCommandWithProcess()
-2026-Jan-29 16:44:26.763668 [DEBUG] #1 /var/www/html/vendor/laravel/framework/src/Illuminate/Collections/Traits/EnumeratesValues.php(271): App\Jobs\ApplicationDeploymentJob->{closure:App\Traits\ExecuteRemoteCommand::execute_remote_command():71}()
-2026-Jan-29 16:44:26.769434 [DEBUG] #2 /var/www/html/app/Traits/ExecuteRemoteCommand.php(71): Illuminate\Support\Collection->each()
-2026-Jan-29 16:44:26.774616 [DEBUG] #3 /var/www/html/app/Jobs/ApplicationDeploymentJob.php(3118): App\Jobs\ApplicationDeploymentJob->execute_remote_command()
-2026-Jan-29 16:44:26.779773 [DEBUG] #4 /var/www/html/app/Jobs/ApplicationDeploymentJob.php(888): App\Jobs\ApplicationDeploymentJob->build_image()
-2026-Jan-29 16:44:26.785510 ========================================
-2026-Jan-29 16:44:26.790769 Deployment failed. Removing the new version of your application.
-2026-Jan-29 16:44:27.182699 Gracefully shutting down build container: losgkcok8kosc000k0ook4cc
-2026-Jan-29 16:44:27.397208 [DEBUG] [CMD]: docker stop -t 30 losgkcok8kosc000k0ook4cc
-2026-Jan-29 16:44:27.397208 [DEBUG] losgkcok8kosc000k0ook4cc
+2026-Jan-29 17:13:49.099036 Starting deployment of stephdev12/sen-host:main to localhost.
+2026-Jan-29 17:13:49.753813 Preparing container with helper image: ghcr.io/coollabsio/coolify-helper:1.0.12
+2026-Jan-29 17:13:50.074806 [CMD]: docker stop -t 30 xgckw0co4soos8o80ok8ogss
+2026-Jan-29 17:13:50.074806 Error response from daemon: No such container: xgckw0co4soos8o80ok8ogss
+2026-Jan-29 17:13:50.441176 [CMD]: docker run -d --network coolify --name xgckw0co4soos8o80ok8ogss --rm -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/coollabsio/coolify-helper:1.0.12
+2026-Jan-29 17:13:50.441176 df786bf3415709728808665e1ee4f4ee6148d7c861f0f3bbea2e111cf6160528
+2026-Jan-29 17:13:51.697879 [CMD]: docker exec xgckw0co4soos8o80ok8ogss bash -c 'GIT_SSH_COMMAND="ssh -o ConnectTimeout=30 -p 22 -o Port=22 -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git ls-remote https://github.com/stephdev12/sen-host refs/heads/main'
+2026-Jan-29 17:13:51.697879 e8c3047803554560ae5085413c870d49a4a61b13 refs/heads/main
+2026-Jan-29 17:13:52.039517 Image not found (kw8oo4k4kckgogocs4swkggw:e8c3047803554560ae5085413c870d49a4a61b13). Building new image.
+2026-Jan-29 17:13:52.049310 ----------------------------------------
+2026-Jan-29 17:13:52.053688 Importing stephdev12/sen-host:main (commit sha e8c3047803554560ae5085413c870d49a4a61b13) to /artifacts/xgckw0co4soos8o80ok8ogss.
+2026-Jan-29 17:13:52.428541 [CMD]: docker exec xgckw0co4soos8o80ok8ogss bash -c 'git clone --depth=1 --recurse-submodules --shallow-submodules -b 'main' 'https://github.com/stephdev12/sen-host' '/artifacts/xgckw0co4soos8o80ok8ogss' && cd '/artifacts/xgckw0co4soos8o80ok8ogss' && if [ -f .gitmodules ]; then sed -i "s#git@\(.*\):#https://\1/#g" '/artifacts/xgckw0co4soos8o80ok8ogss'/.gitmodules || true && git submodule sync && GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git submodule update --init --recursive --depth=1; fi && cd '/artifacts/xgckw0co4soos8o80ok8ogss' && GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git lfs pull'
+2026-Jan-29 17:13:52.428541 Cloning into '/artifacts/xgckw0co4soos8o80ok8ogss'...
+2026-Jan-29 17:13:54.265959 [CMD]: docker exec xgckw0co4soos8o80ok8ogss bash -c 'cd /artifacts/xgckw0co4soos8o80ok8ogss && git log -1 e8c3047803554560ae5085413c870d49a4a61b13 --pretty=%B'
+2026-Jan-29 17:13:54.265959 fix: update lockfiles, node version to 20, and dockerfil copy
+2026-Jan-29 17:13:54.271790
+2026-Jan-29 17:13:54.715515 Generating nixpacks configuration with: nixpacks plan -f json --env COOLIFY_URL=http://kw8oo4k4kckgogocs4swkggw.72.62.212.124.sslip.io --env COOLIFY_FQDN=kw8oo4k4kckgogocs4swkggw.72.62.212.124.sslip.io --env COOLIFY_BRANCH=main --env COOLIFY_RESOURCE_UUID=kw8oo4k4kckgogocs4swkggw /artifacts/xgckw0co4soos8o80ok8ogss
+2026-Jan-29 17:13:55.204986 [CMD]: docker exec xgckw0co4soos8o80ok8ogss bash -c 'nixpacks plan -f json --env COOLIFY_URL=http://kw8oo4k4kckgogocs4swkggw.72.62.212.124.sslip.io --env COOLIFY_FQDN=kw8oo4k4kckgogocs4swkggw.72.62.212.124.sslip.io --env COOLIFY_BRANCH=main --env COOLIFY_RESOURCE_UUID=kw8oo4k4kckgogocs4swkggw /artifacts/xgckw0co4soos8o80ok8ogss'
+2026-Jan-29 17:13:55.204986 {
+2026-Jan-29 17:13:55.204986 "providers": [],
+2026-Jan-29 17:13:55.204986 "buildImage": "ghcr.io/railwayapp/nixpacks:ubuntu-1745885067",
+2026-Jan-29 17:13:55.204986 "variables": {
+2026-Jan-29 17:13:55.204986 "CI": "true",
+2026-Jan-29 17:13:55.204986 "COOLIFY_BRANCH": "main",
+2026-Jan-29 17:13:55.204986 "COOLIFY_FQDN": "kw8oo4k4kckgogocs4swkggw.72.62.212.124.sslip.io",
+2026-Jan-29 17:13:55.204986 "COOLIFY_RESOURCE_UUID": "kw8oo4k4kckgogocs4swkggw",
+2026-Jan-29 17:13:55.204986 "COOLIFY_URL": "http://kw8oo4k4kckgogocs4swkggw.72.62.212.124.sslip.io",
+2026-Jan-29 17:13:55.204986 "NIXPACKS_METADATA": "node",
+2026-Jan-29 17:13:55.204986 "NODE_ENV": "production",
+2026-Jan-29 17:13:55.204986 "NPM_CONFIG_PRODUCTION": "false"
+2026-Jan-29 17:13:55.204986 },
+2026-Jan-29 17:13:55.204986 "phases": {
+2026-Jan-29 17:13:55.204986 "build": {
+2026-Jan-29 17:13:55.204986 "dependsOn": [
+2026-Jan-29 17:13:55.204986 "install"
+2026-Jan-29 17:13:55.204986 ],
+2026-Jan-29 17:13:55.204986 "cmds": [
+2026-Jan-29 17:13:55.204986 "npm run build"
+2026-Jan-29 17:13:55.204986 ],
+2026-Jan-29 17:13:55.204986 "cacheDirectories": [
+2026-Jan-29 17:13:55.204986 ".next/cache",
+2026-Jan-29 17:13:55.204986 "node_modules/.cache"
+2026-Jan-29 17:13:55.204986 ]
+2026-Jan-29 17:13:55.204986 },
+2026-Jan-29 17:13:55.204986 "install": {
+2026-Jan-29 17:13:55.204986 "dependsOn": [
+2026-Jan-29 17:13:55.204986 "setup"
+2026-Jan-29 17:13:55.204986 ],
+2026-Jan-29 17:13:55.204986 "cmds": [
+2026-Jan-29 17:13:55.204986 "npm ci"
+2026-Jan-29 17:13:55.204986 ],
+2026-Jan-29 17:13:55.204986 "cacheDirectories": [
+2026-Jan-29 17:13:55.204986 "/root/.npm"
+2026-Jan-29 17:13:55.204986 ],
+2026-Jan-29 17:13:55.204986 "paths": [
+2026-Jan-29 17:13:55.204986 "/app/node_modules/.bin"
+2026-Jan-29 17:13:55.204986 ]
+2026-Jan-29 17:13:55.204986 },
+2026-Jan-29 17:13:55.204986 "setup": {
+2026-Jan-29 17:13:55.204986 "nixPkgs": [
+2026-Jan-29 17:13:55.204986 "nodejs_24",
+2026-Jan-29 17:13:55.204986 "npm-9_x",
+2026-Jan-29 17:13:55.204986 "openssl"
+2026-Jan-29 17:13:55.204986 ],
+2026-Jan-29 17:13:55.204986 "nixLibs": [
+2026-Jan-29 17:13:55.204986 "gcc-unwrapped"
+2026-Jan-29 17:13:55.204986 ],
+2026-Jan-29 17:13:55.204986 "nixOverlays": [
+2026-Jan-29 17:13:55.204986 "https://github.com/railwayapp/nix-npm-overlay/archive/main.tar.gz"
+2026-Jan-29 17:13:55.204986 ],
+2026-Jan-29 17:13:55.204986 "nixpkgsArchive": "23f9169c4ccce521379e602cc82ed873a1f1b52b"
+2026-Jan-29 17:13:55.204986 }
+2026-Jan-29 17:13:55.204986 },
+2026-Jan-29 17:13:55.204986 "start": {
+2026-Jan-29 17:13:55.204986 "cmd": "npm run start"
+2026-Jan-29 17:13:55.204986 }
+2026-Jan-29 17:13:55.209806 }
+2026-Jan-29 17:13:55.653227 [CMD]: docker exec xgckw0co4soos8o80ok8ogss bash -c 'nixpacks detect /artifacts/xgckw0co4soos8o80ok8ogss'
+2026-Jan-29 17:13:55.653227 node
+2026-Jan-29 17:13:55.670493 Found application type: node.
+2026-Jan-29 17:13:55.676063 If you need further customization, please check the documentation of Nixpacks: https://nixpacks.com/docs/providers/node
+2026-Jan-29 17:13:55.685602 ----------------------------------------
+2026-Jan-29 17:13:55.689584 âš ï¸ NIXPACKS_NODE_VERSION not set. Nixpacks will use Node.js 18 by default, which is EOL.
+2026-Jan-29 17:13:55.693622 You can override this by setting NIXPACKS_NODE_VERSION=22 in your environment variables.
+2026-Jan-29 17:13:55.697694 Final Nixpacks plan: {
+2026-Jan-29 17:13:55.697694 "providers": [],
+2026-Jan-29 17:13:55.697694 "buildImage": "ghcr.io\/railwayapp\/nixpacks:ubuntu-1745885067",
+2026-Jan-29 17:13:55.697694 "phases": {
+2026-Jan-29 17:13:55.697694 "build": {
+2026-Jan-29 17:13:55.697694 "dependsOn": [
+2026-Jan-29 17:13:55.697694 "install"
+2026-Jan-29 17:13:55.697694 ],
+2026-Jan-29 17:13:55.697694 "cmds": [
+2026-Jan-29 17:13:55.697694 "npm run build"
+2026-Jan-29 17:13:55.697694 ],
+2026-Jan-29 17:13:55.697694 "cacheDirectories": [
+2026-Jan-29 17:13:55.697694 ".next\/cache",
+2026-Jan-29 17:13:55.697694 "node_modules\/.cache"
+2026-Jan-29 17:13:55.697694 ]
+2026-Jan-29 17:13:55.697694 },
+2026-Jan-29 17:13:55.697694 "install": {
+2026-Jan-29 17:13:55.697694 "dependsOn": [
+2026-Jan-29 17:13:55.697694 "setup"
+2026-Jan-29 17:13:55.697694 ],
+2026-Jan-29 17:13:55.697694 "cmds": [
+2026-Jan-29 17:13:55.697694 "npm ci"
+2026-Jan-29 17:13:55.697694 ],
+2026-Jan-29 17:13:55.697694 "cacheDirectories": [
+2026-Jan-29 17:13:55.697694 "\/root\/.npm"
+2026-Jan-29 17:13:55.697694 ],
+2026-Jan-29 17:13:55.697694 "paths": [
+2026-Jan-29 17:13:55.697694 "\/app\/node_modules\/.bin"
+2026-Jan-29 17:13:55.697694 ]
+2026-Jan-29 17:13:55.697694 },
+2026-Jan-29 17:13:55.697694 "setup": {
+2026-Jan-29 17:13:55.697694 "nixPkgs": [
+2026-Jan-29 17:13:55.697694 "nodejs_24",
+2026-Jan-29 17:13:55.697694 "npm-9_x",
+2026-Jan-29 17:13:55.697694 "openssl"
+2026-Jan-29 17:13:55.697694 ],
+2026-Jan-29 17:13:55.697694 "nixLibs": [
+2026-Jan-29 17:13:55.697694 "gcc-unwrapped"
+2026-Jan-29 17:13:55.697694 ],
+2026-Jan-29 17:13:55.697694 "nixOverlays": [
+2026-Jan-29 17:13:55.697694 "https:\/\/github.com\/railwayapp\/nix-npm-overlay\/archive\/main.tar.gz"
+2026-Jan-29 17:13:55.697694 ],
+2026-Jan-29 17:13:55.697694 "nixpkgsArchive": "23f9169c4ccce521379e602cc82ed873a1f1b52b",
+2026-Jan-29 17:13:55.697694 "aptPkgs": [
+2026-Jan-29 17:13:55.697694 "curl",
+2026-Jan-29 17:13:55.697694 "wget"
+2026-Jan-29 17:13:55.697694 ]
+2026-Jan-29 17:13:55.697694 }
+2026-Jan-29 17:13:55.697694 },
+2026-Jan-29 17:13:55.697694 "start": {
+2026-Jan-29 17:13:55.697694 "cmd": "npm run start"
+2026-Jan-29 17:13:55.697694 }
+2026-Jan-29 17:13:55.697694 }
+2026-Jan-29 17:13:56.825405 Creating build-time .env file in /artifacts (outside Docker context).
+2026-Jan-29 17:13:57.197118 ----------------------------------------
+2026-Jan-29 17:13:57.201699 âš ï¸ Build-time environment variable warning: NODE_ENV=production
+2026-Jan-29 17:13:57.205605 Affects: Node.js/npm/yarn/bun/pnpm
+2026-Jan-29 17:13:57.209458 Issue: Skips devDependencies installation which are often required for building (webpack, typescript, etc.)
+2026-Jan-29 17:13:57.213333 Recommendation: Uncheck "Available at Buildtime" or use "development" during build
+2026-Jan-29 17:13:57.217199
+2026-Jan-29 17:13:57.220903 ðŸ’¡ Tips to resolve build issues:
+2026-Jan-29 17:13:57.225064 1. Set these variables as "Runtime only" in the environment variables settings
+2026-Jan-29 17:13:57.229087 2. Use different values for build-time (e.g., NODE_ENV=development for build)
+2026-Jan-29 17:13:57.233329 3. Consider using multi-stage Docker builds to separate build and runtime environments
+2026-Jan-29 17:13:57.238143 ----------------------------------------
+2026-Jan-29 17:13:57.242469 Building docker image started.
+2026-Jan-29 17:13:57.247025 To check the current progress, click on Show Debug Logs.
+2026-Jan-29 17:13:58.051097 [CMD]: docker exec xgckw0co4soos8o80ok8ogss bash -c 'nixpacks build -c /artifacts/thegameplan.json --cache-key 'kw8oo4k4kckgogocs4swkggw' --no-error-without-start -n kw8oo4k4kckgogocs4swkggw:e8c3047803554560ae5085413c870d49a4a61b13 /artifacts/xgckw0co4soos8o80ok8ogss -o /artifacts/xgckw0co4soos8o80ok8ogss'
+2026-Jan-29 17:13:58.051097
+2026-Jan-29 17:13:58.051097 â•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• Nixpacks v1.41.0 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—
+2026-Jan-29 17:13:58.051097 â•‘ setup â”‚ nodejs_24, npm-9_x, openssl, curl, wget â•‘
+2026-Jan-29 17:13:58.051097 â•‘â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â•‘
+2026-Jan-29 17:13:58.051097 â•‘ install â”‚ npm ci â•‘
+2026-Jan-29 17:13:58.051097 â•‘â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â•‘
+2026-Jan-29 17:13:58.051097 â•‘ build â”‚ npm run build â•‘
+2026-Jan-29 17:13:58.051097 â•‘â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â•‘
+2026-Jan-29 17:13:58.051097 â•‘ start â”‚ npm run start â•‘
+2026-Jan-29 17:13:58.051097 â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+2026-Jan-29 17:13:58.055994 Saved output to:
+2026-Jan-29 17:13:58.055994 /artifacts/xgckw0co4soos8o80ok8ogss
+2026-Jan-29 17:13:58.462177 [CMD]: docker exec xgckw0co4soos8o80ok8ogss bash -c 'cat /artifacts/xgckw0co4soos8o80ok8ogss/.nixpacks/Dockerfile'
+2026-Jan-29 17:13:58.462177 FROM ghcr.io/railwayapp/nixpacks:ubuntu-1745885067
+2026-Jan-29 17:13:58.462177
+2026-Jan-29 17:13:58.462177 ENTRYPOINT ["/bin/bash", "-l", "-c"]
+2026-Jan-29 17:13:58.462177 WORKDIR /app/
+2026-Jan-29 17:13:58.462177
+2026-Jan-29 17:13:58.462177
+2026-Jan-29 17:13:58.462177 COPY .nixpacks/nixpkgs-23f9169c4ccce521379e602cc82ed873a1f1b52b.nix .nixpacks/nixpkgs-23f9169c4ccce521379e602cc82ed873a1f1b52b.nix
+2026-Jan-29 17:13:58.462177 RUN nix-env -if .nixpacks/nixpkgs-23f9169c4ccce521379e602cc82ed873a1f1b52b.nix && nix-collect-garbage -d
+2026-Jan-29 17:13:58.462177 RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends curl wget
+2026-Jan-29 17:13:58.462177
+2026-Jan-29 17:13:58.462177 ARG CI COOLIFY_BRANCH COOLIFY_FQDN COOLIFY_RESOURCE_UUID COOLIFY_URL DATABASE_URL NEXT_PUBLIC_APP_URL NIXPACKS_METADATA NODE_ENV NPM_CONFIG_PRODUCTION
+2026-Jan-29 17:13:58.462177 ENV CI=$CI COOLIFY_BRANCH=$COOLIFY_BRANCH COOLIFY_FQDN=$COOLIFY_FQDN COOLIFY_RESOURCE_UUID=$COOLIFY_RESOURCE_UUID COOLIFY_URL=$COOLIFY_URL DATABASE_URL=$DATABASE_URL NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL NIXPACKS_METADATA=$NIXPACKS_METADATA NODE_ENV=$NODE_ENV NPM_CONFIG_PRODUCTION=$NPM_CONFIG_PRODUCTION
+2026-Jan-29 17:13:58.462177
+2026-Jan-29 17:13:58.462177 # setup phase
+2026-Jan-29 17:13:58.462177 # noop
+2026-Jan-29 17:13:58.462177
+2026-Jan-29 17:13:58.462177 # install phase
+2026-Jan-29 17:13:58.462177 ENV NIXPACKS_PATH=/app/node_modules/.bin:$NIXPACKS_PATH
+2026-Jan-29 17:13:58.462177 COPY . /app/.
+2026-Jan-29 17:13:58.462177 RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-/root/npm,target=/root/.npm npm ci
+2026-Jan-29 17:13:58.462177
+2026-Jan-29 17:13:58.462177 # build phase
+2026-Jan-29 17:13:58.462177 COPY . /app/.
+2026-Jan-29 17:13:58.462177 RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-next/cache,target=/app/.next/cache --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-node_modules/cache,target=/app/node_modules/.cache npm run build
+2026-Jan-29 17:13:58.462177
+2026-Jan-29 17:13:58.462177
+2026-Jan-29 17:13:58.462177 RUN printf '\nPATH=/app/node_modules/.bin:$PATH' >> /root/.profile
+2026-Jan-29 17:13:58.462177
+2026-Jan-29 17:13:58.462177
+2026-Jan-29 17:13:58.462177 # start
+2026-Jan-29 17:13:58.462177 COPY . /app
+2026-Jan-29 17:13:58.462177
+2026-Jan-29 17:13:58.462177 CMD ["npm run start"]
+2026-Jan-29 17:13:59.284053 [CMD]: docker exec xgckw0co4soos8o80ok8ogss bash -c 'cat /artifacts/build.sh'
+2026-Jan-29 17:13:59.284053 cd /artifacts/xgckw0co4soos8o80ok8ogss && set -a && source /artifacts/build-time.env && set +a && docker build --add-host coolify:10.0.1.5 --add-host coolify-db:10.0.1.4 --add-host coolify-realtime:10.0.1.3 --add-host coolify-redis:10.0.1.2 --network host -f /artifacts/xgckw0co4soos8o80ok8ogss/.nixpacks/Dockerfile --progress plain -t kw8oo4k4kckgogocs4swkggw:e8c3047803554560ae5085413c870d49a4a61b13 --build-arg CI --build-arg COOLIFY_BRANCH --build-arg COOLIFY_FQDN --build-arg COOLIFY_RESOURCE_UUID --build-arg COOLIFY_URL --build-arg NIXPACKS_METADATA --build-arg NODE_ENV --build-arg NPM_CONFIG_PRODUCTION --build-arg DATABASE_URL --build-arg NEXT_PUBLIC_APP_URL --build-arg COOLIFY_BUILD_SECRETS_HASH=12edf721ed8e1cbafb51b32ff1639320adcc4c57df460af86ad3935cfed7fcef --build-arg 'COOLIFY_URL' --build-arg 'COOLIFY_FQDN' --build-arg 'COOLIFY_BRANCH' --build-arg 'COOLIFY_RESOURCE_UUID' /artifacts/xgckw0co4soos8o80ok8ogss
+2026-Jan-29 17:13:59.947648 [CMD]: docker exec xgckw0co4soos8o80ok8ogss bash -c 'bash /artifacts/build.sh'
+2026-Jan-29 17:13:59.947648 #0 building with "default" instance using docker driver
+2026-Jan-29 17:13:59.947648
+2026-Jan-29 17:13:59.947648 #1 [internal] load build definition from Dockerfile
+2026-Jan-29 17:13:59.947648 #1 transferring dockerfile: 1.46kB done
+2026-Jan-29 17:13:59.947648 #1 DONE 0.0s
+2026-Jan-29 17:13:59.947648
+2026-Jan-29 17:13:59.947648 #2 [internal] load metadata for ghcr.io/railwayapp/nixpacks:ubuntu-1745885067
+2026-Jan-29 17:14:00.228188 #2 DONE 0.4s
+2026-Jan-29 17:14:00.403891 #3 [internal] load .dockerignore
+2026-Jan-29 17:14:00.403891 #3 transferring context: 2B done
+2026-Jan-29 17:14:00.403891 #3 DONE 0.0s
+2026-Jan-29 17:14:00.403891
+2026-Jan-29 17:14:00.403891 #4 [stage-0 1/11] FROM ghcr.io/railwayapp/nixpacks:ubuntu-1745885067@sha256:d45c89d80e13d7ad0fd555b5130f22a866d9dd10e861f589932303ef2314c7de
+2026-Jan-29 17:14:00.403891 #4 resolve ghcr.io/railwayapp/nixpacks:ubuntu-1745885067@sha256:d45c89d80e13d7ad0fd555b5130f22a866d9dd10e861f589932303ef2314c7de 0.1s done
+2026-Jan-29 17:14:00.403891 #4 DONE 0.1s
+2026-Jan-29 17:14:00.403891
+2026-Jan-29 17:14:00.403891 #5 [internal] load build context
+2026-Jan-29 17:14:00.514890 #5 ...
+2026-Jan-29 17:14:00.514890
+2026-Jan-29 17:14:00.514890 #6 [stage-0 2/11] WORKDIR /app/
+2026-Jan-29 17:14:00.514890 #6 CACHED
+2026-Jan-29 17:14:00.514890
+2026-Jan-29 17:14:00.514890 #5 [internal] load build context
+2026-Jan-29 17:14:00.636020 #5 transferring context: 8.51MB 0.2s done
+2026-Jan-29 17:14:00.636020 #5 DONE 0.3s
+2026-Jan-29 17:14:00.636020
+2026-Jan-29 17:14:00.636020 #7 [stage-0 3/11] COPY .nixpacks/nixpkgs-23f9169c4ccce521379e602cc82ed873a1f1b52b.nix .nixpacks/nixpkgs-23f9169c4ccce521379e602cc82ed873a1f1b52b.nix
+2026-Jan-29 17:14:00.636020 #7 DONE 0.1s
+2026-Jan-29 17:14:00.795569 #8 [stage-0 4/11] RUN nix-env -if .nixpacks/nixpkgs-23f9169c4ccce521379e602cc82ed873a1f1b52b.nix && nix-collect-garbage -d
+2026-Jan-29 17:14:00.982007 #8 0.344 unpacking 'https://github.com/NixOS/nixpkgs/archive/23f9169c4ccce521379e602cc82ed873a1f1b52b.tar.gz' into the Git cache...
+2026-Jan-29 17:14:56.324961 #8 55.69 unpacking 'https://github.com/railwayapp/nix-npm-overlay/archive/main.tar.gz' into the Git cache...
+2026-Jan-29 17:14:57.054442 #8 56.42 installing '23f9169c4ccce521379e602cc82ed873a1f1b52b-env'
+2026-Jan-29 17:14:58.536575 #8 57.90 these 5 derivations will be built:
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/11yax1kv8y5kqj7cgh461k6jwi8rc49d-npm-9.9.4.tgz.drv
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/l53bwr725gp7k4831cygqrihvaxv36b9-libraries.drv
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/93ik6f5038k47a4d72i9r9fjl15fvr3f-23f9169c4ccce521379e602cc82ed873a1f1b52b-env.drv
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/y968iv743l2z9zklglx9blcjpiflgww9-npm.drv
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/avqglacl4jrskw0g5rxk30ikvggqyq65-23f9169c4ccce521379e602cc82ed873a1f1b52b-env.drv
+2026-Jan-29 17:14:58.675817 #8 57.90 these 82 paths will be fetched (130.41 MiB download, 616.74 MiB unpacked):
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/jj3knbpiiwbwmplin208h775gzm86rc3-acl-2.3.2
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/2mwbf3viqfqd3lr946slqby9y4k7d9lw-attr-2.5.2
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/cl2gkgnh26mmpka81pc2g5bzjfrili92-bash-5.3p3
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/2j7r5np0vaz4cnqkymp1mqivmjj1x9xl-bash-interactive-5.3p3
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/7h3qnwgvkw6z2r8lq4j5mks4l6r5x2cq-binutils-2.44
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/9a4lmf0swjwjizlkv11ibhnmj0ql7p1s-binutils-2.44-lib
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/0fq1mnfqjl9ain4jg5j56kl6h8bbmy1h-binutils-wrapper-2.44
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/1dw13nzqf9v8w7jcy205hkp7s7ggi0cc-builder.pl
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/j59qq0cqb364kzzrx2r32swfljwklxlq-bzip2-1.0.8
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/xnd0ld68fzj1g1qr19gg0va486snwj22-bzip2-1.0.8-bin
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/00bc157nm93q5fjz551fwk60ihlbilvj-coreutils-9.7
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/di12yqc8952k9scn46kd48ii266v2yn8-curl-8.16.0
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/9bfd6c1f2nzrx7j5f0gc6i9n2clngndn-curl-8.16.0-bin
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/n5d9hl0jb4gzd3p886rb4nrprym4gwkp-curl-8.16.0-dev
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/9vcd7xzvs6zbi42hywh7khvvy2pfnihq-curl-8.16.0-man
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/c7qlkpbivy2znqxd25prgh9pwjxdri6w-diffutils-3.12
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/wgvx9p6h00aijb9jw95am7095wjzm9mv-ed-1.22.2
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/5ipaaiqy3dmngyp3a3yschy4g4kh1jl7-expand-response-params
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/5qm0vivgc7lmiyfbf5d5a55s40d996bd-file-5.45
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/wq1cxh4s8rz8vs4ssp2z49v96m0nhxhj-findutils-4.10.0
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/swbmnc2s8g2zxzxh62hx1vbbcg6i2r5b-gawk-5.3.2
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/xp989kyfg52803fmkzbz5py35jphcpgd-gcc-14.3.0-lib
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/8b9srwwmrwmh1yl613cwwj7gydl87br6-gcc-14.3.0-libgcc
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/qhw0sp183mqd04x5jp75981kwya64npv-glibc-2.40-66
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/gf1xp3sizlc0nkq3man8ys0mwhs1bp44-glibc-2.40-66-bin
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/szvrzng4wfxc9xljqjipxhrrayjfy0vj-gmp-6.3.0
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/78xkc7z5m21chq7p6awrzgznz83xyml0-gmp-with-cxx-6.3.0
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/2j08vib6rf81vwi6mv3s544wi8rj3xn7-gnu-config-2024-01-01
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/6q57mnfak3q8ss656qgp245qzqvnniyr-gnugrep-3.12
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/lmn1m0giq5bkgdqvdpiryb9a2ly28w6g-gnumake-4.4.1
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/7zy6jnnpqh16b18j6ar289vhwp17msh0-gnused-4.9
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/n09s57l86zxyjydkxagawxpkhh3d3dlh-gnutar-1.35
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/wd4i398mh329vhw93mvmamw3hrnhl257-gzip-1.14
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/hpyfq2n0qr4qj3z1f7d2diw8sql5m84f-icu4c-76.1
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/zc7w3ii28j4kagmlznjdajf0nzd0z60a-icu4c-76.1-dev
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/0fml1xim5c5wdn32a5bm7wgwn1ai0am6-isl-0.20
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/a3jg8g5fam9klp5ila9javf2q4wgjish-keyutils-1.6.3-lib
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/g6hcs7jbchxawmf1nvhchapn3mmxgl51-krb5-1.22.1
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/nl0asb7spb7z9q0kzi9yb3kf34z8pnnz-krb5-1.22.1-dev
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/1h8fc0raix2hx3xh6z9bjk3n1pnhd7is-krb5-1.22.1-lib
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/wwqyxsvmg41q5ckfvvv6wa50nwvz9dv4-libidn2-2.3.8
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/f21qz37q6da2bwm4cngj21ia6ivq3v23-libmpc-1.3.1
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/2sv91m724m3ydpzvyv89y40va91b4643-libssh2-1.11.1
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/prfzs45jji50w53bri2d2xyk5vlqzqan-libssh2-1.11.1-dev
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/7ndy5820h69n1pgd13viph1qjq6zhhkj-libunistring-1.3
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/2pi0ddhdi6m4fnxw9w42qksz9jk1ja1i-libuv-1.51.0
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/adklcnjpc31n6jabha2qd60y2s9wm133-libuv-1.51.0-dev
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/nkn950vf2i29k4v3z6w9717pjrg483ng-libxcrypt-4.4.38
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/qzkhd1k8dsdah1ja0wjj6q8bibxk5zq6-linux-headers-6.16.7
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/dddyfnkixnqr8jy74rc2zs3bjfy55z6q-mirrors-list
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/vc3mb134w3cd0m1mh3kph079xr7mbvnn-mpfr-4.2.2
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/lm4wm3f4ynilxw8yvgqq0hj2ng8ky9xy-ncurses-6.5
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/1a7g7jhnbcdaqn3lfb8xdg755x0kw0bi-nghttp2-1.67.1
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/aisb0lgxik1sfq3c47x1xjab0rg9q0n0-nghttp2-1.67.1-dev
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/2bf6s3nngcrb4rh9hb57isam6k5xl9i6-nghttp2-1.67.1-lib
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/p2sk3402d788hqn5diy5gba8cskjffzz-nodejs-24.10.0
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/0837wpkjb27cr70bi3pc4g2rw5v9r63l-openssl-3.5.2
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/h95q41jsmizcqk4iffkxm52q8lar13fm-openssl-3.5.2
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/3kasb92ri5cmp7gwxgj8jgk87pr83y7p-openssl-3.5.2-bin
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/jr64633vy5ca03fdq4ymnrjcy1swvdii-openssl-3.5.2-bin
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/cz9k6nhxjppa1kmyf5npd0g8l89xzilw-openssl-3.5.2-dev
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/ln0p4bzkpmsgh0z49l3r1q96r6pgnz05-openssl-3.5.2-dev
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/43nmidiphlzywh223q871b43gah77gvp-openssl-3.5.2-man
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/r9lif1a0naanr8kdapwnbnr39lr7d56a-patch-2.8
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/0032synbfqd0ylgf9szgp724nmw2fq89-patchelf-0.15.2
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/wqlkv0cjacnm7arca156p3d3vh0kdbmk-pcre2-10.46
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/k2y9xpcdqxma66kag80nhbv0pq2bznzf-perl-5.40.0
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/zqkjn730gir222v3mkp82c1pmqfb2j0l-readline-8.3p1
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/jqrf546vxc6nzf4575m4am3w4ywq765i-sqlite-3.50.4
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/7p5yg8li32wgxxsydbzblnjgs8hvl9wd-sqlite-3.50.4-bin
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/3a7y8k7fh6xldnpvd3bx3ygnx5044xw6-sqlite-3.50.4-dev
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/87ds8jf53m7n8xscxgkfgwcc8dyj1qki-stdenv-linux
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/x1d0ad98h92lp5g59pfryjzk4ca84i3r-stdenv-linux
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/ka03rs4a3bybjhqpvg388sdszbybvbff-update-autotools-gnu-config-scripts-hook
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/0ja5daq2yay3svg6f48spyfby7pgy5bm-xgcc-14.3.0-libgcc
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/swqs30pymm3ymv2qnkzs353xmpgr80jr-xz-5.8.1
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/77jyjqy2b9l2a0139im9ds28zkdv0ybc-xz-5.8.1-bin
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/6qi8skh85ci2k9gvl27nnh3kiy32qnsz-zlib-1.3.1
+2026-Jan-29 17:14:58.675817 #8 57.90 /nix/store/6fqij3sy1mlsnq1n679bzbl5bkqs7yvk-zlib-1.3.1-dev
+2026-Jan-29 17:14:58.675817 #8 57.91 copying path '/nix/store/1dw13nzqf9v8w7jcy205hkp7s7ggi0cc-builder.pl' from 'https://cache.nixos.org'...
+2026-Jan-29 17:14:58.675817 #8 57.91 copying path '/nix/store/43nmidiphlzywh223q871b43gah77gvp-openssl-3.5.2-man' from 'https://cache.nixos.org'...
+2026-Jan-29 17:14:58.675817 #8 57.92 copying path '/nix/store/8b9srwwmrwmh1yl613cwwj7gydl87br6-gcc-14.3.0-libgcc' from 'https://cache.nixos.org'...
+2026-Jan-29 17:14:58.675817 #8 57.92 copying path '/nix/store/2j08vib6rf81vwi6mv3s544wi8rj3xn7-gnu-config-2024-01-01' from 'https://cache.nixos.org'...
+2026-Jan-29 17:14:58.675817 #8 57.92 copying path '/nix/store/0ja5daq2yay3svg6f48spyfby7pgy5bm-xgcc-14.3.0-libgcc' from 'https://cache.nixos.org'...
+2026-Jan-29 17:14:58.675817 #8 57.92 copying path '/nix/store/7ndy5820h69n1pgd13viph1qjq6zhhkj-libunistring-1.3' from 'https://cache.nixos.org'...
+2026-Jan-29 17:14:58.675817 #8 57.93 copying path '/nix/store/qzkhd1k8dsdah1ja0wjj6q8bibxk5zq6-linux-headers-6.16.7' from 'https://cache.nixos.org'...
+2026-Jan-29 17:14:58.675817 #8 57.93 copying path '/nix/store/dddyfnkixnqr8jy74rc2zs3bjfy55z6q-mirrors-list' from 'https://cache.nixos.org'...
+2026-Jan-29 17:14:58.675817 #8 57.93 copying path '/nix/store/9vcd7xzvs6zbi42hywh7khvvy2pfnihq-curl-8.16.0-man' from 'https://cache.nixos.org'...
+2026-Jan-29 17:14:58.675817 #8 57.94 copying path '/nix/store/1a7g7jhnbcdaqn3lfb8xdg755x0kw0bi-nghttp2-1.67.1' from 'https://cache.nixos.org'...
+2026-Jan-29 17:14:58.675817 #8 57.94 copying path '/nix/store/ka03rs4a3bybjhqpvg388sdszbybvbff-update-autotools-gnu-config-scripts-hook' from 'https://cache.nixos.org'...
+2026-Jan-29 17:14:58.675817 #8 58.04 copying path '/nix/store/wwqyxsvmg41q5ckfvvv6wa50nwvz9dv4-libidn2-2.3.8' from 'https://cache.nixos.org'...
+2026-Jan-29 17:14:58.885758 #8 58.10 copying path '/nix/store/qhw0sp183mqd04x5jp75981kwya64npv-glibc-2.40-66' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:00.638104 #8 60.00 copying path '/nix/store/2mwbf3viqfqd3lr946slqby9y4k7d9lw-attr-2.5.2' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:00.881622 #8 60.00 copying path '/nix/store/cl2gkgnh26mmpka81pc2g5bzjfrili92-bash-5.3p3' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:00.881622 #8 60.00 copying path '/nix/store/j59qq0cqb364kzzrx2r32swfljwklxlq-bzip2-1.0.8' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:00.881622 #8 60.00 copying path '/nix/store/wgvx9p6h00aijb9jw95am7095wjzm9mv-ed-1.22.2' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:00.881622 #8 60.01 copying path '/nix/store/5ipaaiqy3dmngyp3a3yschy4g4kh1jl7-expand-response-params' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:00.881622 #8 60.01 copying path '/nix/store/swbmnc2s8g2zxzxh62hx1vbbcg6i2r5b-gawk-5.3.2' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:00.881622 #8 60.01 copying path '/nix/store/xp989kyfg52803fmkzbz5py35jphcpgd-gcc-14.3.0-lib' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:00.881622 #8 60.01 copying path '/nix/store/gf1xp3sizlc0nkq3man8ys0mwhs1bp44-glibc-2.40-66-bin' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:00.881622 #8 60.01 copying path '/nix/store/szvrzng4wfxc9xljqjipxhrrayjfy0vj-gmp-6.3.0' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:00.881622 #8 60.01 copying path '/nix/store/lmn1m0giq5bkgdqvdpiryb9a2ly28w6g-gnumake-4.4.1' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:00.881622 #8 60.01 copying path '/nix/store/7zy6jnnpqh16b18j6ar289vhwp17msh0-gnused-4.9' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:00.881622 #8 60.01 copying path '/nix/store/a3jg8g5fam9klp5ila9javf2q4wgjish-keyutils-1.6.3-lib' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:00.881622 #8 60.01 copying path '/nix/store/2pi0ddhdi6m4fnxw9w42qksz9jk1ja1i-libuv-1.51.0' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:00.881622 #8 60.01 copying path '/nix/store/nkn950vf2i29k4v3z6w9717pjrg483ng-libxcrypt-4.4.38' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:00.881622 #8 60.01 copying path '/nix/store/lm4wm3f4ynilxw8yvgqq0hj2ng8ky9xy-ncurses-6.5' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:00.881622 #8 60.09 copying path '/nix/store/2bf6s3nngcrb4rh9hb57isam6k5xl9i6-nghttp2-1.67.1-lib' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:00.927446 #8 60.29 copying path '/nix/store/0837wpkjb27cr70bi3pc4g2rw5v9r63l-openssl-3.5.2' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:01.144725 #8 60.29 copying path '/nix/store/h95q41jsmizcqk4iffkxm52q8lar13fm-openssl-3.5.2' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:01.144725 #8 60.33 copying path '/nix/store/r9lif1a0naanr8kdapwnbnr39lr7d56a-patch-2.8' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:01.144725 #8 60.39 copying path '/nix/store/xnd0ld68fzj1g1qr19gg0va486snwj22-bzip2-1.0.8-bin' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:01.144725 #8 60.51 copying path '/nix/store/wqlkv0cjacnm7arca156p3d3vh0kdbmk-pcre2-10.46' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:01.262585 #8 60.62 copying path '/nix/store/adklcnjpc31n6jabha2qd60y2s9wm133-libuv-1.51.0-dev' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:01.385557 #8 60.68 copying path '/nix/store/aisb0lgxik1sfq3c47x1xjab0rg9q0n0-nghttp2-1.67.1-dev' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:01.385557 #8 60.75 copying path '/nix/store/0fml1xim5c5wdn32a5bm7wgwn1ai0am6-isl-0.20' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:01.504588 #8 60.83 copying path '/nix/store/jj3knbpiiwbwmplin208h775gzm86rc3-acl-2.3.2' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:01.504588 #8 60.86 copying path '/nix/store/vc3mb134w3cd0m1mh3kph079xr7mbvnn-mpfr-4.2.2' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:01.619632 #8 60.96 copying path '/nix/store/swqs30pymm3ymv2qnkzs353xmpgr80jr-xz-5.8.1' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:01.619632 #8 60.98 copying path '/nix/store/6qi8skh85ci2k9gvl27nnh3kiy32qnsz-zlib-1.3.1' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:01.931919 #8 61.30 copying path '/nix/store/n09s57l86zxyjydkxagawxpkhh3d3dlh-gnutar-1.35' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:02.088712 #8 61.30 copying path '/nix/store/9a4lmf0swjwjizlkv11ibhnmj0ql7p1s-binutils-2.44-lib' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:02.182361 #8 61.54 copying path '/nix/store/5qm0vivgc7lmiyfbf5d5a55s40d996bd-file-5.45' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:02.294651 #8 61.66 copying path '/nix/store/jqrf546vxc6nzf4575m4am3w4ywq765i-sqlite-3.50.4' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:02.398326 #8 61.66 copying path '/nix/store/7p5yg8li32wgxxsydbzblnjgs8hvl9wd-sqlite-3.50.4-bin' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:02.398326 #8 61.76 copying path '/nix/store/f21qz37q6da2bwm4cngj21ia6ivq3v23-libmpc-1.3.1' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:02.516814 #8 61.88 copying path '/nix/store/wd4i398mh329vhw93mvmamw3hrnhl257-gzip-1.14' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:02.631558 #8 61.96 copying path '/nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:02.631558 #8 61.99 copying path '/nix/store/77jyjqy2b9l2a0139im9ds28zkdv0ybc-xz-5.8.1-bin' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:02.778867 #8 62.14 copying path '/nix/store/6q57mnfak3q8ss656qgp245qzqvnniyr-gnugrep-3.12' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:02.973659 #8 62.19 copying path '/nix/store/6fqij3sy1mlsnq1n679bzbl5bkqs7yvk-zlib-1.3.1-dev' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:03.684521 #8 63.05 copying path '/nix/store/3a7y8k7fh6xldnpvd3bx3ygnx5044xw6-sqlite-3.50.4-dev' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:03.691886
+2026-Jan-29 17:15:04.064051 #8 63.42 copying path '/nix/store/7h3qnwgvkw6z2r8lq4j5mks4l6r5x2cq-binutils-2.44' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:04.064051 #8 63.42 copying path '/nix/store/78xkc7z5m21chq7p6awrzgznz83xyml0-gmp-with-cxx-6.3.0' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:04.064051 #8 63.42 copying path '/nix/store/hpyfq2n0qr4qj3z1f7d2diw8sql5m84f-icu4c-76.1' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:04.064051 #8 63.42 copying path '/nix/store/0032synbfqd0ylgf9szgp724nmw2fq89-patchelf-0.15.2' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:04.413735 #8 63.78 copying path '/nix/store/00bc157nm93q5fjz551fwk60ihlbilvj-coreutils-9.7' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:04.622694 #8 63.80 copying path '/nix/store/1h8fc0raix2hx3xh6z9bjk3n1pnhd7is-krb5-1.22.1-lib' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:04.622694 #8 63.81 copying path '/nix/store/2sv91m724m3ydpzvyv89y40va91b4643-libssh2-1.11.1' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:04.622694 #8 63.81 copying path '/nix/store/jr64633vy5ca03fdq4ymnrjcy1swvdii-openssl-3.5.2-bin' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:04.622694 #8 63.83 copying path '/nix/store/3kasb92ri5cmp7gwxgj8jgk87pr83y7p-openssl-3.5.2-bin' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:04.724408 #8 64.08 copying path '/nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:04.989737 #8 64.35 copying path '/nix/store/ln0p4bzkpmsgh0z49l3r1q96r6pgnz05-openssl-3.5.2-dev' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:05.170665 #8 64.38 copying path '/nix/store/cz9k6nhxjppa1kmyf5npd0g8l89xzilw-openssl-3.5.2-dev' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:05.663192 #8 65.03 copying path '/nix/store/c7qlkpbivy2znqxd25prgh9pwjxdri6w-diffutils-3.12' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:05.853310 #8 65.03 copying path '/nix/store/wq1cxh4s8rz8vs4ssp2z49v96m0nhxhj-findutils-4.10.0' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:05.853310 #8 65.03 copying path '/nix/store/k2y9xpcdqxma66kag80nhbv0pq2bznzf-perl-5.40.0' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:05.853310 #8 65.06 copying path '/nix/store/di12yqc8952k9scn46kd48ii266v2yn8-curl-8.16.0' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:05.853310 #8 65.06 copying path '/nix/store/g6hcs7jbchxawmf1nvhchapn3mmxgl51-krb5-1.22.1' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:06.416732 #8 65.78 copying path '/nix/store/prfzs45jji50w53bri2d2xyk5vlqzqan-libssh2-1.11.1-dev' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:06.573897 #8 65.79 copying path '/nix/store/9bfd6c1f2nzrx7j5f0gc6i9n2clngndn-curl-8.16.0-bin' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:06.573897 #8 65.94 copying path '/nix/store/nl0asb7spb7z9q0kzi9yb3kf34z8pnnz-krb5-1.22.1-dev' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:06.754708 #8 65.97 copying path '/nix/store/x1d0ad98h92lp5g59pfryjzk4ca84i3r-stdenv-linux' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:07.224979 #8 66.59 building '/nix/store/l53bwr725gp7k4831cygqrihvaxv36b9-libraries.drv'...
+2026-Jan-29 17:15:07.384385 #8 66.60 copying path '/nix/store/n5d9hl0jb4gzd3p886rb4nrprym4gwkp-curl-8.16.0-dev' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:09.157088 #8 68.52 building '/nix/store/11yax1kv8y5kqj7cgh461k6jwi8rc49d-npm-9.9.4.tgz.drv'...
+2026-Jan-29 17:15:09.335369 #8 68.55 copying path '/nix/store/0fq1mnfqjl9ain4jg5j56kl6h8bbmy1h-binutils-wrapper-2.44' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:10.144655 #8 69.51
+2026-Jan-29 17:15:10.339250 #8 69.52 trying https://registry.npmjs.org/npm/-/npm-9.9.4.tgz
+2026-Jan-29 17:15:10.339250 #8 69.55 % Total % Received % Xferd Average Speed Time Time Time Current
+2026-Jan-29 17:15:10.339250 #8 69.55 Dload Upload Total Spent Left Speed
+2026-Jan-29 17:15:10.339250 #8 69.70 100 2648k 100 2648k 0 0 16.4M 0 --:--:-- --:--:-- --:--:-- 16.5M
+2026-Jan-29 17:15:10.539705 #8 69.75 copying path '/nix/store/zqkjn730gir222v3mkp82c1pmqfb2j0l-readline-8.3p1' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:10.546334
+2026-Jan-29 17:15:10.702499 #8 70.07 building '/nix/store/93ik6f5038k47a4d72i9r9fjl15fvr3f-23f9169c4ccce521379e602cc82ed873a1f1b52b-env.drv'...
+2026-Jan-29 17:15:10.860972 #8 70.07 copying path '/nix/store/2j7r5np0vaz4cnqkymp1mqivmjj1x9xl-bash-interactive-5.3p3' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:10.867477 #8 70.07 copying path '/nix/store/zc7w3ii28j4kagmlznjdajf0nzd0z60a-icu4c-76.1-dev' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:11.356918 #8 70.72 copying path '/nix/store/p2sk3402d788hqn5diy5gba8cskjffzz-nodejs-24.10.0' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:17.621995 #8 76.98 copying path '/nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:17.777512 #8 77.01 copying path '/nix/store/87ds8jf53m7n8xscxgkfgwcc8dyj1qki-stdenv-linux' from 'https://cache.nixos.org'...
+2026-Jan-29 17:15:17.777512 #8 77.07 building '/nix/store/y968iv743l2z9zklglx9blcjpiflgww9-npm.drv'...
+2026-Jan-29 17:15:17.777512 #8 77.14 Running phase: unpackPhase
+2026-Jan-29 17:15:17.936758 #8 77.15 unpacking source archive /nix/store/fkd1ma3nify8r9wp463yg5rqz9hdcyf1-npm-9.9.4.tgz
+2026-Jan-29 17:15:18.000121 #8 77.36 source root is package
+2026-Jan-29 17:15:18.099990 #8 77.46 setting SOURCE_DATE_EPOCH to timestamp 499162500 of file "package/package.json"
+2026-Jan-29 17:15:18.262506 #8 77.48 Running phase: installPhase
+2026-Jan-29 17:15:18.268025
+2026-Jan-29 17:15:19.687883 #8 79.05 building '/nix/store/avqglacl4jrskw0g5rxk30ikvggqyq65-23f9169c4ccce521379e602cc82ed873a1f1b52b-env.drv'...
+2026-Jan-29 17:15:19.814389 #8 79.18 created 479 symlinks in user environment
+2026-Jan-29 17:15:20.100970 #8 79.46 building '/nix/store/n3vrcf0r9hbq8g6v0wa7n1x1815hgbv3-user-environment.drv'...
+2026-Jan-29 17:15:20.309574 #8 79.67 removing old generations of profile /nix/var/nix/profiles/per-user/root/channels
+2026-Jan-29 17:15:20.457208 #8 79.68 removing old generations of profile /nix/var/nix/profiles/per-user/root/profile
+2026-Jan-29 17:15:20.457208 #8 79.68 removing profile version 1
+2026-Jan-29 17:15:20.457208 #8 79.68 removing old generations of profile /nix/var/nix/profiles/per-user/root/channels
+2026-Jan-29 17:15:20.457208 #8 79.68 removing old generations of profile /nix/var/nix/profiles/per-user/root/profile
+2026-Jan-29 17:15:20.457208 #8 79.69 finding garbage collector roots...
+2026-Jan-29 17:15:20.457208 #8 79.69 removing stale link from '/nix/var/nix/gcroots/auto/lzjbmb2ry0z7lma2fvpqprb12921pnb5' to '/nix/var/nix/profiles/per-user/root/profile-1-link'
+2026-Jan-29 17:15:20.457208 #8 79.70 deleting garbage...
+2026-Jan-29 17:15:20.457208 #8 79.74 deleting '/nix/store/a9qf4wwhympzs35ncp80r185j6a21w07-user-environment'
+2026-Jan-29 17:15:20.457208 #8 79.74 deleting '/nix/store/253kwn1730vnay87xkjgxa2v97w3y079-user-environment.drv'
+2026-Jan-29 17:15:20.457208 #8 79.74 deleting '/nix/store/hn5mrh362n52x8wwab9s1v6bgn4n5c94-env-manifest.nix'
+2026-Jan-29 17:15:20.457208 #8 79.75 deleting '/nix/store/87ds8jf53m7n8xscxgkfgwcc8dyj1qki-stdenv-linux'
+2026-Jan-29 17:15:20.457208 #8 79.75 deleting '/nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0'
+2026-Jan-29 17:15:20.457208 #8 79.75 deleting '/nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0'
+2026-Jan-29 17:15:20.457208 #8 79.82 deleting '/nix/store/f21qz37q6da2bwm4cngj21ia6ivq3v23-libmpc-1.3.1'
+2026-Jan-29 17:15:20.651777 #8 79.82 deleting '/nix/store/x1d0ad98h92lp5g59pfryjzk4ca84i3r-stdenv-linux'
+2026-Jan-29 17:15:20.660167 #8 79.82 deleting '/nix/store/n09s57l86zxyjydkxagawxpkhh3d3dlh-gnutar-1.35'
+2026-Jan-29 17:15:20.660167 #8 79.83 deleting '/nix/store/0fq1mnfqjl9ain4jg5j56kl6h8bbmy1h-binutils-wrapper-2.44'
+2026-Jan-29 17:15:20.660167 #8 79.83 deleting '/nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev'
+2026-Jan-29 17:15:20.660167 #8 79.84 deleting '/nix/store/ka03rs4a3bybjhqpvg388sdszbybvbff-update-autotools-gnu-config-scripts-hook'
+2026-Jan-29 17:15:20.660167 #8 79.85 deleting '/nix/store/r9lif1a0naanr8kdapwnbnr39lr7d56a-patch-2.8'
+2026-Jan-29 17:15:20.660167 #8 79.85 deleting '/nix/store/wgvx9p6h00aijb9jw95am7095wjzm9mv-ed-1.22.2'
+2026-Jan-29 17:15:20.660167 #8 79.85 deleting '/nix/store/5ipaaiqy3dmngyp3a3yschy4g4kh1jl7-expand-response-params'
+2026-Jan-29 17:15:20.660167 #8 79.85 deleting '/nix/store/n5d9hl0jb4gzd3p886rb4nrprym4gwkp-curl-8.16.0-dev'
+2026-Jan-29 17:15:20.660167 #8 79.85 deleting '/nix/store/nl0asb7spb7z9q0kzi9yb3kf34z8pnnz-krb5-1.22.1-dev'
+2026-Jan-29 17:15:20.660167 #8 79.85 deleting '/nix/store/g6hcs7jbchxawmf1nvhchapn3mmxgl51-krb5-1.22.1'
+2026-Jan-29 17:15:20.660167 #8 79.85 deleting '/nix/store/aisb0lgxik1sfq3c47x1xjab0rg9q0n0-nghttp2-1.67.1-dev'
+2026-Jan-29 17:15:20.660167 #8 79.85 deleting '/nix/store/1a7g7jhnbcdaqn3lfb8xdg755x0kw0bi-nghttp2-1.67.1'
+2026-Jan-29 17:15:20.660167 #8 79.85 deleting '/nix/store/gf1xp3sizlc0nkq3man8ys0mwhs1bp44-glibc-2.40-66-bin'
+2026-Jan-29 17:15:20.660167 #8 79.85 deleting '/nix/store/vc3mb134w3cd0m1mh3kph079xr7mbvnn-mpfr-4.2.2'
+2026-Jan-29 17:15:20.660167 #8 79.86 deleting '/nix/store/cvw5asqga7k27zb1jlippfrkqm084ml7-libraries'
+2026-Jan-29 17:15:20.660167 #8 79.86 deleting '/nix/store/wd4i398mh329vhw93mvmamw3hrnhl257-gzip-1.14'
+2026-Jan-29 17:15:20.660167 #8 79.86 deleting '/nix/store/7zy6jnnpqh16b18j6ar289vhwp17msh0-gnused-4.9'
+2026-Jan-29 17:15:20.660167 #8 79.86 deleting '/nix/store/5khfwnx4arf3nl3i9k1rljb29krdy6xn-source'
+2026-Jan-29 17:15:20.660167 #8 79.86 deleting '/nix/store/xnd0ld68fzj1g1qr19gg0va486snwj22-bzip2-1.0.8-bin'
+2026-Jan-29 17:15:20.660167 #8 79.87 deleting '/nix/store/z6gs6c7h492l4zq99mrmbwfwkjykaf0d-source'
+2026-Jan-29 17:15:26.660190 #8 86.02 deleting '/nix/store/fkd1ma3nify8r9wp463yg5rqz9hdcyf1-npm-9.9.4.tgz'
+2026-Jan-29 17:15:26.770739 #8 86.03 deleting '/nix/store/77jyjqy2b9l2a0139im9ds28zkdv0ybc-xz-5.8.1-bin'
+2026-Jan-29 17:15:26.770739 #8 86.03 deleting '/nix/store/9vcd7xzvs6zbi42hywh7khvvy2pfnihq-curl-8.16.0-man'
+2026-Jan-29 17:15:26.770739 #8 86.03 deleting '/nix/store/prfzs45jji50w53bri2d2xyk5vlqzqan-libssh2-1.11.1-dev'
+2026-Jan-29 17:15:26.770739 #8 86.03 deleting '/nix/store/dddyfnkixnqr8jy74rc2zs3bjfy55z6q-mirrors-list'
+2026-Jan-29 17:15:26.770739 #8 86.03 deleting '/nix/store/0fml1xim5c5wdn32a5bm7wgwn1ai0am6-isl-0.20'
+2026-Jan-29 17:15:26.770739 #8 86.03 deleting '/nix/store/9bfd6c1f2nzrx7j5f0gc6i9n2clngndn-curl-8.16.0-bin'
+2026-Jan-29 17:15:26.770739 #8 86.03 deleting '/nix/store/di12yqc8952k9scn46kd48ii266v2yn8-curl-8.16.0'
+2026-Jan-29 17:15:26.770739 #8 86.03 deleting '/nix/store/2bf6s3nngcrb4rh9hb57isam6k5xl9i6-nghttp2-1.67.1-lib'
+2026-Jan-29 17:15:26.770739 #8 86.03 deleting '/nix/store/c7qlkpbivy2znqxd25prgh9pwjxdri6w-diffutils-3.12'
+2026-Jan-29 17:15:26.770739 #8 86.04 deleting '/nix/store/ln0p4bzkpmsgh0z49l3r1q96r6pgnz05-openssl-3.5.2-dev'
+2026-Jan-29 17:15:26.770739 #8 86.04 deleting '/nix/store/jr64633vy5ca03fdq4ymnrjcy1swvdii-openssl-3.5.2-bin'
+2026-Jan-29 17:15:26.770739 #8 86.04 deleting '/nix/store/2sv91m724m3ydpzvyv89y40va91b4643-libssh2-1.11.1'
+2026-Jan-29 17:15:26.770739 #8 86.04 deleting '/nix/store/1h8fc0raix2hx3xh6z9bjk3n1pnhd7is-krb5-1.22.1-lib'
+2026-Jan-29 17:15:26.770739 #8 86.04 deleting '/nix/store/h95q41jsmizcqk4iffkxm52q8lar13fm-openssl-3.5.2'
+2026-Jan-29 17:15:26.770739 #8 86.05 deleting '/nix/store/1dw13nzqf9v8w7jcy205hkp7s7ggi0cc-builder.pl'
+2026-Jan-29 17:15:26.770739 #8 86.05 deleting '/nix/store/7h3qnwgvkw6z2r8lq4j5mks4l6r5x2cq-binutils-2.44'
+2026-Jan-29 17:15:26.770739 #8 86.05 deleting '/nix/store/9a4lmf0swjwjizlkv11ibhnmj0ql7p1s-binutils-2.44-lib'
+2026-Jan-29 17:15:26.770739 #8 86.06 deleting '/nix/store/5qm0vivgc7lmiyfbf5d5a55s40d996bd-file-5.45'
+2026-Jan-29 17:15:26.770739 #8 86.06 deleting '/nix/store/a3jg8g5fam9klp5ila9javf2q4wgjish-keyutils-1.6.3-lib'
+2026-Jan-29 17:15:26.770739 #8 86.06 deleting '/nix/store/k2y9xpcdqxma66kag80nhbv0pq2bznzf-perl-5.40.0'
+2026-Jan-29 17:15:26.770739 #8 86.11 deleting '/nix/store/0032synbfqd0ylgf9szgp724nmw2fq89-patchelf-0.15.2'
+2026-Jan-29 17:15:26.770739 #8 86.11 deleting '/nix/store/szvrzng4wfxc9xljqjipxhrrayjfy0vj-gmp-6.3.0'
+2026-Jan-29 17:15:26.770739 #8 86.11 deleting '/nix/store/qzkhd1k8dsdah1ja0wjj6q8bibxk5zq6-linux-headers-6.16.7'
+2026-Jan-29 17:15:26.770739 #8 86.13 deleting '/nix/store/j59qq0cqb364kzzrx2r32swfljwklxlq-bzip2-1.0.8'
+2026-Jan-29 17:15:26.956520 #8 86.14 deleting '/nix/store/nkn950vf2i29k4v3z6w9717pjrg483ng-libxcrypt-4.4.38'
+2026-Jan-29 17:15:26.956520 #8 86.14 deleting '/nix/store/wq1cxh4s8rz8vs4ssp2z49v96m0nhxhj-findutils-4.10.0'
+2026-Jan-29 17:15:26.956520 #8 86.15 deleting '/nix/store/swbmnc2s8g2zxzxh62hx1vbbcg6i2r5b-gawk-5.3.2'
+2026-Jan-29 17:15:26.956520 #8 86.15 deleting '/nix/store/2j08vib6rf81vwi6mv3s544wi8rj3xn7-gnu-config-2024-01-01'
+2026-Jan-29 17:15:26.956520 #8 86.15 deleting '/nix/store/lmn1m0giq5bkgdqvdpiryb9a2ly28w6g-gnumake-4.4.1'
+2026-Jan-29 17:15:26.956520 #8 86.16 deleting '/nix/store/6q57mnfak3q8ss656qgp245qzqvnniyr-gnugrep-3.12'
+2026-Jan-29 17:15:26.956520 #8 86.16 deleting '/nix/store/wqlkv0cjacnm7arca156p3d3vh0kdbmk-pcre2-10.46'
+2026-Jan-29 17:15:26.956520 #8 86.17 deleting '/nix/store/swqs30pymm3ymv2qnkzs353xmpgr80jr-xz-5.8.1'
+2026-Jan-29 17:15:26.956520 #8 86.17 deleting '/nix/store/i6c20krnakaiv6zbraxl2q60hn8rmjwq-exec.drv'
+2026-Jan-29 17:15:26.956520 #8 86.17 deleting unused links...
+2026-Jan-29 17:15:30.992772 #8 90.35 note: currently hard linking saves 1.16 MiB
+2026-Jan-29 17:15:31.183824 #8 90.39 62 store paths deleted, 560.00 MiB freed
+2026-Jan-29 17:15:31.381416 #8 DONE 90.7s
+2026-Jan-29 17:15:31.536390 #9 [stage-0 5/11] RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends curl wget
+2026-Jan-29 17:15:31.922082 #9 0.537 Get:1 http://archive.ubuntu.com/ubuntu noble InRelease [256 kB]
+2026-Jan-29 17:15:32.075321 #9 0.540 Get:2 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+2026-Jan-29 17:15:32.118466 #9 0.733 Get:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+2026-Jan-29 17:15:32.265066 #9 0.781 Get:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+2026-Jan-29 17:15:32.265066 #9 0.787 Get:5 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [3008 kB]
+2026-Jan-29 17:15:32.265066 #9 0.880 Get:6 http://archive.ubuntu.com/ubuntu noble/multiverse amd64 Packages [331 kB]
+2026-Jan-29 17:15:32.374837 #9 0.989 Get:7 http://archive.ubuntu.com/ubuntu noble/universe amd64 Packages [19.3 MB]
+2026-Jan-29 17:15:32.502816 #9 1.028 Get:8 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [1776 kB]
+2026-Jan-29 17:15:32.502816 #9 1.116 Get:9 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [34.8 kB]
+2026-Jan-29 17:15:32.675535 #9 1.137 Get:10 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1194 kB]
+2026-Jan-29 17:15:32.682206
+2026-Jan-29 17:15:32.863826 #9 1.478 Get:11 http://archive.ubuntu.com/ubuntu noble/restricted amd64 Packages [117 kB]
+2026-Jan-29 17:15:32.964390 #9 1.488 Get:12 http://archive.ubuntu.com/ubuntu noble/main amd64 Packages [1808 kB]
+2026-Jan-29 17:15:32.972775 #9 1.580 Get:13 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [3182 kB]
+2026-Jan-29 17:15:33.296980 #9 1.912 Get:14 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [2151 kB]
+2026-Jan-29 17:15:33.418728 #9 1.975 Get:15 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1969 kB]
+2026-Jan-29 17:15:33.418728 #9 2.034 Get:16 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [37.6 kB]
+2026-Jan-29 17:15:33.427161
+2026-Jan-29 17:15:33.646210 #9 2.072 Get:17 http://archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [49.5 kB]
+2026-Jan-29 17:15:33.646210 #9 2.111 Get:18 http://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [34.6 kB]
+2026-Jan-29 17:15:34.087655 #9 2.702 Fetched 35.6 MB in 2s (15.9 MB/s)
+2026-Jan-29 17:15:34.087655 #9 2.702 Reading package lists...
+2026-Jan-29 17:15:35.091152
+2026-Jan-29 17:15:35.279493 #9 3.745 Reading package lists...
+2026-Jan-29 17:15:36.215805
+2026-Jan-29 17:15:36.393680 #9 4.854 Building dependency tree...
+2026-Jan-29 17:15:36.654397 #9 5.269 Reading state information...
+2026-Jan-29 17:15:36.807231
+2026-Jan-29 17:15:36.935494 #9 5.550 curl is already the newest version (8.5.0-2ubuntu10.6).
+2026-Jan-29 17:15:36.935494 #9 5.550 The following NEW packages will be installed:
+2026-Jan-29 17:15:37.037757 #9 5.551 wget
+2026-Jan-29 17:15:37.037757 #9 5.653 0 upgraded, 1 newly installed, 0 to remove and 41 not upgraded.
+2026-Jan-29 17:15:37.037757 #9 5.653 Need to get 334 kB of archives.
+2026-Jan-29 17:15:37.037757 #9 5.653 After this operation, 938 kB of additional disk space will be used.
+2026-Jan-29 17:15:37.037757 #9 5.653 Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 wget amd64 1.21.4-1ubuntu4.1 [334 kB]
+2026-Jan-29 17:15:37.425930 #9 6.040 debconf: delaying package configuration, since apt-utils is not installed
+2026-Jan-29 17:15:37.564511 #9 6.172 Fetched 334 kB in 0s (1301 kB/s)
+2026-Jan-29 17:15:37.662710 #9 6.244 Selecting previously unselected package wget.
+2026-Jan-29 17:15:37.662710 #9 6.244 (Reading database ... (Reading database ... 5% (Reading database ... 10% (Reading database ... 15% (Reading database ... 20% (Reading database ... 25% (Reading database ... 30% (Reading database ... 35% (Reading database ... 40% (Reading database ... 45% (Reading database ... 50% (Reading database ... 55% (Reading database ... 60% (Reading database ... 65% (Reading database ... 70% (Reading database ... 75% (Reading database ... 80% (Reading database ... 85%
+2026-Jan-29 17:15:37.799215 (Reading database ... 90% (Reading database ... 95% (Reading database ... 100% (Reading database ... 9511 files and directories currently installed.)
+2026-Jan-29 17:15:37.799215 #9 6.317 Preparing to unpack .../wget_1.21.4-1ubuntu4.1_amd64.deb ...
+2026-Jan-29 17:15:37.799215 #9 6.321 Unpacking wget (1.21.4-1ubuntu4.1) ...
+2026-Jan-29 17:15:37.799215 #9 6.411 Setting up wget (1.21.4-1ubuntu4.1) ...
+2026-Jan-29 17:15:37.946138 #9 DONE 6.6s
+2026-Jan-29 17:15:38.104746 #10 [stage-0 6/11] COPY . /app/.
+2026-Jan-29 17:15:38.235680 #10 DONE 0.3s
+2026-Jan-29 17:15:38.391077 #11 [stage-0 7/11] RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-/root/npm,target=/root/.npm npm ci
+2026-Jan-29 17:15:38.765135 #11 0.529 npm warn config production Use `--omit=dev` instead.
+2026-Jan-29 17:15:50.048842 #11 11.81 npm warn deprecated tar@6.2.1: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exhorbitant rates) by contacting <REDACTED>
+2026-Jan-29 17:15:54.145851 #11 15.91 npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+2026-Jan-29 17:15:54.154105
+2026-Jan-29 17:16:41.021445 #11 62.79
+2026-Jan-29 17:16:41.021445 #11 62.79 added 1149 packages, and audited 1150 packages in 1m
+2026-Jan-29 17:16:41.021445 #11 62.79
+2026-Jan-29 17:16:41.021445 #11 62.79 308 packages are looking for funding
+2026-Jan-29 17:16:41.240556 #11 62.79 run `npm fund` for details
+2026-Jan-29 17:16:41.240556 #11 62.85
+2026-Jan-29 17:16:41.240556 #11 62.85 6 vulnerabilities (2 low, 1 moderate, 3 high)
+2026-Jan-29 17:16:41.240556 #11 62.85
+2026-Jan-29 17:16:41.240556 #11 62.85 To address issues that do not require attention, run:
+2026-Jan-29 17:16:41.240556 #11 62.85 npm audit fix
+2026-Jan-29 17:16:41.240556 #11 62.85
+2026-Jan-29 17:16:41.240556 #11 62.85 To address all issues possible, run:
+2026-Jan-29 17:16:41.240556 #11 62.85 npm audit fix --force
+2026-Jan-29 17:16:41.240556 #11 62.85
+2026-Jan-29 17:16:41.240556 #11 62.85 Some issues need review, and may require choosing
+2026-Jan-29 17:16:41.240556 #11 62.85 a different dependency.
+2026-Jan-29 17:16:41.240556 #11 62.85
+2026-Jan-29 17:16:41.240556 #11 62.85 Run `npm audit` for details.
+2026-Jan-29 17:16:41.394700 #11 DONE 63.2s
+2026-Jan-29 17:16:41.547424 #12 [stage-0 8/11] COPY . /app/.
+2026-Jan-29 17:16:42.752483 #12 DONE 1.4s
+2026-Jan-29 17:16:42.907542 #13 [stage-0 9/11] RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-next/cache,target=/app/.next/cache --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-node_modules/cache,target=/app/node_modules/.cache npm run build
+2026-Jan-29 17:16:43.081839 #13 0.328 npm warn config production Use `--omit=dev` instead.
+2026-Jan-29 17:16:43.285615 #13 0.382
+2026-Jan-29 17:16:43.285615 #13 0.382 > sen-host@0.1.0 build
+2026-Jan-29 17:16:43.285615 #13 0.382 > next build
+2026-Jan-29 17:16:43.285615 #13 0.382
+2026-Jan-29 17:16:44.426527 #13 1.673 Downloading swc package @next/swc-wasm-nodejs... to /root/.cache/next-swc
+2026-Jan-29 17:16:44.557363 #13 1.803 npm warn config production Use `--omit=dev` instead.
+2026-Jan-29 17:16:45.396419 #13 2.643 âš  Attempted to load @next/swc-linux-x64-gnu, but it was not installed
+2026-Jan-29 17:16:45.549024 #13 2.646 âš  Attempted to load @next/swc-linux-x64-musl, but an error occurred: libc.musl-x86_64.so.1: cannot open shared object file: No such file or directory
+2026-Jan-29 17:16:45.696913 #13 2.944 Skipping creating a lockfile at /app/.next/lock because we're using WASM bindings
+2026-Jan-29 17:16:45.825997 #13 2.953 Attention: Next.js now collects completely anonymous telemetry regarding usage.
+2026-Jan-29 17:16:45.833242 #13 2.953 This information is used to shape Next.js' roadmap and prioritize features.
+2026-Jan-29 17:16:45.833242 #13 2.953 You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+2026-Jan-29 17:16:45.833242 #13 2.953 https://nextjs.org/telemetry
+2026-Jan-29 17:16:45.833242 #13 2.954
+2026-Jan-29 17:16:45.833242 #13 2.970 â–² Next.js 16.1.1 (Turbopack)
+2026-Jan-29 17:16:45.833242 #13 2.971 - Experiments (use with caution):
+2026-Jan-29 17:16:45.833242 #13 2.971 Â· serverActions
+2026-Jan-29 17:16:45.833242 #13 2.972
+2026-Jan-29 17:16:45.833242 #13 2.976 âš  The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+2026-Jan-29 17:16:45.833242 #13 3.073 Creating an optimized production build ...
+2026-Jan-29 17:16:46.517349 #13 3.764 âš  Attempted to load @next/swc-linux-x64-gnu, but it was not installed
+2026-Jan-29 17:16:46.745007 #13 3.841 âš  Attempted to load @next/swc-linux-x64-musl, but an error occurred: libc.musl-x86_64.so.1: cannot open shared object file: No such file or directory
+2026-Jan-29 17:16:47.099557 #13 4.344
+2026-Jan-29 17:16:47.203099 #13 4.345 > Build error occurred
+2026-Jan-29 17:16:47.203099 #13 4.349 Error: `turbo.createProject` is not supported by the wasm bindings.
+2026-Jan-29 17:16:47.203099 #13 4.349 at ignore-listed frames
+2026-Jan-29 17:16:47.203099 #13 ERROR: process "/bin/bash -ol pipefail -c npm run build" did not complete successfully: exit code: 1
+2026-Jan-29 17:16:47.238056 ------
+2026-Jan-29 17:16:47.238056 > [stage-0 9/11] RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-next/cache,target=/app/.next/cache --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-node_modules/cache,target=/app/node_modules/.cache npm run build:
+2026-Jan-29 17:16:47.238056 2.971 Â· serverActions
+2026-Jan-29 17:16:47.238056 2.972
+2026-Jan-29 17:16:47.238056 2.976 âš  The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+2026-Jan-29 17:16:47.238056 3.073 Creating an optimized production build ...
+2026-Jan-29 17:16:47.238056 3.764 âš  Attempted to load @next/swc-linux-x64-gnu, but it was not installed
+2026-Jan-29 17:16:47.238056 3.841 âš  Attempted to load @next/swc-linux-x64-musl, but an error occurred: libc.musl-x86_64.so.1: cannot open shared object file: No such file or directory
+2026-Jan-29 17:16:47.238056 4.344
+2026-Jan-29 17:16:47.238056 4.345 > Build error occurred
+2026-Jan-29 17:16:47.238056 4.349 Error: `turbo.createProject` is not supported by the wasm bindings.
+2026-Jan-29 17:16:47.238056 4.349 at ignore-listed frames
+2026-Jan-29 17:16:47.238056 ------
+2026-Jan-29 17:16:47.238056
+2026-Jan-29 17:16:47.238056 1 warning found (use docker --debug to expand):
+2026-Jan-29 17:16:47.238056 - UndefinedVar: Usage of undefined variable '$NIXPACKS_PATH' (line 18)
+2026-Jan-29 17:16:47.252092 Dockerfile:24
+2026-Jan-29 17:16:47.252092 --------------------
+2026-Jan-29 17:16:47.252092 22 | # build phase
+2026-Jan-29 17:16:47.252092 23 | COPY . /app/.
+2026-Jan-29 17:16:47.252092 24 | >>> RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-next/cache,target=/app/.next/cache --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-node_modules/cache,target=/app/node_modules/.cache npm run build
+2026-Jan-29 17:16:47.252092 25 |
+2026-Jan-29 17:16:47.252092 26 |
+2026-Jan-29 17:16:47.252092 --------------------
+2026-Jan-29 17:16:47.252092 ERROR: failed to build: failed to solve: process "/bin/bash -ol pipefail -c npm run build" did not complete successfully: exit code: 1
+2026-Jan-29 17:16:47.252092 exit status 1
+2026-Jan-29 17:16:47.322822 ========================================
+2026-Jan-29 17:16:47.332492 Deployment failed: Command execution failed (exit code 1): docker exec xgckw0co4soos8o80ok8ogss bash -c 'bash /artifacts/build.sh'
+2026-Jan-29 17:16:47.332492 Error: #0 building with "default" instance using docker driver
+2026-Jan-29 17:16:47.332492
+2026-Jan-29 17:16:47.332492 #1 [internal] load build definition from Dockerfile
+2026-Jan-29 17:16:47.332492 #1 transferring dockerfile: 1.46kB done
+2026-Jan-29 17:16:47.332492 #1 DONE 0.0s
+2026-Jan-29 17:16:47.332492
+2026-Jan-29 17:16:47.332492 #2 [internal] load metadata for ghcr.io/railwayapp/nixpacks:ubuntu-1745885067
+2026-Jan-29 17:16:47.332492 #2 DONE 0.4s
+2026-Jan-29 17:16:47.332492
+2026-Jan-29 17:16:47.332492 #3 [internal] load .dockerignore
+2026-Jan-29 17:16:47.332492 #3 transferring context: 2B done
+2026-Jan-29 17:16:47.332492 #3 DONE 0.0s
+2026-Jan-29 17:16:47.332492
+2026-Jan-29 17:16:47.332492 #4 [stage-0 1/11] FROM ghcr.io/railwayapp/nixpacks:ubuntu-1745885067@sha256:d45c89d80e13d7ad0fd555b5130f22a866d9dd10e861f589932303ef2314c7de
+2026-Jan-29 17:16:47.332492 #4 resolve ghcr.io/railwayapp/nixpacks:ubuntu-1745885067@sha256:d45c89d80e13d7ad0fd555b5130f22a866d9dd10e861f589932303ef2314c7de 0.1s done
+2026-Jan-29 17:16:47.332492 #4 DONE 0.1s
+2026-Jan-29 17:16:47.332492
+2026-Jan-29 17:16:47.332492 #5 [internal] load build context
+2026-Jan-29 17:16:47.332492 #5 ...
+2026-Jan-29 17:16:47.332492
+2026-Jan-29 17:16:47.332492 #6 [stage-0 2/11] WORKDIR /app/
+2026-Jan-29 17:16:47.332492 #6 CACHED
+2026-Jan-29 17:16:47.332492
+2026-Jan-29 17:16:47.332492 #5 [internal] load build context
+2026-Jan-29 17:16:47.332492 #5 transferring context: 8.51MB 0.2s done
+2026-Jan-29 17:16:47.332492 #5 DONE 0.3s
+2026-Jan-29 17:16:47.332492
+2026-Jan-29 17:16:47.332492 #7 [stage-0 3/11] COPY .nixpacks/nixpkgs-23f9169c4ccce521379e602cc82ed873a1f1b52b.nix .nixpacks/nixpkgs-23f9169c4ccce521379e602cc82ed873a1f1b52b.nix
+2026-Jan-29 17:16:47.332492 #7 DONE 0.1s
+2026-Jan-29 17:16:47.332492
+2026-Jan-29 17:16:47.332492 #8 [stage-0 4/11] RUN nix-env -if .nixpacks/nixpkgs-23f9169c4ccce521379e602cc82ed873a1f1b52b.nix && nix-collect-garbage -d
+2026-Jan-29 17:16:47.332492 #8 0.344 unpacking 'https://github.com/NixOS/nixpkgs/archive/23f9169c4ccce521379e602cc82ed873a1f1b52b.tar.gz' into the Git cache...
+2026-Jan-29 17:16:47.332492 #8 55.69 unpacking 'https://github.com/railwayapp/nix-npm-overlay/archive/main.tar.gz' into the Git cache...
+2026-Jan-29 17:16:47.332492 #8 56.42 installing '23f9169c4ccce521379e602cc82ed873a1f1b52b-env'
+2026-Jan-29 17:16:47.332492 #8 57.90 these 5 derivations will be built:
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/11yax1kv8y5kqj7cgh461k6jwi8rc49d-npm-9.9.4.tgz.drv
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/l53bwr725gp7k4831cygqrihvaxv36b9-libraries.drv
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/93ik6f5038k47a4d72i9r9fjl15fvr3f-23f9169c4ccce521379e602cc82ed873a1f1b52b-env.drv
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/y968iv743l2z9zklglx9blcjpiflgww9-npm.drv
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/avqglacl4jrskw0g5rxk30ikvggqyq65-23f9169c4ccce521379e602cc82ed873a1f1b52b-env.drv
+2026-Jan-29 17:16:47.332492 #8 57.90 these 82 paths will be fetched (130.41 MiB download, 616.74 MiB unpacked):
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/jj3knbpiiwbwmplin208h775gzm86rc3-acl-2.3.2
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/2mwbf3viqfqd3lr946slqby9y4k7d9lw-attr-2.5.2
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/cl2gkgnh26mmpka81pc2g5bzjfrili92-bash-5.3p3
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/2j7r5np0vaz4cnqkymp1mqivmjj1x9xl-bash-interactive-5.3p3
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/7h3qnwgvkw6z2r8lq4j5mks4l6r5x2cq-binutils-2.44
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/9a4lmf0swjwjizlkv11ibhnmj0ql7p1s-binutils-2.44-lib
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/0fq1mnfqjl9ain4jg5j56kl6h8bbmy1h-binutils-wrapper-2.44
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/1dw13nzqf9v8w7jcy205hkp7s7ggi0cc-builder.pl
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/j59qq0cqb364kzzrx2r32swfljwklxlq-bzip2-1.0.8
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/xnd0ld68fzj1g1qr19gg0va486snwj22-bzip2-1.0.8-bin
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/00bc157nm93q5fjz551fwk60ihlbilvj-coreutils-9.7
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/di12yqc8952k9scn46kd48ii266v2yn8-curl-8.16.0
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/9bfd6c1f2nzrx7j5f0gc6i9n2clngndn-curl-8.16.0-bin
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/n5d9hl0jb4gzd3p886rb4nrprym4gwkp-curl-8.16.0-dev
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/9vcd7xzvs6zbi42hywh7khvvy2pfnihq-curl-8.16.0-man
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/c7qlkpbivy2znqxd25prgh9pwjxdri6w-diffutils-3.12
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/wgvx9p6h00aijb9jw95am7095wjzm9mv-ed-1.22.2
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/5ipaaiqy3dmngyp3a3yschy4g4kh1jl7-expand-response-params
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/5qm0vivgc7lmiyfbf5d5a55s40d996bd-file-5.45
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/wq1cxh4s8rz8vs4ssp2z49v96m0nhxhj-findutils-4.10.0
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/swbmnc2s8g2zxzxh62hx1vbbcg6i2r5b-gawk-5.3.2
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/xp989kyfg52803fmkzbz5py35jphcpgd-gcc-14.3.0-lib
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/8b9srwwmrwmh1yl613cwwj7gydl87br6-gcc-14.3.0-libgcc
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/qhw0sp183mqd04x5jp75981kwya64npv-glibc-2.40-66
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/gf1xp3sizlc0nkq3man8ys0mwhs1bp44-glibc-2.40-66-bin
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/szvrzng4wfxc9xljqjipxhrrayjfy0vj-gmp-6.3.0
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/78xkc7z5m21chq7p6awrzgznz83xyml0-gmp-with-cxx-6.3.0
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/2j08vib6rf81vwi6mv3s544wi8rj3xn7-gnu-config-2024-01-01
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/6q57mnfak3q8ss656qgp245qzqvnniyr-gnugrep-3.12
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/lmn1m0giq5bkgdqvdpiryb9a2ly28w6g-gnumake-4.4.1
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/7zy6jnnpqh16b18j6ar289vhwp17msh0-gnused-4.9
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/n09s57l86zxyjydkxagawxpkhh3d3dlh-gnutar-1.35
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/wd4i398mh329vhw93mvmamw3hrnhl257-gzip-1.14
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/hpyfq2n0qr4qj3z1f7d2diw8sql5m84f-icu4c-76.1
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/zc7w3ii28j4kagmlznjdajf0nzd0z60a-icu4c-76.1-dev
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/0fml1xim5c5wdn32a5bm7wgwn1ai0am6-isl-0.20
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/a3jg8g5fam9klp5ila9javf2q4wgjish-keyutils-1.6.3-lib
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/g6hcs7jbchxawmf1nvhchapn3mmxgl51-krb5-1.22.1
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/nl0asb7spb7z9q0kzi9yb3kf34z8pnnz-krb5-1.22.1-dev
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/1h8fc0raix2hx3xh6z9bjk3n1pnhd7is-krb5-1.22.1-lib
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/wwqyxsvmg41q5ckfvvv6wa50nwvz9dv4-libidn2-2.3.8
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/f21qz37q6da2bwm4cngj21ia6ivq3v23-libmpc-1.3.1
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/2sv91m724m3ydpzvyv89y40va91b4643-libssh2-1.11.1
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/prfzs45jji50w53bri2d2xyk5vlqzqan-libssh2-1.11.1-dev
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/7ndy5820h69n1pgd13viph1qjq6zhhkj-libunistring-1.3
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/2pi0ddhdi6m4fnxw9w42qksz9jk1ja1i-libuv-1.51.0
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/adklcnjpc31n6jabha2qd60y2s9wm133-libuv-1.51.0-dev
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/nkn950vf2i29k4v3z6w9717pjrg483ng-libxcrypt-4.4.38
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/qzkhd1k8dsdah1ja0wjj6q8bibxk5zq6-linux-headers-6.16.7
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/dddyfnkixnqr8jy74rc2zs3bjfy55z6q-mirrors-list
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/vc3mb134w3cd0m1mh3kph079xr7mbvnn-mpfr-4.2.2
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/lm4wm3f4ynilxw8yvgqq0hj2ng8ky9xy-ncurses-6.5
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/1a7g7jhnbcdaqn3lfb8xdg755x0kw0bi-nghttp2-1.67.1
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/aisb0lgxik1sfq3c47x1xjab0rg9q0n0-nghttp2-1.67.1-dev
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/2bf6s3nngcrb4rh9hb57isam6k5xl9i6-nghttp2-1.67.1-lib
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/p2sk3402d788hqn5diy5gba8cskjffzz-nodejs-24.10.0
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/0837wpkjb27cr70bi3pc4g2rw5v9r63l-openssl-3.5.2
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/h95q41jsmizcqk4iffkxm52q8lar13fm-openssl-3.5.2
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/3kasb92ri5cmp7gwxgj8jgk87pr83y7p-openssl-3.5.2-bin
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/jr64633vy5ca03fdq4ymnrjcy1swvdii-openssl-3.5.2-bin
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/cz9k6nhxjppa1kmyf5npd0g8l89xzilw-openssl-3.5.2-dev
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/ln0p4bzkpmsgh0z49l3r1q96r6pgnz05-openssl-3.5.2-dev
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/43nmidiphlzywh223q871b43gah77gvp-openssl-3.5.2-man
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/r9lif1a0naanr8kdapwnbnr39lr7d56a-patch-2.8
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/0032synbfqd0ylgf9szgp724nmw2fq89-patchelf-0.15.2
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/wqlkv0cjacnm7arca156p3d3vh0kdbmk-pcre2-10.46
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/k2y9xpcdqxma66kag80nhbv0pq2bznzf-perl-5.40.0
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/zqkjn730gir222v3mkp82c1pmqfb2j0l-readline-8.3p1
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/jqrf546vxc6nzf4575m4am3w4ywq765i-sqlite-3.50.4
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/7p5yg8li32wgxxsydbzblnjgs8hvl9wd-sqlite-3.50.4-bin
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/3a7y8k7fh6xldnpvd3bx3ygnx5044xw6-sqlite-3.50.4-dev
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/87ds8jf53m7n8xscxgkfgwcc8dyj1qki-stdenv-linux
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/x1d0ad98h92lp5g59pfryjzk4ca84i3r-stdenv-linux
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/ka03rs4a3bybjhqpvg388sdszbybvbff-update-autotools-gnu-config-scripts-hook
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/0ja5daq2yay3svg6f48spyfby7pgy5bm-xgcc-14.3.0-libgcc
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/swqs30pymm3ymv2qnkzs353xmpgr80jr-xz-5.8.1
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/77jyjqy2b9l2a0139im9ds28zkdv0ybc-xz-5.8.1-bin
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/6qi8skh85ci2k9gvl27nnh3kiy32qnsz-zlib-1.3.1
+2026-Jan-29 17:16:47.332492 #8 57.90 /nix/store/6fqij3sy1mlsnq1n679bzbl5bkqs7yvk-zlib-1.3.1-dev
+2026-Jan-29 17:16:47.332492 #8 57.91 copying path '/nix/store/1dw13nzqf9v8w7jcy205hkp7s7ggi0cc-builder.pl' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 57.91 copying path '/nix/store/43nmidiphlzywh223q871b43gah77gvp-openssl-3.5.2-man' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 57.92 copying path '/nix/store/8b9srwwmrwmh1yl613cwwj7gydl87br6-gcc-14.3.0-libgcc' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 57.92 copying path '/nix/store/2j08vib6rf81vwi6mv3s544wi8rj3xn7-gnu-config-2024-01-01' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 57.92 copying path '/nix/store/0ja5daq2yay3svg6f48spyfby7pgy5bm-xgcc-14.3.0-libgcc' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 57.92 copying path '/nix/store/7ndy5820h69n1pgd13viph1qjq6zhhkj-libunistring-1.3' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 57.93 copying path '/nix/store/qzkhd1k8dsdah1ja0wjj6q8bibxk5zq6-linux-headers-6.16.7' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 57.93 copying path '/nix/store/dddyfnkixnqr8jy74rc2zs3bjfy55z6q-mirrors-list' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 57.93 copying path '/nix/store/9vcd7xzvs6zbi42hywh7khvvy2pfnihq-curl-8.16.0-man' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 57.94 copying path '/nix/store/1a7g7jhnbcdaqn3lfb8xdg755x0kw0bi-nghttp2-1.67.1' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 57.94 copying path '/nix/store/ka03rs4a3bybjhqpvg388sdszbybvbff-update-autotools-gnu-config-scripts-hook' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 58.04 copying path '/nix/store/wwqyxsvmg41q5ckfvvv6wa50nwvz9dv4-libidn2-2.3.8' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 58.10 copying path '/nix/store/qhw0sp183mqd04x5jp75981kwya64npv-glibc-2.40-66' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.00 copying path '/nix/store/2mwbf3viqfqd3lr946slqby9y4k7d9lw-attr-2.5.2' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.00 copying path '/nix/store/cl2gkgnh26mmpka81pc2g5bzjfrili92-bash-5.3p3' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.00 copying path '/nix/store/j59qq0cqb364kzzrx2r32swfljwklxlq-bzip2-1.0.8' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.00 copying path '/nix/store/wgvx9p6h00aijb9jw95am7095wjzm9mv-ed-1.22.2' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.01 copying path '/nix/store/5ipaaiqy3dmngyp3a3yschy4g4kh1jl7-expand-response-params' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.01 copying path '/nix/store/swbmnc2s8g2zxzxh62hx1vbbcg6i2r5b-gawk-5.3.2' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.01 copying path '/nix/store/xp989kyfg52803fmkzbz5py35jphcpgd-gcc-14.3.0-lib' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.01 copying path '/nix/store/gf1xp3sizlc0nkq3man8ys0mwhs1bp44-glibc-2.40-66-bin' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.01 copying path '/nix/store/szvrzng4wfxc9xljqjipxhrrayjfy0vj-gmp-6.3.0' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.01 copying path '/nix/store/lmn1m0giq5bkgdqvdpiryb9a2ly28w6g-gnumake-4.4.1' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.01 copying path '/nix/store/7zy6jnnpqh16b18j6ar289vhwp17msh0-gnused-4.9' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.01 copying path '/nix/store/a3jg8g5fam9klp5ila9javf2q4wgjish-keyutils-1.6.3-lib' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.01 copying path '/nix/store/2pi0ddhdi6m4fnxw9w42qksz9jk1ja1i-libuv-1.51.0' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.01 copying path '/nix/store/nkn950vf2i29k4v3z6w9717pjrg483ng-libxcrypt-4.4.38' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.01 copying path '/nix/store/lm4wm3f4ynilxw8yvgqq0hj2ng8ky9xy-ncurses-6.5' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.09 copying path '/nix/store/2bf6s3nngcrb4rh9hb57isam6k5xl9i6-nghttp2-1.67.1-lib' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.29 copying path '/nix/store/0837wpkjb27cr70bi3pc4g2rw5v9r63l-openssl-3.5.2' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.29 copying path '/nix/store/h95q41jsmizcqk4iffkxm52q8lar13fm-openssl-3.5.2' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.33 copying path '/nix/store/r9lif1a0naanr8kdapwnbnr39lr7d56a-patch-2.8' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.39 copying path '/nix/store/xnd0ld68fzj1g1qr19gg0va486snwj22-bzip2-1.0.8-bin' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.51 copying path '/nix/store/wqlkv0cjacnm7arca156p3d3vh0kdbmk-pcre2-10.46' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.62 copying path '/nix/store/adklcnjpc31n6jabha2qd60y2s9wm133-libuv-1.51.0-dev' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.68 copying path '/nix/store/aisb0lgxik1sfq3c47x1xjab0rg9q0n0-nghttp2-1.67.1-dev' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.75 copying path '/nix/store/0fml1xim5c5wdn32a5bm7wgwn1ai0am6-isl-0.20' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.83 copying path '/nix/store/jj3knbpiiwbwmplin208h775gzm86rc3-acl-2.3.2' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.86 copying path '/nix/store/vc3mb134w3cd0m1mh3kph079xr7mbvnn-mpfr-4.2.2' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.96 copying path '/nix/store/swqs30pymm3ymv2qnkzs353xmpgr80jr-xz-5.8.1' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 60.98 copying path '/nix/store/6qi8skh85ci2k9gvl27nnh3kiy32qnsz-zlib-1.3.1' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 61.30 copying path '/nix/store/n09s57l86zxyjydkxagawxpkhh3d3dlh-gnutar-1.35' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 61.30 copying path '/nix/store/9a4lmf0swjwjizlkv11ibhnmj0ql7p1s-binutils-2.44-lib' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 61.54 copying path '/nix/store/5qm0vivgc7lmiyfbf5d5a55s40d996bd-file-5.45' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 61.66 copying path '/nix/store/jqrf546vxc6nzf4575m4am3w4ywq765i-sqlite-3.50.4' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 61.66 copying path '/nix/store/7p5yg8li32wgxxsydbzblnjgs8hvl9wd-sqlite-3.50.4-bin' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 61.76 copying path '/nix/store/f21qz37q6da2bwm4cngj21ia6ivq3v23-libmpc-1.3.1' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 61.88 copying path '/nix/store/wd4i398mh329vhw93mvmamw3hrnhl257-gzip-1.14' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 61.96 copying path '/nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 61.99 copying path '/nix/store/77jyjqy2b9l2a0139im9ds28zkdv0ybc-xz-5.8.1-bin' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 62.14 copying path '/nix/store/6q57mnfak3q8ss656qgp245qzqvnniyr-gnugrep-3.12' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 62.19 copying path '/nix/store/6fqij3sy1mlsnq1n679bzbl5bkqs7yvk-zlib-1.3.1-dev' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 63.05 copying path '/nix/store/3a7y8k7fh6xldnpvd3bx3ygnx5044xw6-sqlite-3.50.4-dev' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 63.42 copying path '/nix/store/7h3qnwgvkw6z2r8lq4j5mks4l6r5x2cq-binutils-2.44' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 63.42 copying path '/nix/store/78xkc7z5m21chq7p6awrzgznz83xyml0-gmp-with-cxx-6.3.0' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 63.42 copying path '/nix/store/hpyfq2n0qr4qj3z1f7d2diw8sql5m84f-icu4c-76.1' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 63.42 copying path '/nix/store/0032synbfqd0ylgf9szgp724nmw2fq89-patchelf-0.15.2' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 63.78 copying path '/nix/store/00bc157nm93q5fjz551fwk60ihlbilvj-coreutils-9.7' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 63.80 copying path '/nix/store/1h8fc0raix2hx3xh6z9bjk3n1pnhd7is-krb5-1.22.1-lib' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 63.81 copying path '/nix/store/2sv91m724m3ydpzvyv89y40va91b4643-libssh2-1.11.1' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 63.81 copying path '/nix/store/jr64633vy5ca03fdq4ymnrjcy1swvdii-openssl-3.5.2-bin' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 63.83 copying path '/nix/store/3kasb92ri5cmp7gwxgj8jgk87pr83y7p-openssl-3.5.2-bin' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 64.08 copying path '/nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 64.35 copying path '/nix/store/ln0p4bzkpmsgh0z49l3r1q96r6pgnz05-openssl-3.5.2-dev' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 64.38 copying path '/nix/store/cz9k6nhxjppa1kmyf5npd0g8l89xzilw-openssl-3.5.2-dev' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 65.03 copying path '/nix/store/c7qlkpbivy2znqxd25prgh9pwjxdri6w-diffutils-3.12' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 65.03 copying path '/nix/store/wq1cxh4s8rz8vs4ssp2z49v96m0nhxhj-findutils-4.10.0' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 65.03 copying path '/nix/store/k2y9xpcdqxma66kag80nhbv0pq2bznzf-perl-5.40.0' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 65.06 copying path '/nix/store/di12yqc8952k9scn46kd48ii266v2yn8-curl-8.16.0' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 65.06 copying path '/nix/store/g6hcs7jbchxawmf1nvhchapn3mmxgl51-krb5-1.22.1' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 65.78 copying path '/nix/store/prfzs45jji50w53bri2d2xyk5vlqzqan-libssh2-1.11.1-dev' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 65.79 copying path '/nix/store/9bfd6c1f2nzrx7j5f0gc6i9n2clngndn-curl-8.16.0-bin' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 65.94 copying path '/nix/store/nl0asb7spb7z9q0kzi9yb3kf34z8pnnz-krb5-1.22.1-dev' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 65.97 copying path '/nix/store/x1d0ad98h92lp5g59pfryjzk4ca84i3r-stdenv-linux' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 66.59 building '/nix/store/l53bwr725gp7k4831cygqrihvaxv36b9-libraries.drv'...
+2026-Jan-29 17:16:47.332492 #8 66.60 copying path '/nix/store/n5d9hl0jb4gzd3p886rb4nrprym4gwkp-curl-8.16.0-dev' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 68.52 building '/nix/store/11yax1kv8y5kqj7cgh461k6jwi8rc49d-npm-9.9.4.tgz.drv'...
+2026-Jan-29 17:16:47.332492 #8 68.55 copying path '/nix/store/0fq1mnfqjl9ain4jg5j56kl6h8bbmy1h-binutils-wrapper-2.44' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 69.51
+2026-Jan-29 17:16:47.332492 #8 69.52 trying https://registry.npmjs.org/npm/-/npm-9.9.4.tgz
+2026-Jan-29 17:16:47.332492 #8 69.55 % Total % Received % Xferd Average Speed Time Time Time Current
+2026-Jan-29 17:16:47.332492 #8 69.55 Dload Upload Total Spent Left Speed
+2026-Jan-29 17:16:47.332492 #8 69.70 100 2648k 100 2648k 0 0 16.4M 0 --:--:-- --:--:-- --:--:-- 16.5M
+2026-Jan-29 17:16:47.332492 #8 69.75 copying path '/nix/store/zqkjn730gir222v3mkp82c1pmqfb2j0l-readline-8.3p1' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 70.07 building '/nix/store/93ik6f5038k47a4d72i9r9fjl15fvr3f-23f9169c4ccce521379e602cc82ed873a1f1b52b-env.drv'...
+2026-Jan-29 17:16:47.332492 #8 70.07 copying path '/nix/store/2j7r5np0vaz4cnqkymp1mqivmjj1x9xl-bash-interactive-5.3p3' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 70.07 copying path '/nix/store/zc7w3ii28j4kagmlznjdajf0nzd0z60a-icu4c-76.1-dev' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 70.72 copying path '/nix/store/p2sk3402d788hqn5diy5gba8cskjffzz-nodejs-24.10.0' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 76.98 copying path '/nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 77.01 copying path '/nix/store/87ds8jf53m7n8xscxgkfgwcc8dyj1qki-stdenv-linux' from 'https://cache.nixos.org'...
+2026-Jan-29 17:16:47.332492 #8 77.07 building '/nix/store/y968iv743l2z9zklglx9blcjpiflgww9-npm.drv'...
+2026-Jan-29 17:16:47.332492 #8 77.14 Running phase: unpackPhase
+2026-Jan-29 17:16:47.332492 #8 77.15 unpacking source archive /nix/store/fkd1ma3nify8r9wp463yg5rqz9hdcyf1-npm-9.9.4.tgz
+2026-Jan-29 17:16:47.332492 #8 77.36 source root is package
+2026-Jan-29 17:16:47.332492 #8 77.46 setting SOURCE_DATE_EPOCH to timestamp 499162500 of file "package/package.json"
+2026-Jan-29 17:16:47.332492 #8 77.48 Running phase: installPhase
+2026-Jan-29 17:16:47.332492 #8 79.05 building '/nix/store/avqglacl4jrskw0g5rxk30ikvggqyq65-23f9169c4ccce521379e602cc82ed873a1f1b52b-env.drv'...
+2026-Jan-29 17:16:47.332492 #8 79.18 created 479 symlinks in user environment
+2026-Jan-29 17:16:47.332492 #8 79.46 building '/nix/store/n3vrcf0r9hbq8g6v0wa7n1x1815hgbv3-user-environment.drv'...
+2026-Jan-29 17:16:47.332492 #8 79.67 removing old generations of profile /nix/var/nix/profiles/per-user/root/channels
+2026-Jan-29 17:16:47.332492 #8 79.68 removing old generations of profile /nix/var/nix/profiles/per-user/root/profile
+2026-Jan-29 17:16:47.332492 #8 79.68 removing profile version 1
+2026-Jan-29 17:16:47.332492 #8 79.68 removing old generations of profile /nix/var/nix/profiles/per-user/root/channels
+2026-Jan-29 17:16:47.332492 #8 79.68 removing old generations of profile /nix/var/nix/profiles/per-user/root/profile
+2026-Jan-29 17:16:47.332492 #8 79.69 finding garbage collector roots...
+2026-Jan-29 17:16:47.332492 #8 79.69 removing stale link from '/nix/var/nix/gcroots/auto/lzjbmb2ry0z7lma2fvpqprb12921pnb5' to '/nix/var/nix/profiles/per-user/root/profile-1-link'
+2026-Jan-29 17:16:47.332492 #8 79.70 deleting garbage...
+2026-Jan-29 17:16:47.332492 #8 79.74 deleting '/nix/store/a9qf4wwhympzs35ncp80r185j6a21w07-user-environment'
+2026-Jan-29 17:16:47.332492 #8 79.74 deleting '/nix/store/253kwn1730vnay87xkjgxa2v97w3y079-user-environment.drv'
+2026-Jan-29 17:16:47.332492 #8 79.74 deleting '/nix/store/hn5mrh362n52x8wwab9s1v6bgn4n5c94-env-manifest.nix'
+2026-Jan-29 17:16:47.332492 #8 79.75 deleting '/nix/store/87ds8jf53m7n8xscxgkfgwcc8dyj1qki-stdenv-linux'
+2026-Jan-29 17:16:47.332492 #8 79.75 deleting '/nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0'
+2026-Jan-29 17:16:47.332492 #8 79.75 deleting '/nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0'
+2026-Jan-29 17:16:47.332492 #8 79.82 deleting '/nix/store/f21qz37q6da2bwm4cngj21ia6ivq3v23-libmpc-1.3.1'
+2026-Jan-29 17:16:47.332492 #8 79.82 deleting '/nix/store/x1d0ad98h92lp5g59pfryjzk4ca84i3r-stdenv-linux'
+2026-Jan-29 17:16:47.332492 #8 79.82 deleting '/nix/store/n09s57l86zxyjydkxagawxpkhh3d3dlh-gnutar-1.35'
+2026-Jan-29 17:16:47.332492 #8 79.83 deleting '/nix/store/0fq1mnfqjl9ain4jg5j56kl6h8bbmy1h-binutils-wrapper-2.44'
+2026-Jan-29 17:16:47.332492 #8 79.83 deleting '/nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev'
+2026-Jan-29 17:16:47.332492 #8 79.84 deleting '/nix/store/ka03rs4a3bybjhqpvg388sdszbybvbff-update-autotools-gnu-config-scripts-hook'
+2026-Jan-29 17:16:47.332492 #8 79.85 deleting '/nix/store/r9lif1a0naanr8kdapwnbnr39lr7d56a-patch-2.8'
+2026-Jan-29 17:16:47.332492 #8 79.85 deleting '/nix/store/wgvx9p6h00aijb9jw95am7095wjzm9mv-ed-1.22.2'
+2026-Jan-29 17:16:47.332492 #8 79.85 deleting '/nix/store/5ipaaiqy3dmngyp3a3yschy4g4kh1jl7-expand-response-params'
+2026-Jan-29 17:16:47.332492 #8 79.85 deleting '/nix/store/n5d9hl0jb4gzd3p886rb4nrprym4gwkp-curl-8.16.0-dev'
+2026-Jan-29 17:16:47.332492 #8 79.85 deleting '/nix/store/nl0asb7spb7z9q0kzi9yb3kf34z8pnnz-krb5-1.22.1-dev'
+2026-Jan-29 17:16:47.332492 #8 79.85 deleting '/nix/store/g6hcs7jbchxawmf1nvhchapn3mmxgl51-krb5-1.22.1'
+2026-Jan-29 17:16:47.332492 #8 79.85 deleting '/nix/store/aisb0lgxik1sfq3c47x1xjab0rg9q0n0-nghttp2-1.67.1-dev'
+2026-Jan-29 17:16:47.332492 #8 79.85 deleting '/nix/store/1a7g7jhnbcdaqn3lfb8xdg755x0kw0bi-nghttp2-1.67.1'
+2026-Jan-29 17:16:47.332492 #8 79.85 deleting '/nix/store/gf1xp3sizlc0nkq3man8ys0mwhs1bp44-glibc-2.40-66-bin'
+2026-Jan-29 17:16:47.332492 #8 79.85 deleting '/nix/store/vc3mb134w3cd0m1mh3kph079xr7mbvnn-mpfr-4.2.2'
+2026-Jan-29 17:16:47.332492 #8 79.86 deleting '/nix/store/cvw5asqga7k27zb1jlippfrkqm084ml7-libraries'
+2026-Jan-29 17:16:47.332492 #8 79.86 deleting '/nix/store/wd4i398mh329vhw93mvmamw3hrnhl257-gzip-1.14'
+2026-Jan-29 17:16:47.332492 #8 79.86 deleting '/nix/store/7zy6jnnpqh16b18j6ar289vhwp17msh0-gnused-4.9'
+2026-Jan-29 17:16:47.332492 #8 79.86 deleting '/nix/store/5khfwnx4arf3nl3i9k1rljb29krdy6xn-source'
+2026-Jan-29 17:16:47.332492 #8 79.86 deleting '/nix/store/xnd0ld68fzj1g1qr19gg0va486snwj22-bzip2-1.0.8-bin'
+2026-Jan-29 17:16:47.332492 #8 79.87 deleting '/nix/store/z6gs6c7h492l4zq99mrmbwfwkjykaf0d-source'
+2026-Jan-29 17:16:47.332492 #8 86.02 deleting '/nix/store/fkd1ma3nify8r9wp463yg5rqz9hdcyf1-npm-9.9.4.tgz'
+2026-Jan-29 17:16:47.332492 #8 86.03 deleting '/nix/store/77jyjqy2b9l2a0139im9ds28zkdv0ybc-xz-5.8.1-bin'
+2026-Jan-29 17:16:47.332492 #8 86.03 deleting '/nix/store/9vcd7xzvs6zbi42hywh7khvvy2pfnihq-curl-8.16.0-man'
+2026-Jan-29 17:16:47.332492 #8 86.03 deleting '/nix/store/prfzs45jji50w53bri2d2xyk5vlqzqan-libssh2-1.11.1-dev'
+2026-Jan-29 17:16:47.332492 #8 86.03 deleting '/nix/store/dddyfnkixnqr8jy74rc2zs3bjfy55z6q-mirrors-list'
+2026-Jan-29 17:16:47.332492 #8 86.03 deleting '/nix/store/0fml1xim5c5wdn32a5bm7wgwn1ai0am6-isl-0.20'
+2026-Jan-29 17:16:47.332492 #8 86.03 deleting '/nix/store/9bfd6c1f2nzrx7j5f0gc6i9n2clngndn-curl-8.16.0-bin'
+2026-Jan-29 17:16:47.332492 #8 86.03 deleting '/nix/store/di12yqc8952k9scn46kd48ii266v2yn8-curl-8.16.0'
+2026-Jan-29 17:16:47.332492 #8 86.03 deleting '/nix/store/2bf6s3nngcrb4rh9hb57isam6k5xl9i6-nghttp2-1.67.1-lib'
+2026-Jan-29 17:16:47.332492 #8 86.03 deleting '/nix/store/c7qlkpbivy2znqxd25prgh9pwjxdri6w-diffutils-3.12'
+2026-Jan-29 17:16:47.332492 #8 86.04 deleting '/nix/store/ln0p4bzkpmsgh0z49l3r1q96r6pgnz05-openssl-3.5.2-dev'
+2026-Jan-29 17:16:47.332492 #8 86.04 deleting '/nix/store/jr64633vy5ca03fdq4ymnrjcy1swvdii-openssl-3.5.2-bin'
+2026-Jan-29 17:16:47.332492 #8 86.04 deleting '/nix/store/2sv91m724m3ydpzvyv89y40va91b4643-libssh2-1.11.1'
+2026-Jan-29 17:16:47.332492 #8 86.04 deleting '/nix/store/1h8fc0raix2hx3xh6z9bjk3n1pnhd7is-krb5-1.22.1-lib'
+2026-Jan-29 17:16:47.332492 #8 86.04 deleting '/nix/store/h95q41jsmizcqk4iffkxm52q8lar13fm-openssl-3.5.2'
+2026-Jan-29 17:16:47.332492 #8 86.05 deleting '/nix/store/1dw13nzqf9v8w7jcy205hkp7s7ggi0cc-builder.pl'
+2026-Jan-29 17:16:47.332492 #8 86.05 deleting '/nix/store/7h3qnwgvkw6z2r8lq4j5mks4l6r5x2cq-binutils-2.44'
+2026-Jan-29 17:16:47.332492 #8 86.05 deleting '/nix/store/9a4lmf0swjwjizlkv11ibhnmj0ql7p1s-binutils-2.44-lib'
+2026-Jan-29 17:16:47.332492 #8 86.06 deleting '/nix/store/5qm0vivgc7lmiyfbf5d5a55s40d996bd-file-5.45'
+2026-Jan-29 17:16:47.332492 #8 86.06 deleting '/nix/store/a3jg8g5fam9klp5ila9javf2q4wgjish-keyutils-1.6.3-lib'
+2026-Jan-29 17:16:47.332492 #8 86.06 deleting '/nix/store/k2y9xpcdqxma66kag80nhbv0pq2bznzf-perl-5.40.0'
+2026-Jan-29 17:16:47.332492 #8 86.11 deleting '/nix/store/0032synbfqd0ylgf9szgp724nmw2fq89-patchelf-0.15.2'
+2026-Jan-29 17:16:47.332492 #8 86.11 deleting '/nix/store/szvrzng4wfxc9xljqjipxhrrayjfy0vj-gmp-6.3.0'
+2026-Jan-29 17:16:47.332492 #8 86.11 deleting '/nix/store/qzkhd1k8dsdah1ja0wjj6q8bibxk5zq6-linux-headers-6.16.7'
+2026-Jan-29 17:16:47.332492 #8 86.13 deleting '/nix/store/j59qq0cqb364kzzrx2r32swfljwklxlq-bzip2-1.0.8'
+2026-Jan-29 17:16:47.332492 #8 86.14 deleting '/nix/store/nkn950vf2i29k4v3z6w9717pjrg483ng-libxcrypt-4.4.38'
+2026-Jan-29 17:16:47.332492 #8 86.14 deleting '/nix/store/wq1cxh4s8rz8vs4ssp2z49v96m0nhxhj-findutils-4.10.0'
+2026-Jan-29 17:16:47.332492 #8 86.15 deleting '/nix/store/swbmnc2s8g2zxzxh62hx1vbbcg6i2r5b-gawk-5.3.2'
+2026-Jan-29 17:16:47.332492 #8 86.15 deleting '/nix/store/2j08vib6rf81vwi6mv3s544wi8rj3xn7-gnu-config-2024-01-01'
+2026-Jan-29 17:16:47.332492 #8 86.15 deleting '/nix/store/lmn1m0giq5bkgdqvdpiryb9a2ly28w6g-gnumake-4.4.1'
+2026-Jan-29 17:16:47.332492 #8 86.16 deleting '/nix/store/6q57mnfak3q8ss656qgp245qzqvnniyr-gnugrep-3.12'
+2026-Jan-29 17:16:47.332492 #8 86.16 deleting '/nix/store/wqlkv0cjacnm7arca156p3d3vh0kdbmk-pcre2-10.46'
+2026-Jan-29 17:16:47.332492 #8 86.17 deleting '/nix/store/swqs30pymm3ymv2qnkzs353xmpgr80jr-xz-5.8.1'
+2026-Jan-29 17:16:47.332492 #8 86.17 deleting '/nix/store/i6c20krnakaiv6zbraxl2q60hn8rmjwq-exec.drv'
+2026-Jan-29 17:16:47.332492 #8 86.17 deleting unused links...
+2026-Jan-29 17:16:47.332492 #8 90.35 note: currently hard linking saves 1.16 MiB
+2026-Jan-29 17:16:47.332492 #8 90.39 62 store paths deleted, 560.00 MiB freed
+2026-Jan-29 17:16:47.332492 #8 DONE 90.7s
+2026-Jan-29 17:16:47.332492
+2026-Jan-29 17:16:47.332492 #9 [stage-0 5/11] RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends curl wget
+2026-Jan-29 17:16:47.332492 #9 0.537 Get:1 http://archive.ubuntu.com/ubuntu noble InRelease [256 kB]
+2026-Jan-29 17:16:47.332492 #9 0.540 Get:2 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+2026-Jan-29 17:16:47.332492 #9 0.733 Get:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+2026-Jan-29 17:16:47.332492 #9 0.781 Get:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+2026-Jan-29 17:16:47.332492 #9 0.787 Get:5 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [3008 kB]
+2026-Jan-29 17:16:47.332492 #9 0.880 Get:6 http://archive.ubuntu.com/ubuntu noble/multiverse amd64 Packages [331 kB]
+2026-Jan-29 17:16:47.332492 #9 0.989 Get:7 http://archive.ubuntu.com/ubuntu noble/universe amd64 Packages [19.3 MB]
+2026-Jan-29 17:16:47.332492 #9 1.028 Get:8 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [1776 kB]
+2026-Jan-29 17:16:47.332492 #9 1.116 Get:9 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [34.8 kB]
+2026-Jan-29 17:16:47.332492 #9 1.137 Get:10 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1194 kB]
+2026-Jan-29 17:16:47.332492 #9 1.478 Get:11 http://archive.ubuntu.com/ubuntu noble/restricted amd64 Packages [117 kB]
+2026-Jan-29 17:16:47.332492 #9 1.488 Get:12 http://archive.ubuntu.com/ubuntu noble/main amd64 Packages [1808 kB]
+2026-Jan-29 17:16:47.332492 #9 1.580 Get:13 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [3182 kB]
+2026-Jan-29 17:16:47.332492 #9 1.912 Get:14 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [2151 kB]
+2026-Jan-29 17:16:47.332492 #9 1.975 Get:15 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1969 kB]
+2026-Jan-29 17:16:47.332492 #9 2.034 Get:16 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [37.6 kB]
+2026-Jan-29 17:16:47.332492 #9 2.072 Get:17 http://archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [49.5 kB]
+2026-Jan-29 17:16:47.332492 #9 2.111 Get:18 http://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [34.6 kB]
+2026-Jan-29 17:16:47.332492 #9 2.702 Fetched 35.6 MB in 2s (15.9 MB/s)
+2026-Jan-29 17:16:47.332492 #9 2.702 Reading package lists...
+2026-Jan-29 17:16:47.332492 #9 3.745 Reading package lists...
+2026-Jan-29 17:16:47.332492 #9 4.854 Building dependency tree...
+2026-Jan-29 17:16:47.332492 #9 5.269 Reading state information...
+2026-Jan-29 17:16:47.332492 #9 5.550 curl is already the newest version (8.5.0-2ubuntu10.6).
+2026-Jan-29 17:16:47.332492 #9 5.550 The following NEW packages will be installed:
+2026-Jan-29 17:16:47.332492 #9 5.551 wget
+2026-Jan-29 17:16:47.332492 #9 5.653 0 upgraded, 1 newly installed, 0 to remove and 41 not upgraded.
+2026-Jan-29 17:16:47.332492 #9 5.653 Need to get 334 kB of archives.
+2026-Jan-29 17:16:47.332492 #9 5.653 After this operation, 938 kB of additional disk space will be used.
+2026-Jan-29 17:16:47.332492 #9 5.653 Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 wget amd64 1.21.4-1ubuntu4.1 [334 kB]
+2026-Jan-29 17:16:47.332492 #9 6.040 debconf: delaying package configuration, since apt-utils is not installed
+2026-Jan-29 17:16:47.332492 #9 6.172 Fetched 334 kB in 0s (1301 kB/s)
+2026-Jan-29 17:16:47.332492 #9 6.244 Selecting previously unselected package wget.
+2026-Jan-29 17:16:47.332492 #9 6.244 (Reading database ... (Reading database ... 5% (Reading database ... 10% (Reading database ... 15% (Reading database ... 20% (Reading database ... 25% (Reading database ... 30% (Reading database ... 35% (Reading database ... 40% (Reading database ... 45% (Reading database ... 50% (Reading database ... 55% (Reading database ... 60% (Reading database ... 65% (Reading database ... 70% (Reading database ... 75% (Reading database ... 80% (Reading database ... 85% (Reading database ... 90% (Reading database ... 95% (Reading database ... 100% (Reading database ... 9511 files and directories currently installed.)
+2026-Jan-29 17:16:47.332492 #9 6.317 Preparing to unpack .../wget_1.21.4-1ubuntu4.1_amd64.deb ...
+2026-Jan-29 17:16:47.332492 #9 6.321 Unpacking wget (1.21.4-1ubuntu4.1) ...
+2026-Jan-29 17:16:47.332492 #9 6.411 Setting up wget (1.21.4-1ubuntu4.1) ...
+2026-Jan-29 17:16:47.332492 #9 DONE 6.6s
+2026-Jan-29 17:16:47.332492
+2026-Jan-29 17:16:47.332492 #10 [stage-0 6/11] COPY . /app/.
+2026-Jan-29 17:16:47.332492 #10 DONE 0.3s
+2026-Jan-29 17:16:47.332492
+2026-Jan-29 17:16:47.332492 #11 [stage-0 7/11] RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-/root/npm,target=/root/.npm npm ci
+2026-Jan-29 17:16:47.332492 #11 0.529 npm warn config production Use `--omit=dev` instead.
+2026-Jan-29 17:16:47.332492 #11 11.81 npm warn deprecated tar@6.2.1: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exhorbitant rates) by contacting <REDACTED>
+2026-Jan-29 17:16:47.332492 #11 15.91 npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+2026-Jan-29 17:16:47.332492 #11 62.79
+2026-Jan-29 17:16:47.332492 #11 62.79 added 1149 packages, and audited 1150 packages in 1m
+2026-Jan-29 17:16:47.332492 #11 62.79
+2026-Jan-29 17:16:47.332492 #11 62.79 308 packages are looking for funding
+2026-Jan-29 17:16:47.332492 #11 62.79 run `npm fund` for details
+2026-Jan-29 17:16:47.332492 #11 62.85
+2026-Jan-29 17:16:47.332492 #11 62.85 6 vulnerabilities (2 low, 1 moderate, 3 high)
+2026-Jan-29 17:16:47.332492 #11 62.85
+2026-Jan-29 17:16:47.332492 #11 62.85 To address issues that do not require attention, run:
+2026-Jan-29 17:16:47.332492 #11 62.85 npm audit fix
+2026-Jan-29 17:16:47.332492 #11 62.85
+2026-Jan-29 17:16:47.332492 #11 62.85 To address all issues possible, run:
+2026-Jan-29 17:16:47.332492 #11 62.85 npm audit fix --force
+2026-Jan-29 17:16:47.332492 #11 62.85
+2026-Jan-29 17:16:47.332492 #11 62.85 Some issues need review, and may require choosing
+2026-Jan-29 17:16:47.332492 #11 62.85 a different dependency.
+2026-Jan-29 17:16:47.332492 #11 62.85
+2026-Jan-29 17:16:47.332492 #11 62.85 Run `npm audit` for details.
+2026-Jan-29 17:16:47.332492 #11 DONE 63.2s
+2026-Jan-29 17:16:47.332492
+2026-Jan-29 17:16:47.332492 #12 [stage-0 8/11] COPY . /app/.
+2026-Jan-29 17:16:47.332492 #12 DONE 1.4s
+2026-Jan-29 17:16:47.332492
+2026-Jan-29 17:16:47.332492 #13 [stage-0 9/11] RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-next/cache,target=/app/.next/cache --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-node_modules/cache,target=/app/node_modules/.cache npm run build
+2026-Jan-29 17:16:47.332492 #13 0.328 npm warn config production Use `--omit=dev` instead.
+2026-Jan-29 17:16:47.332492 #13 0.382
+2026-Jan-29 17:16:47.332492 #13 0.382 > sen-host@0.1.0 build
+2026-Jan-29 17:16:47.332492 #13 0.382 > next build
+2026-Jan-29 17:16:47.332492 #13 0.382
+2026-Jan-29 17:16:47.332492 #13 1.673 Downloading swc package @next/swc-wasm-nodejs... to /root/.cache/next-swc
+2026-Jan-29 17:16:47.332492 #13 1.803 npm warn config production Use `--omit=dev` instead.
+2026-Jan-29 17:16:47.332492 #13 2.643 âš  Attempted to load @next/swc-linux-x64-gnu, but it was not installed
+2026-Jan-29 17:16:47.332492 #13 2.646 âš  Attempted to load @next/swc-linux-x64-musl, but an error occurred: libc.musl-x86_64.so.1: cannot open shared object file: No such file or directory
+2026-Jan-29 17:16:47.332492 #13 2.944 Skipping creating a lockfile at /app/.next/lock because we're using WASM bindings
+2026-Jan-29 17:16:47.332492 #13 2.953 Attention: Next.js now collects completely anonymous telemetry regarding usage.
+2026-Jan-29 17:16:47.332492 #13 2.953 This information is used to shape Next.js' roadmap and prioritize features.
+2026-Jan-29 17:16:47.332492 #13 2.953 You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+2026-Jan-29 17:16:47.332492 #13 2.953 https://nextjs.org/telemetry
+2026-Jan-29 17:16:47.332492 #13 2.954
+2026-Jan-29 17:16:47.332492 #13 2.970 â–² Next.js 16.1.1 (Turbopack)
+2026-Jan-29 17:16:47.332492 #13 2.971 - Experiments (use with caution):
+2026-Jan-29 17:16:47.332492 #13 2.971 Â· serverActions
+2026-Jan-29 17:16:47.332492 #13 2.972
+2026-Jan-29 17:16:47.332492 #13 2.976 âš  The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+2026-Jan-29 17:16:47.332492 #13 3.073 Creating an optimized production build ...
+2026-Jan-29 17:16:47.332492 #13 3.764 âš  Attempted to load @next/swc-linux-x64-gnu, but it was not installed
+2026-Jan-29 17:16:47.332492 #13 3.841 âš  Attempted to load @next/swc-linux-x64-musl, but an error occurred: libc.musl-x86_64.so.1: cannot open shared object file: No such file or directory
+2026-Jan-29 17:16:47.332492 #13 4.344
+2026-Jan-29 17:16:47.332492 #13 4.345 > Build error occurred
+2026-Jan-29 17:16:47.332492 #13 4.349 Error: `turbo.createProject` is not supported by the wasm bindings.
+2026-Jan-29 17:16:47.332492 #13 4.349 at ignore-listed frames
+2026-Jan-29 17:16:47.332492 #13 ERROR: process "/bin/bash -ol pipefail -c npm run build" did not complete successfully: exit code: 1
+2026-Jan-29 17:16:47.332492 ------
+2026-Jan-29 17:16:47.332492 > [stage-0 9/11] RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-next/cache,target=/app/.next/cache --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-node_modules/cache,target=/app/node_modules/.cache npm run build:
+2026-Jan-29 17:16:47.332492 2.971 Â· serverActions
+2026-Jan-29 17:16:47.332492 2.972
+2026-Jan-29 17:16:47.332492 2.976 âš  The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+2026-Jan-29 17:16:47.332492 3.073 Creating an optimized production build ...
+2026-Jan-29 17:16:47.332492 3.764 âš  Attempted to load @next/swc-linux-x64-gnu, but it was not installed
+2026-Jan-29 17:16:47.332492 3.841 âš  Attempted to load @next/swc-linux-x64-musl, but an error occurred: libc.musl-x86_64.so.1: cannot open shared object file: No such file or directory
+2026-Jan-29 17:16:47.332492 4.344
+2026-Jan-29 17:16:47.332492 4.345 > Build error occurred
+2026-Jan-29 17:16:47.332492 4.349 Error: `turbo.createProject` is not supported by the wasm bindings.
+2026-Jan-29 17:16:47.332492 4.349 at ignore-listed frames
+2026-Jan-29 17:16:47.332492 ------
+2026-Jan-29 17:16:47.332492
+2026-Jan-29 17:16:47.332492 1 warning found (use docker --debug to expand):
+2026-Jan-29 17:16:47.332492 - UndefinedVar: Usage of undefined variable '$NIXPACKS_PATH' (line 18)
+2026-Jan-29 17:16:47.332492 Dockerfile:24
+2026-Jan-29 17:16:47.332492 --------------------
+2026-Jan-29 17:16:47.332492 22 | # build phase
+2026-Jan-29 17:16:47.332492 23 | COPY . /app/.
+2026-Jan-29 17:16:47.332492 24 | >>> RUN --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-next/cache,target=/app/.next/cache --mount=type=cache,id=kw8oo4k4kckgogocs4swkggw-node_modules/cache,target=/app/node_modules/.cache npm run build
+2026-Jan-29 17:16:47.332492 25 |
+2026-Jan-29 17:16:47.332492 26 |
+2026-Jan-29 17:16:47.332492 --------------------
+2026-Jan-29 17:16:47.332492 ERROR: failed to build: failed to solve: process "/bin/bash -ol pipefail -c npm run build" did not complete successfully: exit code: 1
+2026-Jan-29 17:16:47.332492 exit status 1
+2026-Jan-29 17:16:47.340407 Error type: RuntimeException
+2026-Jan-29 17:16:47.348065 Error code: 0
+2026-Jan-29 17:16:47.355600 Location: /var/www/html/app/Traits/ExecuteRemoteCommand.php:243
+2026-Jan-29 17:16:47.369632 Stack trace (first 5 lines):
+2026-Jan-29 17:16:47.386543 #0 /var/www/html/app/Traits/ExecuteRemoteCommand.php(104): App\Jobs\ApplicationDeploymentJob->executeCommandWithProcess()
+2026-Jan-29 17:16:47.410097 #1 /var/www/html/vendor/laravel/framework/src/Illuminate/Collections/Traits/EnumeratesValues.php(271): App\Jobs\ApplicationDeploymentJob->{closure:App\Traits\ExecuteRemoteCommand::execute_remote_command():71}()
+2026-Jan-29 17:16:47.428591 #2 /var/www/html/app/Traits/ExecuteRemoteCommand.php(71): Illuminate\Support\Collection->each()
+2026-Jan-29 17:16:47.449565 #3 /var/www/html/app/Jobs/ApplicationDeploymentJob.php(3118): App\Jobs\ApplicationDeploymentJob->execute_remote_command()
+2026-Jan-29 17:16:47.465331 #4 /var/www/html/app/Jobs/ApplicationDeploymentJob.php(888): App\Jobs\ApplicationDeploymentJob->build_image()
+2026-Jan-29 17:16:47.472869 ========================================
+2026-Jan-29 17:16:47.480800 Deployment failed. Removing the new version of your application.
+2026-Jan-29 17:16:49.026889 Gracefully shutting down build container: xgckw0co4soos8o80ok8ogss
+2026-Jan-29 17:16:49.478937 [CMD]: docker stop -t 30 xgckw0co4soos8o80ok8ogss
+2026-Jan-29 17:16:49.478937 xgckw0co4soos8o80ok8ogss

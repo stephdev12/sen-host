@@ -140,8 +140,16 @@ async function checkAndDeduct() {
 `);
 }
 
-// Lancement initial
-checkAndDeduct();
+// Lancement initial avec délai de sécurité pour attendre la DB
+setTimeout(async () => {
+    try {
+        await prisma.$connect();
+        console.log("Cron: Connecté à la base de données.");
+        checkAndDeduct();
+    } catch (e) {
+        console.error("Cron: Impossible de se connecter à la DB au démarrage :", e.message);
+    }
+}, 10000);
 
 // Puis toutes les heures (3600000 ms)
 // Cela évite que PM2 ne relance le script en boucle s'il se termine.
