@@ -85,9 +85,7 @@ export default async function LocaleLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <div className="bg-orange-500 text-white p-4 text-center font-bold sticky top-0 z-50 shadow-md">
-                ⚠️ Maintenance : Une mise à jour a été effectuée. Si votre bot est arrêté, veuillez le redémarrer depuis votre tableau de bord.
-              </div>
+              
               {children}
               <StickyFooterAd />
               <SocialBarAd />
